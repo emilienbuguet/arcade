@@ -31,7 +31,7 @@ add_subdirectory(lib/graphics/sdl2)
 target_link_libraries(arcade PUBLIC dl)
 
 target_include_directories(arcade PUBLIC
-    ./include
+    src/includes
     lib/graphics/includes
     lib/games/includes
 )

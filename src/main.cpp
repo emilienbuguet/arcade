@@ -1,4 +1,6 @@
 #include <iostream>
+#include <IDisplayModule.hpp>
+#include <IGameModule.hpp>
 
 int main()
 {
