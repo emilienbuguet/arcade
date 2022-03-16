@@ -1,0 +1,15 @@
+*.o
+*\~
+#*#
+a.out
+.vscode
+.idea
+vgcore*
+bootstrap
+build
+Makefile
+cmake_install.cmake
+CMakeCache.txt
+arcade
+CMakeFiles
+*.so

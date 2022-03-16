@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(arcade)
+
+set(CMAKE_CXX_STANDARD 20)
+
+set(SRCS
+    ./Sdl2.cpp
+)
+
+add_library(sdl2 SHARED
+    ${SRCS}
+)
+
+set_target_properties(sdl2 PROPERTIES
+    PREFIX "arcade_"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/"
+)
+
+target_include_directories(sdl2 PRIVATE
+    ${CMAKE_BINARY_DIR}/lib/graphics/sdl2/includes
+    ${CMAKE_BINARY_DIR}/lib/graphics/includes
+    ${CMAKE_BINARY_DIR}/src/includes
+)
