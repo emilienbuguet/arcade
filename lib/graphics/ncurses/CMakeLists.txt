@@ -8,6 +8,8 @@ set(SRCS
     ./Ncurses.cpp
 )
 
+find_package(Curses REQUIRED)
+
 add_library(ncurses SHARED
     ${SRCS}
 )
@@ -21,4 +23,7 @@ target_include_directories(ncurses PRIVATE
     ${CMAKE_BINARY_DIR}/lib/graphics/ncurses/includes
     ${CMAKE_BINARY_DIR}/lib/graphics/includes
     ${CMAKE_BINARY_DIR}/src/includes
+    ${CURSES_INCLUDE_DIR}
 )
+
+target_link_libraries(ncurses ${CURSES_LIBRARIES})

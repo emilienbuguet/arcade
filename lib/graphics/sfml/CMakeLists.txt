@@ -8,6 +8,8 @@ set(SRCS
     ./Sfml.cpp
 )
 
+find_package(SFML 2 REQUIRED network audio graphics window system)
+
 add_library(sfml SHARED
     ${SRCS}
 )
@@ -21,4 +23,7 @@ target_include_directories(sfml PRIVATE
     ${CMAKE_BINARY_DIR}/lib/graphics/sfml/includes
     ${CMAKE_BINARY_DIR}/lib/graphics/includes
     ${CMAKE_BINARY_DIR}/src/includes
+    ${SFML_INCLUDE_DIR}
 )
+
+target_link_libraries(sfml ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})

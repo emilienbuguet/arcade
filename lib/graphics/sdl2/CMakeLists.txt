@@ -8,6 +8,8 @@ set(SRCS
     ./Sdl2.cpp
 )
 
+find_package(SDL2 REQUIRED)
+
 add_library(sdl2 SHARED
     ${SRCS}
 )
@@ -21,4 +23,7 @@ target_include_directories(sdl2 PRIVATE
     ${CMAKE_BINARY_DIR}/lib/graphics/sdl2/includes
     ${CMAKE_BINARY_DIR}/lib/graphics/includes
     ${CMAKE_BINARY_DIR}/src/includes
+    ${SDL2_INCLUDE_DIR}
 )
+
+target_link_libraries(sdl2 ${SDL2_LIBRARIES} ${SDL2_DEPENDENCIES})
