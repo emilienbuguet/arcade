@@ -1,35 +1,31 @@
 #include <iostream>
-#include "Ncurses.hpp"
+#include "NcursesDisplay.hpp"
 
-Ncurses::Ncurses()
+arc::display::NcursesDisplay::NcursesDisplay()
 {
     initscr();
     nodelay(stdscr, TRUE);
 }
 
-Ncurses::~Ncurses()
+arc::display::NcursesDisplay::~NcursesDisplay()
 {
     endwin();
 }
 
-void Ncurses::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
+void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
     clear();
-    std::string chr;
-    std::ifstream asset;
     for (std::shared_ptr<arc::Object> i : objs) {
         arc::Object obj = *i.get();
         if (obj.type == obj.TEXT)
             mvprintw(obj.x, obj.y, obj.value.c_str());
         else {
-            asset.open("src/assets/ncurses/" + obj.value);
-            getline(asset, chr);
-            mvprintw(obj.x, obj.y, chr.c_str());
+            mvprintw(obj.x, obj.y, getTexture(obj.value));
         }
     }
 }
 
-const arc::Events Ncurses::getEvent() const
+const arc::Events arc::display::NcursesDisplay::getEvent() const
 {
     char in = getch();
     if (in == ERR)
@@ -45,4 +41,13 @@ const arc::Events Ncurses::getEvent() const
     if (in == ' ')
         return arc::Events::KeySpace;
     return arc::Events::None;
+}
+
+char *arc::display::NcursesDisplay::getTexture(const std::string fileName)
+{
+    std::ifstream asset("src/assets/ncurses/" + fileName);
+    std::string texture("");
+    if (asset.is_open())
+        asset >> texture;
+    return (texture);
 }
