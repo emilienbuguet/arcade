@@ -5,14 +5,16 @@ project(arcade)
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRCS
-    ./Pacman.cpp
+    ./Nibbler.cpp
+    ./Snake.cpp
+    ./SnakeCell.cpp
 )
 
-add_library(pacman SHARED
+add_library(nibbler SHARED
     ${SRCS}
 )
 
-set_target_properties(pacman PROPERTIES
+set_target_properties(nibbler PROPERTIES
     PREFIX "arcade_"
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
 )
