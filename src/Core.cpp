@@ -4,14 +4,13 @@
 
 #include <iostream>
 
-
-arc::Core::Core(const std::string &lib)
+arc::Core::Core(const std::string& lib)
     : c_game(nullptr)
     , c_display(nullptr)
     , displayName(arc::utils::FileParser::getLibraryName(lib))
     , gameName("")
 {
-    arc::DLLoader<arc::display::IDisplayModule> disp{lib};
+    arc::DLLoader<arc::display::IDisplayModule> disp { lib };
     this->c_display = disp.getInstance("createInstance");
     std::cout << "Core built on lib " + displayName + "!" << std::endl;
 }
@@ -20,6 +19,11 @@ arc::Core::~Core() = default;
 
 void arc::Core::run()
 {
-    this->c_display->drawObjects(std::vector<std::shared_ptr<arc::Object>>({}));
+    while (this->c_game->isRunning()) {
+        arc::Events event = this->c_display->getEvent();
+        this->c_game->useEvent(event);
+        this->c_game->update();
+        this->c_display->drawObjects(this->c_game->getObjects());
+    }
     std::cout << "Core finished running!" << std::endl;
 }
