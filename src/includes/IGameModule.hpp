@@ -1,5 +1,5 @@
-#include "Events.hpp"
-#include "Object.hpp"
+#include <Events.hpp>
+#include <Object.hpp>
 
 #include <memory>
 #include <vector>
@@ -14,7 +14,7 @@ namespace arc::games {
              * @brief Destroy the IDisplayModule object
              *
              */
-            ~IGameModule() = default;
+            virtual ~IGameModule() = default;
 
             /**
              * @brief apply the current event
