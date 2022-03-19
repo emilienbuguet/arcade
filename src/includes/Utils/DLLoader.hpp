@@ -1,3 +1,5 @@
+#include <Error.hpp>
+
 #include <dlfcn.h>
 #include <iostream>
 #include <memory>
@@ -10,6 +12,7 @@ namespace arc {
     template <class T>
     class DLLoader {
         public:
+
             /**
              * @brief load a new library
              *
@@ -36,7 +39,7 @@ namespace arc {
             {
                 void *func = dlsym(this->l_lib, name.c_str());
                 if (func == NULL) {
-                    //todo throw custom error
+                    throw arc::Error("Wrong lib format: " + name);
                 }
 
                 return (reinterpret_cast<std::shared_ptr<T> (*)()>(func))();
