@@ -1,4 +1,4 @@
-#include "IDisplayModule.hpp"
+#include <Interfaces/IDisplayModule.hpp>
 
 #pragma once
 
