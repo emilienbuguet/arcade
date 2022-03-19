@@ -2,6 +2,7 @@
 #include <string>
 
 #include <Core.hpp>
+#include <Error.hpp>
 
 
 int main(int argc, char **argv)
@@ -13,9 +14,11 @@ int main(int argc, char **argv)
     try {
     arc::Core core(argv[1]);
         core.run();
-    } catch (std::exception e) {
-        //todo better error handling with our own class
+    } catch (arc::Error &e) {
         std::cout << std::string("arcade: ") + e.what() << std::endl;
+        return 84;
+    } catch (std::exception &e) {
+        std::cout << std::string("error: ") + e.what() << std::endl;
         return 84;
     }
 }
