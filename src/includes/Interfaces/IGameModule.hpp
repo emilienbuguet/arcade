@@ -28,7 +28,20 @@ namespace arc::games {
              *
              * @return const std::vector<std::shared_ptr<IObject>>
              */
-            virtual const std::vector<std::shared_ptr<Object>> getObjects() const = 0;
+            virtual const std::vector<std::shared_ptr<arc::Object>> getObjects() const = 0;
+
+            /**
+             * @brief Tell if game is running or not
+             *
+             * @return true or false
+             */
+            virtual bool isRunning() const = 0;
+
+            /**
+             * @brief Update game's entities
+             *
+             */
+            virtual void update() = 0;
     }; /* class IGameModule */
 
 }
