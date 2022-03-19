@@ -2,12 +2,12 @@
 *\~
 #*#
 a.out
-.vscode
 .idea
 vgcore*
 bootstrap
 build
 Makefile
+.vscode
 cmake_install.cmake
 CMakeCache.txt
 arcade
