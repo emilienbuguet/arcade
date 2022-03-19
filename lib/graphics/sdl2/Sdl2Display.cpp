@@ -1,4 +1,4 @@
-#include "Sdl2Display.hpp"
+#include <Sdl2Display.hpp>
 
 #include <iostream>
 

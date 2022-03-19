@@ -1,6 +1,5 @@
 #include <Core.hpp>
 #include <DLLoader.hpp>
-#include <IDisplayModule.hpp>
 
 #include <iostream>
 
@@ -8,7 +7,7 @@
 arc::Core::Core(const std::string &lib)
     : c_game(nullptr)
     , c_display(nullptr)
-    , displayName(lib)
+    , displayName(lib.c_str())
     , gameName("")
 {
     arc::DLLoader<arc::display::IDisplayModule> disp{lib};

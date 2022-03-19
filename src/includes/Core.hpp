@@ -1,5 +1,5 @@
-#include <IGameModule.hpp>
-#include <IDisplayModule.hpp>
+#include <Interfaces/IGameModule.hpp>
+#include <Interfaces/IDisplayModule.hpp>
 
 #include <memory>
 #include <string>
@@ -76,12 +76,12 @@ namespace arc {
              * @brief name of the current loaded display
              *
              */
-            const std::string &displayName;
+            std::string displayName;
 
             /**
              * @brief name of the current loaded game
              *
              */
-            const std::string &gameName;
+            std::string gameName;
     }; /* class Core */
 } /* namespace arc */
