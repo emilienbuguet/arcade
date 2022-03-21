@@ -33,6 +33,18 @@ namespace arc {
          *
          */
         unsigned int y;
+
+        /**
+         * @brief width of the object
+         *
+         */
+        unsigned int width;
+
+        /**
+         * @brief height of the object
+         *
+         */
+        unsigned int height;
     };
 
 }

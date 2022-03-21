@@ -21,7 +21,7 @@ namespace arc::games {
             virtual ~IGameModule() = default;
 
             /**
-             * @brief apply the current event
+             * @brief Apply the current event
              *
              * @param event
              */
