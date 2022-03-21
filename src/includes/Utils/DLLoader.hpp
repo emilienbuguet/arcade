@@ -19,17 +19,31 @@ namespace arc {
         public:
 
             /**
-             * @brief load a new library
+             * @brief Construct a new DLLoader
              *
-             * @param pathToLib path to the lib to be loaded
              */
             DLLoader() = default;
+
+            /**
+             * @brief
+             *
+             * @param path path to the library to be loaded
+             */
+            DLLoader(const std::string& path)
+                : l_lib(nullptr)
+                , l_instance(nullptr)
+            {
+                this->load(path);
+            }
 
             /**
              * @brief unload the library
              *
              */
-            ~DLLoader() = default;
+            ~DLLoader()
+            {
+                this->free();
+            }
 
             void load(const std::string &path)
             {

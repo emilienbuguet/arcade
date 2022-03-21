@@ -7,13 +7,11 @@
 #include <iostream>
 
 arc::Core::Core(const std::string& lib)
-    : c_game()
-    , c_display()
+    : c_game("./lib/arcade_menu.so")
+    , c_display(lib)
     , displayName(arc::utils::FileParser::getLibraryName(lib))
     , gameName("menu")
 {
-    c_display.load(lib);
-    c_game.load("./lib/arcade_menu.so");
     std::cout << "Core built on lib " + displayName + "!" << std::endl;
 }
 
@@ -21,8 +19,7 @@ arc::Core::~Core() = default;
 
 void arc::Core::run()
 {
-    std::cout << static_cast<void *>(this->c_game.getInstance()) << std::endl;
-    while (!this->c_game.getInstance()->isRunning()) {
+    while (this->c_game.getInstance()->isRunning()) {
          arc::Events event = this->c_display->getEvent();
          this->c_game->useEvent(event);
          this->c_game->update();
