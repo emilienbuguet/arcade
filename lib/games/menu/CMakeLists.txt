@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SRCS
     ./Menu.cpp
+    ./MenuGame.cpp
 )
 
 add_library(menu SHARED

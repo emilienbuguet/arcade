@@ -1,5 +1,6 @@
 #include <Interfaces/IGameModule.hpp>
 #include <Interfaces/IDisplayModule.hpp>
+#include <Utils/DLLoader.hpp>
 
 #include <memory>
 #include <string>
@@ -64,26 +65,27 @@ namespace arc {
             const std::string &getDisplayName() const;
 
         private:
-            /**
-             * @brief current loaded game
-             *
-             */
-            std::shared_ptr<arc::games::IGameModule> c_game;
 
             /**
-             * @brief current loaded display
+             * @brief Current loaded game
              *
              */
-            std::shared_ptr<arc::display::IDisplayModule> c_display;
+            arc::DLLoader<arc::games::IGameModule> c_game;
 
             /**
-             * @brief name of the current loaded display
+             * @brief Current loaded display
+             *
+             */
+            arc::DLLoader<arc::display::IDisplayModule> c_display;
+
+            /**
+             * @brief Name of the current loaded display
              *
              */
             std::string displayName;
 
             /**
-             * @brief name of the current loaded game
+             * @brief Name of the current loaded game
              *
              */
             std::string gameName;

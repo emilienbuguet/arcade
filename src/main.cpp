@@ -14,11 +14,11 @@ int main(int argc, char **argv)
     try {
     arc::Core core(argv[1]);
         core.run();
-    } catch (arc::Error &e) {
-        std::cout << std::string("arcade: ") + e.what() << std::endl;
+    } catch (arc::Error *e) {
+        std::cout << std::string("arcade: ") + e->what() << std::endl;
         return 84;
-    } catch (std::exception &e) {
-        std::cout << std::string("error: ") + e.what() << std::endl;
+    } catch (std::exception *e) {
+        std::cout << std::string("error: ") + e->what() << std::endl;
         return 84;
     }
 }

@@ -1,5 +1,8 @@
 #include <Sdl2Display.hpp>
 
+#include <exception>
+#include <string>
+
 #pragma once
 
 namespace arc::display {
@@ -8,8 +11,9 @@ namespace arc::display {
         /**
          * @brief Create a Instance of the Sdl2Display class
          *
-         * @return std::unique_ptr<Sdl2Display> - pointer to an instance of the class
+         * @return Sdl2Display* - pointer to an instance of the class
          */
-        std::shared_ptr<Sdl2Display> createInstance();
+        Sdl2Display *createInstance();
     } /* extern "C" */
+
 }; /* namespace arc::display */
