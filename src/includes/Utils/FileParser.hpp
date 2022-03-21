@@ -4,6 +4,10 @@
 
 namespace arc::utils {
 
+    /**
+     * @brief Handles file manipulation
+     *
+     */
     class FileParser {
         public:
             /**

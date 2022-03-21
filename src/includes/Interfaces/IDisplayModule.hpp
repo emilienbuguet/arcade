@@ -8,6 +8,10 @@
 
 namespace arc::display {
 
+    /**
+     * @brief Display module interface
+     *
+     */
     class IDisplayModule {
         public:
 
@@ -30,5 +34,6 @@ namespace arc::display {
              * @return const arc::Events
              */
             virtual arc::Events getEvent() const = 0;
-    };
-}
+    }; /* class IDisplayModule */
+
+} /* namespace arc::display */

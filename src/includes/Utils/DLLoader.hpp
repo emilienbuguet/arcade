@@ -9,6 +9,11 @@
 
 namespace arc {
 
+    /**
+     * @brief Loads shared libraries of games or displays
+     *
+     * @tparam T
+     */
     template <class T>
     class DLLoader {
         public:
@@ -53,4 +58,5 @@ namespace arc {
             void *l_lib;
 
     }; /* class DLOpener */
+
 } /* namespace arc */
