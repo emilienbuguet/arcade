@@ -1,6 +1,13 @@
-#include <iostream>
+#include <Sdl2.hpp>
 
-void sdl2()
-{
-    std::cout << "Sdl2" << std::endl;
-}
+#include <iostream>
+#include <memory>
+
+extern "C" {
+
+    std::shared_ptr<arc::display::Sdl2Display> arc::display::createInstance()
+    {
+        return std::make_shared<arc::display::Sdl2Display>(arc::display::Sdl2Display{});
+    }
+
+};

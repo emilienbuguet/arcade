@@ -1,8 +1,24 @@
 #include <iostream>
-#include <IDisplayModule.hpp>
-#include <IGameModule.hpp>
+#include <string>
 
-int main()
+#include <Core.hpp>
+#include <Error.hpp>
+
+
+int main(int argc, char **argv)
 {
-    std::cout << "Hello world!" << std::endl;
+    if (argc != 2) {
+        std::cerr << "arcade: Wrong amount of arguments." << std::endl;
+        return 84;
+    }
+    try {
+    arc::Core core(argv[1]);
+        core.run();
+    } catch (arc::Error &e) {
+        std::cout << std::string("arcade: ") + e.what() << std::endl;
+        return 84;
+    } catch (std::exception &e) {
+        std::cout << std::string("error: ") + e.what() << std::endl;
+        return 84;
+    }
 }

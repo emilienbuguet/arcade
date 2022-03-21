@@ -49,7 +49,8 @@ enum Events {
     Key7,
     Key8,
     Key9,
-    Exit
+    Exit,
+    None
 }; /* enum Events */
 
 } /* namespace arc*/
