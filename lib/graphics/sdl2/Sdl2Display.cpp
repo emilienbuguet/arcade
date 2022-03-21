@@ -18,11 +18,11 @@ arc::display::Sdl2Display::Sdl2Display()
 
 arc::display::Sdl2Display::~Sdl2Display()
 {
-    if (this->m_window != NULL) {
-        SDL_DestroyWindow(this->m_window);
-    }
     if (this->m_renderer != NULL) {
         SDL_DestroyRenderer(this->m_renderer);
+    }
+    if (this->m_window != NULL) {
+        SDL_DestroyWindow(this->m_window);
     }
     SDL_Quit();
 }
