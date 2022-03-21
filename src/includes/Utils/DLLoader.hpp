@@ -23,10 +23,7 @@ namespace arc {
              *
              * @param pathToLib path to the lib to be loaded
              */
-            DLLoader(const std::string& pathToLib)
-                : l_lib(dlopen(pathToLib.c_str(), RTLD_LAZY | RTLD_LOCAL))
-            {
-            }
+            DLLoader() = default;
 
             /**
              * @brief unload the library
@@ -34,20 +31,46 @@ namespace arc {
              */
             ~DLLoader() = default;
 
-            /**
-             * @brief load an instance of the lib class
-             *
-             * @param name name of the builder function
-             *
-             */
-            std::shared_ptr<T> getInstance(const std::string &name)
+            void load(const std::string &path)
             {
-                void *func = dlsym(this->l_lib, name.c_str());
-                if (func == NULL) {
-                    throw arc::Error("Wrong lib format: " + name);
-                }
+                this->free();
+                this->l_lib = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
+                if (!l_lib)
+                    throw new arc::Error("Could not open lib: " + path);
+                void* func = dlsym(this->l_lib, "createInstance");
+                if (func == NULL)
+                    throw new arc::Error("Wrong lib format: " + path);
+                l_instance = reinterpret_cast<T* (*)()>(func)();
+            }
 
-                return (reinterpret_cast<std::shared_ptr<T> (*)()>(func))();
+            void free()
+            {
+                if (this->l_instance)
+                    delete l_instance;
+                if (this->l_lib)
+                    dlclose(this->l_lib);
+                l_instance = nullptr;
+                l_lib = nullptr;
+            }
+
+            /**
+             * @brief Get the loaded instance
+             *
+             * @return Pointer to the loaded instance
+             */
+            T *getInstance() const
+            {
+                return l_instance;
+            }
+
+            /**
+             * @brief Get the loaded instance
+             *
+             * @return Pointer to the loaded instance
+             */
+            T* operator->() const
+            {
+                return l_instance;
             }
 
         private:
@@ -56,6 +79,12 @@ namespace arc {
              *
              */
             void *l_lib;
+
+            /**
+             * @brief Instance of the loaded lib class
+             *
+             */
+            T* l_instance;
 
     }; /* class DLOpener */
 

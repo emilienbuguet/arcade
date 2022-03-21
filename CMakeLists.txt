@@ -39,6 +39,7 @@ target_include_directories(arcade PUBLIC
     src/includes
     lib/graphics/includes
     lib/games/includes
+    lib/games/menu/includes
 )
 
 add_dependencies(arcade ncurses sfml sdl2 pacman centipede menu)

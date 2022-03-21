@@ -32,7 +32,7 @@ namespace arc {
             const char *what() const noexcept final;
 
         private:
-            const std::string &e_message;
+            std::string e_message;
     }; /* class arc::Error */
 
 } /* namespace arc */

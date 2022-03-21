@@ -1,6 +1,8 @@
-#include <iostream>
+#include <Menu.hpp>
 
-void menu()
-{
-    std::cout << "Menu" << std::endl;
+extern "C" {
+    arc::games::MenuGame *arc::games::createInstance()
+    {
+        return (new arc::games::MenuGame {});
+    }
 }
