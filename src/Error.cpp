@@ -1,5 +1,7 @@
 #include <Error.hpp>
 
+#include <iostream>
+
 arc::Error::Error(const std::string &message)
     : e_message(message)
 {

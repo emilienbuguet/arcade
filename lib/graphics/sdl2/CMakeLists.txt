@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(SRCS
     ./Sdl2.cpp
     ./Sdl2Display.cpp
+    ./Error.cpp
 )
 
 find_package(SDL2 REQUIRED)

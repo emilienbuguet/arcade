@@ -1,5 +1,7 @@
 #include <Interfaces/IDisplayModule.hpp>
 
+#include <SDL2/SDL.h>
+
 #pragma once
 
 
@@ -34,7 +36,17 @@ namespace arc::display {
             arc::Events getEvent() const override;
 
         private:
-            // insert useful variables here...
+            /**
+             * @brief SDL window
+             *
+             */
+            SDL_Window *m_window;
+
+            /**
+             * @brief SDL renderer
+             *
+             */
+            SDL_Renderer *m_renderer;
 
     }; /* class Sdl2Display */
 

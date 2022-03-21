@@ -5,9 +5,9 @@
 
 extern "C" {
 
-    std::shared_ptr<arc::display::Sdl2Display> arc::display::createInstance()
+    arc::display::Sdl2Display* arc::display::createInstance()
     {
-        return std::make_shared<arc::display::Sdl2Display>(arc::display::Sdl2Display{});
+        return (new arc::display::Sdl2Display{});
     }
 
 };
