@@ -8,6 +8,10 @@
 
 namespace arc::games {
 
+    /**
+     * @brief Game module interface
+     *
+     */
     class IGameModule {
         public:
             /**
@@ -44,4 +48,4 @@ namespace arc::games {
             virtual void update() = 0;
     }; /* class IGameModule */
 
-}
+} /* namespace arc::games */

@@ -8,6 +8,10 @@
 
 namespace arc {
 
+    /**
+     * @brief Arcade core, links both game and display libraries
+     *
+     */
     class Core {
         public:
 
@@ -84,4 +88,5 @@ namespace arc {
              */
             std::string gameName;
     }; /* class Core */
+
 } /* namespace arc */

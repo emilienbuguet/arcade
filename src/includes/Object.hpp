@@ -4,6 +4,10 @@
 
 namespace arc {
 
+    /**
+     * @brief Represents a drawable object
+     *
+     */
     struct Object {
 
         /**
