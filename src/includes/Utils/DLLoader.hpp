@@ -45,6 +45,11 @@ namespace arc {
                 this->free();
             }
 
+            /**
+             * @brief Frees previous lib and loads a new one
+             *
+             * @param path path to the new lib
+             */
             void load(const std::string &path)
             {
                 this->free();
@@ -57,6 +62,10 @@ namespace arc {
                 l_instance = reinterpret_cast<T* (*)()>(func)();
             }
 
+            /**
+             * @brief Free the currently loaded lib
+             *
+             */
             void free()
             {
                 if (this->l_instance)
