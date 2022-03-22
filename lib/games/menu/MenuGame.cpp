@@ -5,6 +5,7 @@
 arc::games::MenuGame::MenuGame()
     : m_props({"", "", ""})
     , m_isStarting(false)
+    , m_isRunning(true)
 {
 }
 
@@ -13,7 +14,8 @@ arc::games::MenuGame::~MenuGame() = default;
 
 void arc::games::MenuGame::useEvent(arc::Events event)
 {
-    //todo do something with event
+    if (event == arc::Exit)
+        this->m_isRunning = false;
 }
 
 const std::vector<std::shared_ptr<arc::Object>> arc::games::MenuGame::getObjects() const
@@ -23,7 +25,7 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::MenuGame::getObjects
 
 bool arc::games::MenuGame::isRunning() const
 {
-    return false;
+    return this->m_isRunning;
 }
 
 void arc::games::MenuGame::update()
