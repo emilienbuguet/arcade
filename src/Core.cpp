@@ -9,10 +9,13 @@
 arc::Core::Core(const std::string& lib)
     : c_game("./lib/arcade_menu.so")
     , c_display(lib)
-    , displayName(arc::utils::FileParser::getLibraryName(lib))
-    , gameName("menu")
+    , currentDisplay(arc::utils::FileParser::getLibraryName(lib))
+    , currentGame("menu")
 {
-    std::cout << "Core built on lib " + displayName + "!" << std::endl;
+    std::cout << "Core built on lib " + currentDisplay + "!" << std::endl;
+    auto libs = arc::utils::FileParser::getAllLibraries("./lib");
+    this->c_games = libs[0];
+    this->c_displays = libs[1];
 }
 
 arc::Core::~Core() = default;
