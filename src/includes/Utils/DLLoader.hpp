@@ -58,7 +58,7 @@ namespace arc {
                     throw new arc::Error("Could not open lib: " + path + ", " + dlerror());
                 void* func = dlsym(this->l_lib, "createInstance");
                 if (func == NULL)
-                    throw new arc::Error("Wrong lib format: " + path);
+                    throw new arc::Error("Wrong lib format: " + path + ", " + dlerror());
                 l_instance = reinterpret_cast<T* (*)()>(func)();
             }
 
