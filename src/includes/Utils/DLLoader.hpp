@@ -50,7 +50,7 @@ namespace arc {
                 this->free();
                 this->l_lib = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
                 if (!l_lib)
-                    throw new arc::Error("Could not open lib: " + path);
+                    throw new arc::Error("Could not open lib: " + path + ", " + dlerror());
                 void* func = dlsym(this->l_lib, "createInstance");
                 if (func == NULL)
                     throw new arc::Error("Wrong lib format: " + path);
