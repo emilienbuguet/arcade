@@ -26,25 +26,25 @@ namespace arc {
          * @brief position of the object on the x axis (0 is left side of screen)
          *
          */
-        unsigned int x;
+        int x;
 
         /**
          * @brief position of the object on the y axis (0 is top of screen)
          *
          */
-        unsigned int y;
+        int y;
 
         /**
          * @brief width of the object
          *
          */
-        unsigned int width;
+        int width;
 
         /**
          * @brief height of the object
          *
          */
-        unsigned int height;
+        int height;
     };
 
 }
