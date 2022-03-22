@@ -18,6 +18,12 @@ arc::display::Sdl2Display::Sdl2Display()
 
 arc::display::Sdl2Display::~Sdl2Display()
 {
+    for (auto it = this->m_textures.begin(); it != this->m_textures.end(); it++) {
+        if (it->second) {
+            SDL_DestroyTexture(it->second);
+            it->second = NULL;
+        }
+    }
     if (this->m_renderer != NULL) {
         SDL_DestroyRenderer(this->m_renderer);
     }
@@ -27,11 +33,39 @@ arc::display::Sdl2Display::~Sdl2Display()
     SDL_Quit();
 }
 
+SDL_Texture *arc::display::Sdl2Display::getTexture(const std::string& name)
+{
+    auto it = this->m_textures.find(name);
+    if (it != this->m_textures.end()) {
+        return it->second;
+    } else {
+        SDL_Surface* tmp = SDL_LoadBMP(("./assets/sdl2/" + name + ".bmp").c_str());
+        if (!tmp)
+            throw new arc::display::Sdl2Error("unable to load image : " + name + ".bmp");
+        SDL_Texture *text = SDL_CreateTextureFromSurface(this->m_renderer, tmp);
+        SDL_FreeSurface(tmp);
+        this->m_textures.insert(std::pair<std::string, SDL_Texture *>(name, text));
+        return text;
+    }
+}
+
+void arc::display::Sdl2Display::drawObject(std::shared_ptr<arc::Object> obj)
+{
+    SDL_Rect src { 0, 0, obj->width, obj->height };
+    if (obj->width == 0 || obj->height == 0) {
+        SDL_QueryTexture(this->getTexture(obj->value), NULL, NULL, &src.w, &src.h);
+    }
+    SDL_Rect dest { obj->x, obj->y, src.w, src.h };
+    SDL_RenderCopy(this->m_renderer, this->getTexture(obj->value), &src, &dest);
+}
+
 void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
-    std::cout << "Draw objects here ..." << std::endl;
     SDL_SetRenderDrawColor(this->m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->m_renderer);
+    for (std::shared_ptr<arc::Object>& obj : objs) {
+        this->drawObject(obj);
+    }
     SDL_RenderPresent(this->m_renderer);
 }
 

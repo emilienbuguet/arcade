@@ -1,6 +1,7 @@
 #include <Interfaces/IDisplayModule.hpp>
 
 #include <SDL2/SDL.h>
+#include <map>
 
 #pragma once
 
@@ -36,6 +37,22 @@ namespace arc::display {
             arc::Events getEvent() const override;
 
         private:
+
+            /**
+             * @brief Get a texture by name
+             *
+             * @param name name of the texture
+             * @return SDL_Texture*
+             */
+            SDL_Texture *getTexture(const std::string& name);
+
+            /**
+             * @brief Draw a single object on the window
+             *
+             * @param obj object to draw
+             */
+            void drawObject(std::shared_ptr<arc::Object> obj);
+
             /**
              * @brief SDL window
              *
@@ -47,6 +64,12 @@ namespace arc::display {
              *
              */
             SDL_Renderer *m_renderer;
+
+            /**
+             * @brief Loaded textures
+             *
+             */
+            std::map<std::string, SDL_Texture*> m_textures;
 
     }; /* class Sdl2Display */
 
