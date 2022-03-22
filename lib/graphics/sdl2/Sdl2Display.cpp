@@ -13,7 +13,7 @@ arc::display::Sdl2Display::Sdl2Display()
         SDL_Quit();
         throw new arc::display::Sdl2Error{std::string("unable to create window: ") + SDL_GetError()};
     }
-    SDL_SetWindowTitle(this->m_window, "Hello !");
+    SDL_SetWindowTitle(this->m_window, "Arcade");
 }
 
 arc::display::Sdl2Display::~Sdl2Display()
@@ -30,9 +30,17 @@ arc::display::Sdl2Display::~Sdl2Display()
 void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
     std::cout << "Draw objects here ..." << std::endl;
+    SDL_SetRenderDrawColor(this->m_renderer, 0, 0, 0, 255);
+    SDL_RenderClear(this->m_renderer);
+    SDL_RenderPresent(this->m_renderer);
 }
 
 arc::Events arc::display::Sdl2Display::getEvent() const
 {
+    SDL_Event events;
+    while (SDL_PollEvent(&events)) {
+        if (events.type == SDL_QUIT)
+            return arc::Exit;
+    }
     return arc::None;
 }
