@@ -19,11 +19,11 @@ arc::Core::~Core() = default;
 
 void arc::Core::run()
 {
-    while (this->c_game.getInstance()->isRunning()) {
-         arc::Events event = this->c_display->getEvent();
-         this->c_game->useEvent(event);
-         this->c_game->update();
-         this->c_display->drawObjects(this->c_game->getObjects());
+    while (this->c_game->isRunning()) {
+        arc::Events event = this->c_display->getEvent();
+        this->c_game->useEvent(event);
+        this->c_game->update();
+        this->c_display->drawObjects(this->c_game->getObjects());
     }
     std::cout << "Core finished running!" << std::endl;
 }
