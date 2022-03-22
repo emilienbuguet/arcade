@@ -89,6 +89,12 @@ namespace arc::games {
              *
              */
             bool m_isStarting;
+
+            /**
+             * @brief True if game is still running, false otherwise
+             *
+             */
+            bool m_isRunning;
     }; /* class MenuGame */
 
 } /* namespace arc::games */
