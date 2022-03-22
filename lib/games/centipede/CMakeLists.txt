@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SRCS
     ./Centipede.cpp
+    ../AGame.cpp
 )
 
 add_library(centipede SHARED
