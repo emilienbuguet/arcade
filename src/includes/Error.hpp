@@ -31,7 +31,7 @@ namespace arc {
              */
             const char *what() const noexcept final;
 
-        private:
+        protected:
             std::string e_message;
     }; /* class arc::Error */
 

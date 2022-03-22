@@ -82,13 +82,26 @@ namespace arc {
              * @brief Name of the current loaded display
              *
              */
-            std::string displayName;
+            std::string currentDisplay;
 
             /**
              * @brief Name of the current loaded game
              *
              */
-            std::string gameName;
+            std::string currentGame;
+
+            /**
+             * @brief Pathes to all games
+             *
+             */
+            std::vector<std::string> c_games;
+
+            /**
+             * @brief Pathes to all displays
+             *
+             */
+            std::vector<std::string> c_displays;
+
     }; /* class Core */
 
 } /* namespace arc */

@@ -69,6 +69,18 @@ namespace arc::games {
              */
             bool m_isStarting;
 
+            /**
+             * @brief List of available games
+             *
+             */
+            std::vector<std::string> m_games;
+
+            /**
+             * @brief List of available displays
+             *
+             */
+            std::vector<std::string> m_displays;
+
     }; /* class MenuGame */
 
 } /* namespace arc::games */
