@@ -7,6 +7,9 @@ arc::games::MenuGame::MenuGame()
     , m_props({"", "", ""})
     , m_isStarting(false)
 {
+    this->m_objects.push_back(std::make_shared<arc::Object>(arc::Object{
+        "test", 200, 50, 0, 0
+    }));
 }
 
 arc::games::MenuGame::~MenuGame() = default;
