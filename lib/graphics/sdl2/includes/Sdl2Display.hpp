@@ -1,6 +1,7 @@
 #include <Interfaces/IDisplayModule.hpp>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <map>
 
 #pragma once
@@ -47,11 +48,18 @@ namespace arc::display {
             SDL_Texture *getTexture(const std::string& name);
 
             /**
-             * @brief Draw a single object on the window
+             * @brief Draw an object of type SPRITE
              *
              * @param obj object to draw
              */
-            void drawObject(std::shared_ptr<arc::Object> obj);
+            void drawSprite(std::shared_ptr<arc::Object> obj);
+
+            /**
+             * @brief Draw an object of type TEXT
+             *
+             * @param obj
+             */
+            void drawText(std::shared_ptr<arc::Object> obj);
 
             /**
              * @brief SDL window
@@ -70,6 +78,8 @@ namespace arc::display {
              *
              */
             std::map<std::string, SDL_Texture*> m_textures;
+
+            TTF_Font *font;
 
     }; /* class Sdl2Display */
 
