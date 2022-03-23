@@ -1,6 +1,7 @@
 #include <Error.hpp>
 #include <Sdl2Display.hpp>
 
+#include <SDL2/SDL_image.h>
 #include <iostream>
 
 
@@ -9,15 +10,30 @@ arc::display::Sdl2Display::Sdl2Display()
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         throw new arc::display::Sdl2Error{std::string("unable to init sdl2: ") + SDL_GetError()};
     }
+    if (TTF_Init() < 0) {
+        SDL_Quit();
+        throw new arc::display::Sdl2Error{std::string("unable to init sld2_ttf") + TTF_GetError()};
+    }
+    if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) < 0) {
+        TTF_Quit();
+        SDL_Quit();
+        throw new arc::display::Sdl2Error{std::string("unable to init sdl2_image") + IMG_GetError()};
+    }
     if (SDL_CreateWindowAndRenderer(800, 600, SDL_WINDOW_SHOWN, &this->m_window, &this->m_renderer) < 0) {
+        IMG_Quit();
+        TTF_Quit();
         SDL_Quit();
         throw new arc::display::Sdl2Error{std::string("unable to create window: ") + SDL_GetError()};
     }
     SDL_SetWindowTitle(this->m_window, "Arcade");
+    this->font = TTF_OpenFont("./assets/fonts/GoldenAge.ttf", 5);
+    if (this->font == nullptr)
+        throw arc::display::Sdl2Error("unable to load font");
 }
 
 arc::display::Sdl2Display::~Sdl2Display()
 {
+    TTF_CloseFont(this->font);
     for (auto it = this->m_textures.begin(); it != this->m_textures.end(); it++) {
         if (it->second) {
             SDL_DestroyTexture(it->second);
@@ -39,9 +55,13 @@ SDL_Texture *arc::display::Sdl2Display::getTexture(const std::string& name)
     if (it != this->m_textures.end()) {
         return it->second;
     } else {
-        SDL_Surface* tmp = SDL_LoadBMP(("./assets/sdl2/" + name + ".bmp").c_str());
+        SDL_Surface* tmp = IMG_Load(("./assets/sdl2/" + name + ".bmp").c_str());
         if (!tmp)
-            throw new arc::display::Sdl2Error("unable to load image : " + name + ".bmp");
+            tmp = IMG_Load(("./assets/sdl2/" + name + ".png").c_str());
+        if (!tmp)
+            IMG_Load(("./assets/sdl2/" + name + ".jpg").c_str());
+        if (!tmp)
+            throw new arc::display::Sdl2Error("unable to load image : " + name);
         SDL_Texture *text = SDL_CreateTextureFromSurface(this->m_renderer, tmp);
         SDL_FreeSurface(tmp);
         this->m_textures.insert(std::pair<std::string, SDL_Texture *>(name, text));
@@ -49,14 +69,33 @@ SDL_Texture *arc::display::Sdl2Display::getTexture(const std::string& name)
     }
 }
 
-void arc::display::Sdl2Display::drawObject(std::shared_ptr<arc::Object> obj)
+void arc::display::Sdl2Display::drawSprite(std::shared_ptr<arc::Object> obj)
 {
-    SDL_Rect src { 0, 0, obj->width, obj->height };
-    if (obj->width == 0 || obj->height == 0) {
-        SDL_QueryTexture(this->getTexture(obj->value), NULL, NULL, &src.w, &src.h);
+    arc::Sprite *sprite = static_cast<arc::Sprite *>(obj.get());
+    SDL_Rect src { 0, 0, sprite->width, sprite->height };
+    if (sprite->width == 0 || sprite->height == 0) {
+        SDL_QueryTexture(this->getTexture(sprite->value), NULL, NULL, &src.w, &src.h);
     }
-    SDL_Rect dest { obj->x, obj->y, src.w, src.h };
-    SDL_RenderCopy(this->m_renderer, this->getTexture(obj->value), &src, &dest);
+    SDL_Rect dest { sprite->pos.x, sprite->pos.y, src.w, src.h };
+    SDL_RenderCopy(this->m_renderer, this->getTexture(sprite->value), &src, &dest);
+    //todo free surface
+}
+
+void arc::display::Sdl2Display::drawText(std::shared_ptr<arc::Object> obj)
+{
+    arc::Text *text = static_cast<arc::Text *>(obj.get());
+    TTF_SetFontSize(this->font, text->size);
+    SDL_Rect src {0, 0, 0, 0};
+    SDL_Color color = {text->color.r, text->color.g, text->color.b, text->color.a};
+
+    // todo debug
+    std::cout << text->color.a << std::endl;
+    SDL_Surface* surf = TTF_RenderText_Shaded(this->font, obj->value.c_str(), color, color);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(this->m_renderer, surf);
+    SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
+    SDL_Rect dest { text->pos.x, text->pos.y, src.w, src.h };
+    SDL_RenderCopy(this->m_renderer, texture, &src, &dest);
+    //todo free surface
 }
 
 void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
@@ -64,7 +103,10 @@ void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Obj
     SDL_SetRenderDrawColor(this->m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->m_renderer);
     for (std::shared_ptr<arc::Object>& obj : objs) {
-        this->drawObject(obj);
+        if (obj->type == arc::Object::SPRITE)
+            this->drawSprite(obj);
+        else
+            this->drawText(obj);
     }
     SDL_RenderPresent(this->m_renderer);
 }

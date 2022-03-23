@@ -8,18 +8,25 @@ arc::games::MenuGame::MenuGame()
     , m_props({"", "", ""})
     , m_isStarting(false)
 {
-    this->m_objects.push_back(std::make_shared<arc::Object>(arc::Object{
-        "test", 200, 50, 0, 0
+   /* this->m_objects.push_back(std::make_shared<arc::Object>(arc::Sprite{
+        "test", arc::Vector{200, 50}
     }));
+    this->m_objects.push_back(std::make_shared<arc::Object>(arc::Sprite{
+        "xhydra", arc::Vector{700, 200}
+    }));*/
     auto tmp = arc::utils::FileParser::getAllLibraries("./lib");
     m_games = tmp[0];
     m_displays = tmp[1];
-    std::cout << "Games:" << std::endl;
-    for (auto lib : this->m_games)
-        std::cout << lib << std::endl;
-    std::cout << "Displays:" << std::endl;
-    for (auto lib : this->m_displays)
-        std::cout << lib << std::endl;
+    for (size_t i = 0; i < this->m_games.size(); i++) {
+        this->m_objects.push_back(std::make_shared<arc::Object>(arc::Text {
+            this->m_games[i], arc::Vector{200, 50 * static_cast<int>(i)}, 14, arc::Text::Colors::white
+        }));
+    }
+    for (size_t i = 0; i < this->m_displays.size(); i++) {
+        this->m_objects.push_back(std::make_shared<arc::Object>(arc::Text {
+            this->m_displays[i], arc::Vector{600, 50 * static_cast<int>(i)}, 14, arc::Text::Colors::white
+        }));
+    }
 }
 
 arc::games::MenuGame::~MenuGame() = default;
