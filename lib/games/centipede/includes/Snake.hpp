@@ -2,6 +2,7 @@
 
 #include <Centipede.hpp>
 #include <Object.hpp>
+#include <iostream>
 
 namespace arc::games::centipede  {
     class SnakeCell : public arc::Sprite
@@ -36,23 +37,23 @@ namespace arc::games::centipede  {
 
     class Snake
     {
-        public:
-            /**
-             * @brief Construct a new Snake object
-             *
-             * @param size amount of Cells the Snake contains
-             * @param x position of the head on the x axis
-             * @param y position of the head on the y axis
-             */
-            Snake(int size, int x, int y);
+    public:
+        /**
+         * @brief Construct a new Snake object
+         *
+         */
+        Snake(int size, int x, int y);
+        /**
+         * @brief Destroy the Snake object
+         *
+         */
+        ~Snake();
 
-            /**
-             * @brief Destroy the Snake object
-             *
-             */
-            ~Snake();
-
-        private:
-            std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells;
+    private:
+        /**
+         * @brief Array of cell = Snake
+         *
+         */
+        std::vector<arc::games::centipede::SnakeCell> snake;
     };
 }

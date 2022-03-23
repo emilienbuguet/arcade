@@ -7,7 +7,8 @@
 
 #pragma once
 
-#include <Object.hpp>
+#include <iostream>
+#include "Centipede.hpp"
 
 namespace arc::games::centipede {
     class Player {
@@ -17,13 +18,11 @@ namespace arc::games::centipede {
              *
              */
             Player();
-
             /**
              * @brief Destroy the Player object
              *
              */
             ~Player();
-
             /**
              * @brief Direction of the Player
              *

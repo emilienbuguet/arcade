@@ -8,7 +8,6 @@
 #include "Centipede.hpp"
 #include "Snake.hpp"
 
-
 /************* SnakeCell methods **************/
 
 arc::games::centipede::SnakeCell::SnakeCell(int x, int y, arc::games::centipede::SnakeCell::Type type)
