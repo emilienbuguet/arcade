@@ -10,6 +10,7 @@ set(SRCS
     ${CMAKE_SOURCE_DIR}/lib/games/AGame.cpp
     ${CMAKE_SOURCE_DIR}/src/Utils/FileParser.cpp
     ${CMAKE_SOURCE_DIR}/src/Error.cpp
+    ${CMAKE_SOURCE_DIR}/src/Object.cpp
 )
 
 add_library(menu SHARED

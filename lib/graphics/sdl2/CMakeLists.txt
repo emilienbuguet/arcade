@@ -4,10 +4,13 @@ project(arcade)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set( CMAKE_CXX_FLAGS "-lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2 " )
+
 set(SRCS
     ./Sdl2.cpp
     ./Sdl2Display.cpp
     ./Error.cpp
+    ${CMAKE_SOURCE_DIR}/src/Object.cpp
 )
 
 find_package(SDL2 REQUIRED)
@@ -27,5 +30,3 @@ target_include_directories(sdl2 PRIVATE
     ${CMAKE_BINARY_DIR}/src/includes
     ${SDL2_INCLUDE_DIR}
 )
-
-target_link_libraries(sdl2 ${SDL2_LIBRARIES} ${SDL2_DEPENDENCIES})
