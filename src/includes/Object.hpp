@@ -128,12 +128,9 @@ namespace arc {
          *
          */
         int height;
-
-        /**
          * @brief Scale of the object
          *
          */
         arc::Vector scale;
     }; /* struct Sprite */
-
 } /* namespace arc */

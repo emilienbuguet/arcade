@@ -1,7 +1,8 @@
 #pragma once
 
-#include <IGameModule.hpp>
+#include <Interfaces/IGameModule.hpp>
 #include <Object.hpp>
+#include "Snake.hpp"
 
 #include <iostream>
 
@@ -20,66 +21,73 @@ namespace arc::games {
              *
              */
             ~Centipede();
-
+            /**
+             * @brief Create a Snake object
+             *
+             * @param size
+             * @param x
+             * @param y
+             */
+            void CreateSnake(int size, int x, int y);
+            /**
+             * @brief move the Centipede Snakes
+             *
+             */
+            void MoveSnakes();
+            void MovePlayer();
         private:
+            std::vector<arc::games::Player> player;
+            std::vector<arc::games::Snake> snakes;
             std::vector<arc::Object> entities;
 
     };
 
-
-    struct SnakeCells
+    struct mushroomData
     {
         /**
-         * @brief Define what is cell
-         *
-         */
-        enum Type { HEAD, BODY };
-
-        /**
-         * @brief Origin of cell on x axis
+         * @brief position of cell in x axis
          *
          */
         int x;
         /**
-         * @brief Origin of cell on y axis
+         * @brief position of cell in y axis
          *
          */
         int y;
         /**
-         * @brief Size of cell on x axis
+         * @brief width of cell
          *
          */
         int width;
         /**
-         * @brief Size of cell on y axis
+         * @brief heigth of cell
          *
          */
         int height;
-        Type type;
-    };
-
-    class Snake {
+        /**
+         * @brief life of cell
+         *
+         */
+        int life;
+    }
+    class Mushroom {
         public:
             /**
-             * @brief Construct a new Snake object
+             * @brief Construct a new Mushroom object
              *
              */
-            Snake();
+            Mushroom();
             /**
-             * @brief Destroy the Snake object
+             * @brief Destroy the Mushroom object
              *
              */
-            ~Snake();
+            ~Mushroom();
+
         private:
             /**
-             * @brief Array of cell = Snake
+             * @brief map of mushroom
              *
              */
-            std::vector<arc::games::SnakeCells> snake;
-            /**
-             * @brief Size of snake
-             *
-             */
-            int size;
-    };
+            std::vector<arc::games::mushroomData> mushrooms;
+    }
 };

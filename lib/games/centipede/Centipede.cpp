@@ -2,13 +2,15 @@
 ** EPITECH PROJECT, 2022
 ** B-OOP-400-LYN-4-1-arcade-marvin.flamand
 ** File description:
-** main
+** Centipede
 */
 
 #include "Centipede.hpp"
+#include "Snake.hpp"
 
 arc::games::Centipede::Centipede()
 {
+    snakes.push_back(new arc::game::snake(15, 300, 0));
 }
 
 arc::games::Centipede::~Centipede()
@@ -16,26 +18,33 @@ arc::games::Centipede::~Centipede()
 
 }
 
-arc::games::Snake::Snake()
+void arc::games::Centipede::CreateSnake(int size, int x, int y)
 {
-    int i = 0;
-    int size = 10;
-    int ax_x = 0;
+    snakes.push_back(new arc::game::snake(size, x, y));
+}
 
-    for (; i < size - 1; i++, ax_x += 25) {
-            snake.push_back(arc::games::SnakeCells{});
-            snake[i].x = ax_x;
-            snake[i].y = 0;
-            snake[i].width = 25;
-            snake[i].height = 25;
-        if (i == 0)
-            snake[i].type = snake[i].HEAD;
-        else
-            snake[i].type = snake[i].BODY;
+void arc::games::Centipede::MoveSnakes()
+{
+    for (auto& snake : snakes) {
+        if (snake.direction == LEFT )
+            snake.x = snake.x - 25;
+        if (snake.direction == RIGHT)
+            snake.x = snake.x + 25;
+        if (snake.direction == DOWN)
+            snake.y = snake.y + 25;
     }
 }
 
-arc::games::Snake::~Snake()
+void arc::games::Centipede::MovePlayer()
 {
-
+    for (auto& player : player) {
+        if (player.direction == LEFT)
+            player.x = player.x - 25;
+        if (player.direction == RIGHT)
+            player.x = player.x + 25;
+        if (player.direction == DOWN)
+            player.y = player.y + 25;
+        if (player.direction == UP)
+            player.y = player.y - 25;
+    }
 }
