@@ -65,8 +65,8 @@ namespace arc {
         };
 
         struct Colors {
-            static constexpr Text::Color black = arc::Text::Color { 255, 255, 255, 255 };
-            static constexpr Text::Color white = arc::Text::Color { 0, 0, 0, 255 };
+            static constexpr Text::Color white = arc::Text::Color { 255, 255, 255, 255 };
+            static constexpr Text::Color black = arc::Text::Color { 0, 0, 0, 255 };
         };
 
         /**
