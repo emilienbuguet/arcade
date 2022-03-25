@@ -89,8 +89,7 @@ void arc::display::Sdl2Display::drawText(std::shared_ptr<arc::Object> obj)
     SDL_Color color = {text->color.r, text->color.g, text->color.b, text->color.a};
 
     // todo debug
-    std::cout << text->color.a << std::endl;
-    SDL_Surface* surf = TTF_RenderText_Shaded(this->font, obj->value.c_str(), color, color);
+    SDL_Surface* surf = TTF_RenderText_Shaded(this->font, text->value.c_str(), color, color);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(this->m_renderer, surf);
     SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
     SDL_Rect dest { text->pos.x, text->pos.y, src.w, src.h };
