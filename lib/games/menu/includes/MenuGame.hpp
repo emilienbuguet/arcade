@@ -127,6 +127,18 @@ namespace arc::games {
              */
             std::vector<std::shared_ptr<arc::games::menu::MenuItem>> m_displays;
 
+            /**
+             * @brief List of ui objects
+             *
+             */
+            std::vector<std::shared_ptr<arc::games::menu::MenuItem>> m_ui;
+
+            /**
+             * @brief Handle character events and add it to the username
+             *
+             */
+            void useCharacterEvent(arc::Events event);
+
     }; /* class MenuGame */
 
 } /* namespace arc::games */
