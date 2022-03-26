@@ -30,12 +30,26 @@ namespace arc::display {
               */
              void drawObjects(std::vector<std::shared_ptr<arc::Object>> objs) override;
 
+            /**
+             * @brief Draw the interface of the game
+             *
+             * @param objs objects to be drawn
+             */
+            void drawInterface(std::vector<std::shared_ptr<arc::Object>> objs) override;
+
              /**
               * @brief Get any event
               *
               * @return const arc::Events - event that occured (or arc::Events::NONE)
               */
             arc::Events getEvent() const override;
+
+            /**
+             * @brief Place an object on the board
+             *
+             * @param obj object to be placed
+             */
+            void placeObjectOnBoard(std::shared_ptr<arc::Object> obj);
 
         private:
 

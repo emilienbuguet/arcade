@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2021
-** arcade
-** File description:
-** Object.cpp
-*/
-
 #include <Object.hpp>
 #include <iostream>
 
@@ -30,6 +23,11 @@ const std::string& arc::Object::getValue() const
 arc::Vector arc::Object::getPosition() const
 {
     return this->m_position;
+}
+
+void arc::Object::setValue(const std::string &value)
+{
+    this->m_value = value;
 }
 
 void arc::Object::setPosition(arc::Vector pos)

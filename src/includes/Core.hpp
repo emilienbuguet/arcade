@@ -1,6 +1,7 @@
 #include <Interfaces/IGameModule.hpp>
 #include <Interfaces/IDisplayModule.hpp>
 #include <Utils/DLLoader.hpp>
+#include <Utils/HighscoreHandler.hpp>
 
 #include <memory>
 #include <string>
@@ -70,6 +71,12 @@ namespace arc {
              */
             bool useEvent(arc::Events event);
 
+            /**
+             * @brief Update the core
+             *
+             */
+            void update();
+
         private:
 
             /**
@@ -113,6 +120,24 @@ namespace arc {
              *
              */
             std::string c_username;
+
+            /**
+             * @brief Objects of the interface
+             *
+             */
+            std::vector<std::shared_ptr<arc::Object>> c_interface;
+
+            /**
+             * @brief Highscore handler
+             *
+             */
+            std::unique_ptr<arc::utils::HighscoreHandler> c_highscore;
+
+            /**
+             * @brief Score
+             *
+             */
+            int c_score;
 
     }; /* class Core */
 
