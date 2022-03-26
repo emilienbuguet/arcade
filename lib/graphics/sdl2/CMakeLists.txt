@@ -4,13 +4,14 @@ project(arcade)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set( CMAKE_CXX_FLAGS "-lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2 " )
+set( CMAKE_CXX_FLAGS "-lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2 -Wall -Wextra -Wpedantic " )
 
 set(SRCS
     ./Sdl2.cpp
     ./Sdl2Display.cpp
     ./Error.cpp
     ${CMAKE_SOURCE_DIR}/src/Object.cpp
+    ${CMAKE_SOURCE_DIR}/src/Color.cpp
 )
 
 find_package(SDL2 REQUIRED)

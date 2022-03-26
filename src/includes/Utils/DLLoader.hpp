@@ -5,6 +5,8 @@
 #include <memory>
 #include <string>
 
+#include <MenuGame.hpp>
+
 #pragma once
 
 namespace arc {

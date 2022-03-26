@@ -64,6 +64,12 @@ namespace arc {
              */
             const std::string &getDisplayName() const;
 
+            /**
+             * @brief Handle the event
+             *
+             */
+            bool useEvent(arc::Events event);
+
         private:
 
             /**
@@ -101,6 +107,12 @@ namespace arc {
              *
              */
             std::vector<std::string> c_displays;
+
+            /**
+             * @brief Username of the current user
+             *
+             */
+            std::string c_username;
 
     }; /* class Core */
 
