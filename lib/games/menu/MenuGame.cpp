@@ -18,13 +18,13 @@ arc::games::MenuGame::MenuGame()
     for (size_t i = 0; i < games.size(); i++) {
         std::string game = games[i].substr(games[i].find_last_of("/") + 1);
         game = game.substr(game.find_first_of("_") + 1, game.find_last_of(".") - game.find_first_of("_") - 1);
-        auto gameobj = std::make_shared<arc::games::menu::MenuItem>(game, Vector(200, 50 + 50 * i), 25, arc::Color{255, 255, 255, 255});
+        auto gameobj = std::make_shared<arc::games::menu::MenuItem>(game, Vector(8, 8 + 2 * i), 25, arc::Color{255, 255, 255, 255});
         m_games.push_back(gameobj);
     }
     for (size_t i = 0; i < displays.size(); i++) {
         std::string display = displays[i].substr(displays[i].find_last_of("/") + 1);
         display = display.substr(display.find_first_of("_") + 1, display.find_last_of(".") - display.find_first_of("_") - 1);
-        auto displayobj = std::make_shared<arc::games::menu::MenuItem>(display, Vector(400, 50 + 50 * i), 25, arc::Color{255, 255, 255, 255});
+        auto displayobj = std::make_shared<arc::games::menu::MenuItem>(display, Vector(18, 8 + 2 * i), 25, arc::Color{255, 255, 255, 255});
         m_displays.push_back(displayobj);
     }
     m_displays[0]->setSelected(true);
@@ -39,6 +39,12 @@ void arc::games::MenuGame::useEvent(arc::Events event)
 {
     if (event == arc::Exit)
         this->m_isRunning = false;
+    if (event == arc::KeyEsc)
+        this->m_isRunning = false;
+    if (event == arc::KeyEnter) {
+        this->m_isStarting = true;
+        this->m_isRunning = false;
+    }
     if (event == arc::KeyUp) {
         if (m_isSelectingGame) {
             this->selectPreviousGame();

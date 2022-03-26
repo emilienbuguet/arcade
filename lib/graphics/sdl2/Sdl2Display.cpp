@@ -19,12 +19,13 @@ arc::display::Sdl2Display::Sdl2Display()
         SDL_Quit();
         throw new arc::display::Sdl2Error{std::string("unable to init sdl2_image") + IMG_GetError()};
     }
-    if (SDL_CreateWindowAndRenderer(800, 600, SDL_WINDOW_SHOWN, &this->m_window, &this->m_renderer) < 0) {
+    if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_SHOWN, &this->m_window, &this->m_renderer) < 0) {
         IMG_Quit();
         TTF_Quit();
         SDL_Quit();
         throw new arc::display::Sdl2Error{std::string("unable to create window: ") + SDL_GetError()};
     }
+    SDL_SetWindowFullscreen(this->m_window, SDL_WINDOW_FULLSCREEN);
     SDL_SetWindowTitle(this->m_window, "Arcade");
 }
 
@@ -74,6 +75,8 @@ void arc::display::Sdl2Display::drawSprite(std::shared_ptr<arc::Object> obj)
         rect.y = sprite->getPosition().y;
         rect.h = sprite->getHeight();
         rect.w = sprite->getWidth();
+        if (sprite->getHeight() == 0 || sprite->getWidth() == 0)
+            SDL_QueryTexture(this->getTexture(sprite->getValue()), NULL, NULL, &rect.w, &rect.h);
         SDL_RenderCopy(this->m_renderer, this->getTexture(sprite->getValue()), NULL, &rect);
     }
 }
@@ -101,10 +104,52 @@ void arc::display::Sdl2Display::drawText(std::shared_ptr<arc::Object> obj)
     TTF_CloseFont(font);
 }
 
+void arc::display::Sdl2Display::placeObjectOnBoard(std::shared_ptr<arc::Object> obj)
+{
+    int w, h;
+    SDL_GetWindowSize(this->m_window, &w, &h);
+    arc::Vector origin{w / 2 - 400, h / 2 - 300};
+    obj->setPosition(arc::Vector{origin.x + obj->getPosition().x, origin.y + obj->getPosition().y});
+}
+
 void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
     SDL_SetRenderDrawColor(this->m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->m_renderer);
+    for (auto it = objs.begin(); it != objs.end(); it++) {
+        if ((*it)->getType() == arc::Object::Type::SPRITE) {
+            auto obj = std::static_pointer_cast<arc::Sprite>(*it);
+            std::shared_ptr<arc::Sprite> sprite = std::make_shared<arc::Sprite>(
+                obj->getValue(),
+                arc::Vector {
+                    obj->getPosition().x * 25,
+                    obj->getPosition().y * 25
+                },
+                obj->getHeight() * 25,
+                obj->getWidth() * 25,
+                obj->getScale()
+                );
+            placeObjectOnBoard(sprite);
+            this->drawSprite(sprite);
+        } else if ((*it)->getType() == arc::Object::Type::TEXT) {
+            auto obj = std::static_pointer_cast<arc::Text>(*it);
+            std::shared_ptr<arc::Text> text = std::make_shared<arc::Text>(
+                obj->getValue(),
+                arc::Vector {
+                    obj->getPosition().x * 25,
+                    obj->getPosition().y * 25
+                },
+                obj->getSize(),
+                obj->getColor()
+                );
+            placeObjectOnBoard(text);
+            this->drawText(text);
+        }
+    }
+}
+
+void arc::display::Sdl2Display::drawInterface(std::vector<std::shared_ptr<arc::Object>> objs)
+{
     for (auto it = objs.begin(); it != objs.end(); it++) {
         if ((*it)->getType() == arc::Object::Type::SPRITE) {
             this->drawSprite(*it);
