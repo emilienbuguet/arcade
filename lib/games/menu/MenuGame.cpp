@@ -31,9 +31,103 @@ arc::games::MenuGame::MenuGame()
     m_games[0]->setSelected(true);
     m_props.gamelib = m_games[0]->getValue();
     m_props.graphicslib = m_displays[0]->getValue();
+    m_ui.push_back(std::make_shared<arc::games::menu::MenuItem>("Username: ", Vector(8, 20), 25, arc::Color{255, 255, 255, 255}));
+    m_ui.push_back(std::make_shared<arc::games::menu::MenuItem>("(Max: 12 characters)", Vector(8, 21), 12, arc::Color{255, 255, 255, 255}));
 }
 
 arc::games::MenuGame::~MenuGame() = default;
+
+void arc::games::MenuGame::useCharacterEvent(arc::Events event)
+{
+    switch (event) {
+        case arc::Events::KeyA:
+            m_props.username += "a";
+            break;
+        case arc::Events::KeyB:
+            m_props.username += "b";
+            break;
+        case arc::Events::KeyC:
+            m_props.username += "c";
+            break;
+        case arc::Events::KeyD:
+            m_props.username += "d";
+            break;
+        case arc::Events::KeyE:
+            m_props.username += "e";
+            break;
+        case arc::Events::KeyF:
+            m_props.username += "f";
+            break;
+        case arc::Events::KeyG:
+            m_props.username += "g";
+            break;
+        case arc::Events::KeyH:
+            m_props.username += "h";
+            break;
+        case arc::Events::KeyI:
+            m_props.username += "i";
+            break;
+        case arc::Events::KeyJ:
+            m_props.username += "j";
+            break;
+        case arc::Events::KeyK:
+            m_props.username += "k";
+            break;
+        case arc::Events::KeyL:
+            m_props.username += "l";
+            break;
+        case arc::Events::KeyM:
+            m_props.username += "m";
+            break;
+        case arc::Events::KeyN:
+            m_props.username += "n";
+            break;
+        case arc::Events::KeyO:
+            m_props.username += "o";
+            break;
+        case arc::Events::KeyP:
+            m_props.username += "p";
+            break;
+        case arc::Events::KeyQ:
+            m_props.username += "q";
+            break;
+        case arc::Events::KeyR:
+            m_props.username += "r";
+            break;
+        case arc::Events::KeyS:
+            m_props.username += "s";
+            break;
+        case arc::Events::KeyT:
+            m_props.username += "t";
+            break;
+        case arc::Events::KeyU:
+            m_props.username += "u";
+            break;
+        case arc::Events::KeyV:
+            m_props.username += "v";
+            break;
+        case arc::Events::KeyW:
+            m_props.username += "w";
+            break;
+        case arc::Events::KeyX:
+            m_props.username += "x";
+            break;
+        case arc::Events::KeyY:
+            m_props.username += "y";
+            break;
+        case arc::Events::KeyZ:
+            m_props.username += "z";
+            break;
+        case arc::Events::KeyDel:
+            if (m_props.username.size() > 0)
+                m_props.username.pop_back();
+            break;
+        default:
+            break;
+    }
+    if (m_props.username.size() > 12)
+        m_props.username.pop_back();
+}
 
 void arc::games::MenuGame::useEvent(arc::Events event)
 {
@@ -65,6 +159,7 @@ void arc::games::MenuGame::useEvent(arc::Events event)
     if (event == arc::KeyLeft) {
         this->m_isSelectingGame = true;
     }
+    this->useCharacterEvent(event);
 }
 
 void arc::games::MenuGame::update()
@@ -83,6 +178,8 @@ void arc::games::MenuGame::update()
         else
             item->setColor(arc::Color{255, 255, 255, this->isSelectingGame() ? uint8_t(190) : uint8_t(255)});
     }
+    if (this->m_ui.size() > 0)
+        this->m_ui[0]->setValue("Username: " + this->m_props.username);
 }
 
 const std::vector<std::shared_ptr<arc::Object>> arc::games::MenuGame::getObjects() const
@@ -92,6 +189,9 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::MenuGame::getObjects
         objects.push_back(obj);
     }
     for (auto obj : m_displays) {
+        objects.push_back(obj);
+    }
+    for (auto obj : m_ui) {
         objects.push_back(obj);
     }
     return objects;
