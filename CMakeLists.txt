@@ -10,6 +10,8 @@ set(SRCS
     src/Utils/FileParser.cpp
     src/Error.cpp
     src/Core.cpp
+    src/Object.cpp
+    src/Color.cpp
     src/main.cpp
 )
 

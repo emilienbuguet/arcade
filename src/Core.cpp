@@ -20,13 +20,27 @@ arc::Core::Core(const std::string& lib)
 
 arc::Core::~Core() = default;
 
+bool arc::Core::useEvent(arc::Events event)
+{
+    //todo catch lib changing events here...
+    return false;
+}
+
 void arc::Core::run()
 {
+    arc::Events event = arc::None;
     while (this->c_game->isRunning()) {
-        arc::Events event = this->c_display->getEvent();
-        this->c_game->useEvent(event);
+        event = this->c_display->getEvent();
+        if (!this->useEvent(event))
+            this->c_game->useEvent(event);
         this->c_game->update();
         this->c_display->drawObjects(this->c_game->getObjects());
+    }
+    if (this->currentGame == "menu" && event != arc::Exit) {
+        auto props = static_cast<arc::games::MenuGame*>(this->c_game.getInstance())->getProps();
+        this->c_game.load("./lib/arcade_" + props.gamelib + ".so");
+        this->c_display.load("./lib/arcade_" + props.graphicslib + ".so");
+        this->run();
     }
     std::cout << "Core finished running!" << std::endl;
 }
