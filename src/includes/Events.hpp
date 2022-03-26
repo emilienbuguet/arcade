@@ -40,6 +40,7 @@ enum Events {
     KeyEsc,
     KeySpace,
     KeyEnter,
+    KeyDel,
     Key0,
     Key1,
     Key2,
