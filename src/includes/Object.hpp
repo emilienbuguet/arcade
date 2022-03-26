@@ -58,6 +58,20 @@ namespace arc {
              */
             Vector getPosition() const;
 
+            /**
+             * @brief Setter for the value of the object
+             *
+             * @param value Value of the object
+             */
+            void setValue(const std::string &value);
+
+            /**
+             * @brief Setter for the position of the object
+             *
+             * @param pos
+             */
+            void setPosition(arc::Vector pos);
+
             private:
                 Type m_type;
                 std::string m_value;

@@ -29,6 +29,12 @@ namespace arc::display {
             virtual void drawObjects(std::vector<std::shared_ptr<arc::Object>> objs) = 0;
 
             /**
+             * @brief Draw the interface of the game
+             *
+             */
+            virtual void drawInterface(std::vector<std::shared_ptr<arc::Object>> objs) = 0;
+
+            /**
              * @brief get any event
              *
              * @return const arc::Events
