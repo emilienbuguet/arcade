@@ -1,97 +1,58 @@
-/*
-** EPITECH PROJECT, 2022
-** B-OOP-400-LYN-4-1-arcade-marvin.flamand
-** File description:
-** Snake
-*/
-
 #pragma once
 
-#include "Centipede.hpp"
+#include <Centipede.hpp>
+#include <Object.hpp>
 
-
-namespace arc::games {
-    class SnakeCell
+namespace arc::games::centipede  {
+    class SnakeCell : public arc::Sprite
     {
-    public:
-        /**
-         * @brief Construct a new check Cell object
-         *
-         */
-        checkCell(arc::games::Mushroom::mushrooms);
+        public:
+            /**
+             * @brief Type of the Cell
+             *
+             */
+            enum Type { HEAD, BODY};
 
-    private:
-        /**
-         * @brief Direction of cell
-         *
-         */
-        enum Direction
-        {
-            LEFT,
-            RIGHT,
-            DOWN
-        };
-        /**
-         * @brief Define what is cell
-         *
-         */
-        enum Type
-        {
-            HEAD,
-            BODY
-        };
+            /**
+             * @brief Construct a new Snake Cell object
+             *
+             * @param x position of the Cell on the x axis
+             * @param y position of the Cell on the y axiss
+             * @param type type of the Cell
+             */
+            SnakeCell(int x, int y, Type type);
 
-        /**
-         * @brief Origin of cell on x axis
-         *
-         */
-        int x;
-        /**
-         * @brief Origin of cell on y axis
-         *
-         */
-        int y;
-        /**
-         * @brief Size of cell on x axis
-         *
-         */
-        int width;
-        /**
-         * @brief Size of cell on y axis
-         *
-         */
-        int height;
-        /**
-         * @brief Type
-         *
-         */
-        Type type;
-        /**
-         * @brief DIRECTION
-         *
-         */
-        Direction direction;
+            /**
+             * @brief Destroy the Snake Cell object
+             *
+             */
+            ~SnakeCell();
+
+        private:
+            int x;
+            int y;
+            Type type;
     };
 
     class Snake
     {
-    public:
-        /**
-         * @brief Construct a new Snake object
-         *
-         */
-        Snake(int size, int x, int y);
-        /**
-         * @brief Destroy the Snake object
-         *
-         */
-        ~Snake();
+        public:
+            /**
+             * @brief Construct a new Snake object
+             *
+             * @param size amount of Cells the Snake contains
+             * @param x position of the head on the x axis
+             * @param y position of the head on the y axis
+             */
+            Snake(int size, int x, int y);
 
-    private:
-        /**
-         * @brief Array of cell = Snake
-         *
-         */
-        std::vector<arc::games::SnakeCells> snake;
+            /**
+             * @brief Destroy the Snake object
+             *
+             */
+            ~Snake();
+
+        private:
+            std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells;
     };
 }

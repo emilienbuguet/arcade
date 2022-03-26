@@ -5,26 +5,14 @@
 ** Player
 */
 
-#include "Player.hpp"
-#include "Snake.hpp"
-#include "Centipede.hpp"
+#include <Player.hpp>
 
-arc::games::Player::Player()
-{
-    x = 25 * 11;
-    y = 25 * 22;
-    height = 25;
-    width = 25;$
-    direction = STAY;
-}
-
-arc::games::Player::~Player()
+arc::games::centipede::Player::Player()
+    : arc::Sprite("centipede_player", arc::Vector{16, 19})
+    , dir(arc::games::centipede::Player::STAY)
 {
 }
 
-arc::games::Player::checkCell(arc::games::Mushroom::mushrooms)
+arc::games::centipede::Player::~Player()
 {
-    bool isChecking = false;
-
-    if ((direction == UP) && (x ))
 }

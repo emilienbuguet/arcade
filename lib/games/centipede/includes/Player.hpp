@@ -7,10 +7,9 @@
 
 #pragma once
 
-#include <iostream>
-#include "Centipede.hpp"
+#include <Object.hpp>
 
-namespace arc::games {
+namespace arc::games::centipede {
     class Player {
         public:
             /**
@@ -18,19 +17,23 @@ namespace arc::games {
              *
              */
             Player();
+
             /**
              * @brief Destroy the Player object
              *
              */
             ~Player();
-            checkCell(arc::games::Mushroom::mushrooms);
-        protected:
+
+            /**
+             * @brief Direction of the Player
+             *
+             */
+            enum Direction {LEFT, UP, RIGHT, DOWN, STAY};
         private:
-            enum DIRECTION {LEFT, UP, RIGHT, DOWN, STAY};
-            int x;
-            int y;
-            int height;
-            int width;
-            DIRECTION dir;
+            /**
+             * @brief Position of the player
+             *
+             */
+            Direction dir;
     };
 }
