@@ -189,57 +189,57 @@ arc::Events arc::display::Sdl2Display::interpretKeyboardEvent(const SDL_Keyboard
             return arc::KeySpace;
         case SDLK_RETURN:
             return arc::KeyEnter;
-        case SDLK_a:
+        case 'a':
             return arc::KeyA;
-        case SDLK_b:
+        case 'b':
             return arc::KeyB;
-        case SDLK_c:
+        case 'c':
             return arc::KeyC;
-        case SDLK_d:
+        case 'd':
             return arc::KeyD;
-        case SDLK_e:
+        case 'e':
             return arc::KeyE;
-        case SDLK_f:
+        case 'f':
             return arc::KeyF;
-        case SDLK_g:
+        case 'g':
             return arc::KeyG;
-        case SDLK_h:
+        case 'h':
             return arc::KeyH;
-        case SDLK_i:
+        case 'i':
             return arc::KeyI;
-        case SDLK_j:
+        case 'j':
             return arc::KeyJ;
-        case SDLK_k:
+        case 'k':
             return arc::KeyK;
-        case SDLK_l:
+        case 'l':
             return arc::KeyL;
-        case SDLK_m:
+        case 'm':
             return arc::KeyM;
-        case SDLK_n:
+        case 'n':
             return arc::KeyN;
-        case SDLK_o:
+        case 'o':
             return arc::KeyO;
-        case SDLK_p:
+        case 'p':
             return arc::KeyP;
-        case SDLK_q:
+        case 'q':
             return arc::KeyQ;
-        case SDLK_r:
+        case 'r':
             return arc::KeyR;
-        case SDLK_s:
+        case 's':
             return arc::KeyS;
-        case SDLK_t:
+        case 't':
             return arc::KeyT;
-        case SDLK_u:
+        case 'u':
             return arc::KeyU;
-        case SDLK_v:
+        case 'v':
             return arc::KeyV;
-        case SDLK_w:
+        case 'w':
             return arc::KeyW;
-        case SDLK_x:
+        case 'x':
             return arc::KeyX;
-        case SDLK_y:
+        case 'y':
             return arc::KeyY;
-        case SDLK_z:
+        case 'z':
             return arc::KeyZ;
         case SDLK_0:
             return arc::Key0;
@@ -261,6 +261,8 @@ arc::Events arc::display::Sdl2Display::interpretKeyboardEvent(const SDL_Keyboard
             return arc::Key8;
         case SDLK_9:
             return arc::Key9;
+        case SDLK_BACKSPACE:
+            return arc::KeyDel;
         default:
             return arc::None;
     }
