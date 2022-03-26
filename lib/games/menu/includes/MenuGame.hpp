@@ -3,6 +3,7 @@
 
 
 #include <AGame.hpp>
+#include <MenuItem.hpp>
 
 #pragma once
 
@@ -43,11 +44,20 @@ namespace arc::games {
             void update() final;
 
             /**
+             * @brief Get the game objects
+             *
+             * @return Game objects
+             */
+            const std::vector<std::shared_ptr<arc::Object>> getObjects() const final;
+
+            /**
              * @brief Get the properties of the game to start
              *
              * @return const MenuProprieties
              */
-            const MenuProprieties getProps() const;
+            const MenuProprieties getProps() const {
+                return m_props;
+            }
 
             /**
              * @brief Checks if game is starting or not
@@ -56,7 +66,37 @@ namespace arc::games {
              */
             bool isStarting() const;
 
-        private :
+            /**
+             * @brief Checks if user is selecting game or not
+             *
+             */
+            bool isSelectingGame() const;
+
+            /**
+             * @brief Selects previous game
+             *
+             */
+            void selectPreviousGame();
+
+            /**
+             * @brief Selects next game
+             *
+             */
+            void selectNextGame();
+
+            /**
+             * @brief Selects previous display
+             *
+             */
+            void selectPreviousDisplay();
+
+            /**
+             * @brief Selects next display
+             *
+             */
+            void selectNextDisplay();
+
+        private:
             /**
              * @brief Proprieties of the game that is about to start
              *
@@ -70,16 +110,22 @@ namespace arc::games {
             bool m_isStarting;
 
             /**
+             * @brief User is selecting his game
+             *
+             */
+            bool m_isSelectingGame;
+
+            /**
              * @brief List of available games
              *
              */
-            std::vector<std::string> m_games;
+            std::vector<std::shared_ptr<arc::games::menu::MenuItem>> m_games;
 
             /**
              * @brief List of available displays
              *
              */
-            std::vector<std::string> m_displays;
+            std::vector<std::shared_ptr<arc::games::menu::MenuItem>> m_displays;
 
     }; /* class MenuGame */
 

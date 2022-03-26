@@ -11,6 +11,7 @@ enum Events {
     KeyDown,
     KeyRight,
     KeyLeft,
+    KeyA,
     KeyB,
     KeyC,
     KeyD,

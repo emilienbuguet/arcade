@@ -26,14 +26,10 @@ arc::display::Sdl2Display::Sdl2Display()
         throw new arc::display::Sdl2Error{std::string("unable to create window: ") + SDL_GetError()};
     }
     SDL_SetWindowTitle(this->m_window, "Arcade");
-    this->font = TTF_OpenFont("./assets/fonts/GoldenAge.ttf", 5);
-    if (this->font == nullptr)
-        throw arc::display::Sdl2Error("unable to load font");
 }
 
 arc::display::Sdl2Display::~Sdl2Display()
 {
-    TTF_CloseFont(this->font);
     for (auto it = this->m_textures.begin(); it != this->m_textures.end(); it++) {
         if (it->second) {
             SDL_DestroyTexture(it->second);
@@ -71,41 +67,50 @@ SDL_Texture *arc::display::Sdl2Display::getTexture(const std::string& name)
 
 void arc::display::Sdl2Display::drawSprite(std::shared_ptr<arc::Object> obj)
 {
-    arc::Sprite *sprite = static_cast<arc::Sprite *>(obj.get());
-    SDL_Rect src { 0, 0, sprite->width, sprite->height };
-    if (sprite->width == 0 || sprite->height == 0) {
-        SDL_QueryTexture(this->getTexture(sprite->value), NULL, NULL, &src.w, &src.h);
+    auto sprite = std::static_pointer_cast<arc::Sprite>(obj);
+    if (sprite) {
+        SDL_Rect rect;
+        rect.x = sprite->getPosition().x;
+        rect.y = sprite->getPosition().y;
+        rect.h = sprite->getHeight();
+        rect.w = sprite->getWidth();
+        SDL_RenderCopy(this->m_renderer, this->getTexture(sprite->getValue()), NULL, &rect);
     }
-    SDL_Rect dest { sprite->pos.x, sprite->pos.y, src.w, src.h };
-    SDL_RenderCopy(this->m_renderer, this->getTexture(sprite->value), &src, &dest);
-    //todo free surface
 }
 
 void arc::display::Sdl2Display::drawText(std::shared_ptr<arc::Object> obj)
 {
-    arc::Text *text = static_cast<arc::Text *>(obj.get());
-    TTF_SetFontSize(this->font, text->size);
-    SDL_Rect src {0, 0, 0, 0};
-    SDL_Color color = {text->color.r, text->color.g, text->color.b, text->color.a};
+    auto text = std::static_pointer_cast<arc::Text>(obj);
+    TTF_Font *font = TTF_OpenFont("assets/fonts/GoldenAge.ttf", text->getSize());
 
-    // todo debug
-    SDL_Surface* surf = TTF_RenderText_Shaded(this->font, text->value.c_str(), color, color);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(this->m_renderer, surf);
-    SDL_QueryTexture(texture, NULL, NULL, &src.w, &src.h);
-    SDL_Rect dest { text->pos.x, text->pos.y, src.w, src.h };
-    SDL_RenderCopy(this->m_renderer, texture, &src, &dest);
-    //todo free surface
+    if (font == nullptr)
+        throw arc::display::Sdl2Error("unable to load font");
+    if (text) {
+        SDL_Color color = {text->getColor().r, text->getColor().g, text->getColor().b, text->getColor().a};
+        SDL_Surface* tmp = TTF_RenderText_Shaded(font, text->getValue().c_str(), color, {0, 0, 0, 255});
+        if (!tmp)
+            throw new arc::display::Sdl2Error("unable to render text");
+        SDL_Texture *texture = SDL_CreateTextureFromSurface(this->m_renderer, tmp);
+        SDL_FreeSurface(tmp);
+        SDL_Rect rect;
+        rect.x = text->getPosition().x;
+        rect.y = text->getPosition().y;
+        SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+        SDL_RenderCopy(this->m_renderer, texture, NULL, &rect);
+    }
+    TTF_CloseFont(font);
 }
 
 void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
     SDL_SetRenderDrawColor(this->m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->m_renderer);
-    for (std::shared_ptr<arc::Object>& obj : objs) {
-        if (obj->type == arc::Object::SPRITE)
-            this->drawSprite(obj);
-        else
-            this->drawText(obj);
+    for (auto it = objs.begin(); it != objs.end(); it++) {
+        if ((*it)->getType() == arc::Object::Type::SPRITE) {
+            this->drawSprite(*it);
+        } else if ((*it)->getType() == arc::Object::Type::TEXT) {
+            this->drawText(*it);
+        }
     }
     SDL_RenderPresent(this->m_renderer);
 }
@@ -116,6 +121,102 @@ arc::Events arc::display::Sdl2Display::getEvent() const
     while (SDL_PollEvent(&events)) {
         if (events.type == SDL_QUIT)
             return arc::Exit;
+        if (events.type == SDL_KEYDOWN)
+            return interpretKeyboardEvent(events.key);
     }
     return arc::None;
+}
+
+arc::Events arc::display::Sdl2Display::interpretKeyboardEvent(const SDL_KeyboardEvent& event) const
+{
+    switch (event.keysym.sym) {
+        case SDLK_ESCAPE:
+            return arc::KeyEsc;
+        case SDLK_UP:
+            return arc::KeyUp;
+        case SDLK_DOWN:
+            return arc::KeyDown;
+        case SDLK_LEFT:
+            return arc::KeyLeft;
+        case SDLK_RIGHT:
+            return arc::KeyRight;
+        case SDLK_SPACE:
+            return arc::KeySpace;
+        case SDLK_RETURN:
+            return arc::KeyEnter;
+        case SDLK_a:
+            return arc::KeyA;
+        case SDLK_b:
+            return arc::KeyB;
+        case SDLK_c:
+            return arc::KeyC;
+        case SDLK_d:
+            return arc::KeyD;
+        case SDLK_e:
+            return arc::KeyE;
+        case SDLK_f:
+            return arc::KeyF;
+        case SDLK_g:
+            return arc::KeyG;
+        case SDLK_h:
+            return arc::KeyH;
+        case SDLK_i:
+            return arc::KeyI;
+        case SDLK_j:
+            return arc::KeyJ;
+        case SDLK_k:
+            return arc::KeyK;
+        case SDLK_l:
+            return arc::KeyL;
+        case SDLK_m:
+            return arc::KeyM;
+        case SDLK_n:
+            return arc::KeyN;
+        case SDLK_o:
+            return arc::KeyO;
+        case SDLK_p:
+            return arc::KeyP;
+        case SDLK_q:
+            return arc::KeyQ;
+        case SDLK_r:
+            return arc::KeyR;
+        case SDLK_s:
+            return arc::KeyS;
+        case SDLK_t:
+            return arc::KeyT;
+        case SDLK_u:
+            return arc::KeyU;
+        case SDLK_v:
+            return arc::KeyV;
+        case SDLK_w:
+            return arc::KeyW;
+        case SDLK_x:
+            return arc::KeyX;
+        case SDLK_y:
+            return arc::KeyY;
+        case SDLK_z:
+            return arc::KeyZ;
+        case SDLK_0:
+            return arc::Key0;
+        case SDLK_1:
+            return arc::Key1;
+        case SDLK_2:
+            return arc::Key2;
+        case SDLK_3:
+            return arc::Key3;
+        case SDLK_4:
+            return arc::Key4;
+        case SDLK_5:
+            return arc::Key5;
+        case SDLK_6:
+            return arc::Key6;
+        case SDLK_7:
+            return arc::Key7;
+        case SDLK_8:
+            return arc::Key8;
+        case SDLK_9:
+            return arc::Key9;
+        default:
+            return arc::None;
+    }
 }

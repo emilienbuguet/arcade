@@ -79,7 +79,12 @@ namespace arc::display {
              */
             std::map<std::string, SDL_Texture*> m_textures;
 
-            TTF_Font *font;
+            /**
+             * @brief Interpret SDL2 Keyboard events
+             *
+             * @param event SDL2 Keyboard event
+             */
+            arc::Events interpretKeyboardEvent(const SDL_KeyboardEvent& event) const;
 
     }; /* class Sdl2Display */
 
