@@ -13,3 +13,5 @@ CMakeCache.txt
 arcade
 CMakeFiles
 *.so
+latex/
+html/
