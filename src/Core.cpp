@@ -91,7 +91,7 @@ void arc::Core::run()
 void arc::Core::update()
 {
     this->c_interface[0]->setValue(this->currentGame);
-    this->c_interface[2]->setValue("Score: " + std::to_string(this->c_score));
+    this->c_interface[2]->setValue("Score: " + std::to_string(this->c_score + this->c_game->getScore()));
 }
 
 void arc::Core::nextGame()
@@ -102,6 +102,7 @@ void arc::Core::nextGame()
             break;
     }
     this->currentGame = this->c_games[(i + 1) % this->c_games.size()];
+    this->c_score += this->c_game->getScore();
     this->c_game.load("./lib/arcade_" + this->currentGame + ".so");
 }
 
@@ -113,6 +114,7 @@ void arc::Core::previousGame()
             break;
     }
     this->currentGame = this->c_games[(i - 1 + this->c_games.size()) % this->c_games.size()];
+    this->c_score += this->c_game->getScore();
     this->c_game.load("./lib/arcade_" + this->currentGame + ".so");
 }
 

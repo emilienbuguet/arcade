@@ -46,6 +46,12 @@ namespace arc::games {
              *
              */
             virtual void update() = 0;
+
+            /**
+             * @brief Get the score of the user
+             *
+             */
+            virtual int getScore() const = 0;
     }; /* class IGameModule */
 
 } /* namespace arc::games */
