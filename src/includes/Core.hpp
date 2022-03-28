@@ -77,6 +77,30 @@ namespace arc {
              */
             void update();
 
+            /**
+             * @brief Switch to the next game
+             *
+             */
+            void nextGame();
+
+            /**
+             * @brief Switch to the previous game
+             *
+             */
+            void previousGame();
+
+            /**
+             * @brief Switch to the next display
+             *
+             */
+            void nextDisplay();
+
+            /**
+             * @brief Switch to the previous display
+             *
+             */
+            void previousDisplay();
+
         private:
 
             /**

@@ -10,6 +10,17 @@ std::string arc::utils::FileParser::getLibraryName(const std::string &pathToLib)
     return lastPart.substr(0, lastPart.find_last_of("."));
 }
 
+std::vector<std::string> arc::utils::FileParser::getLibrariesNames(std::vector<std::string> pathes)
+{
+    std::vector<std::string> libs;
+
+    for (std::string s : pathes) {
+        std::string lib = getLibraryName(s);
+        libs.push_back(lib);
+    }
+    return libs;
+}
+
 std::array<std::vector<std::string>, 2> arc::utils::FileParser::getAllLibraries(const std::string &path)
 {
     struct dirent* d;
