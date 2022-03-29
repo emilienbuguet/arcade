@@ -25,7 +25,13 @@ class NcursesDisplay : public arc::display::IDisplayModule {
              */
             arc::Events getEvent() const override;
 
+            /**
+             * @brief Draw the interface of the game
+             *
+             */
+            void drawInterface(std::vector<std::shared_ptr<arc::Object>> objs);
+
         private:
-                char *getTexture();
+            const char* getTexture(const std::string fileName);
     };
 }
