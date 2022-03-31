@@ -16,13 +16,13 @@ add_library(sfml SHARED
 
 set_target_properties(sfml PROPERTIES
     PREFIX "arcade_"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
 )
 
 target_include_directories(sfml PRIVATE
-    ${CMAKE_BINARY_DIR}/lib/graphics/sfml/includes
-    ${CMAKE_BINARY_DIR}/lib/graphics/includes
-    ${CMAKE_BINARY_DIR}/src/includes
+    ${CMAKE_SOURCE_DIR}/lib/graphics/sfml/includes
+    ${CMAKE_SOURCE_DIR}/lib/graphics/includes
+    ${CMAKE_SOURCE_DIR}/src/includes
     ${SFML_INCLUDE_DIR}
 )
 
