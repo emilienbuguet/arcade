@@ -15,11 +15,11 @@ add_library(centipede SHARED
 
 set_target_properties(centipede PROPERTIES
     PREFIX "arcade_"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
 )
 
 target_include_directories(centipede PRIVATE
-    ${CMAKE_BINARY_DIR}/lib/games/centipede/includes
-    ${CMAKE_BINARY_DIR}/lib/games/includes
-    ${CMAKE_BINARY_DIR}/src/includes
+    ${CMAKE_SOURCE_DIR}/lib/games/centipede/includes
+    ${CMAKE_SOURCE_DIR}/lib/games/includes
+    ${CMAKE_SOURCE_DIR}/src/includes
 )

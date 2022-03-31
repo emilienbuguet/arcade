@@ -22,6 +22,12 @@ namespace arc::utils {
             static std::string getLibraryName(const std::string &pathToLib);
 
             /**
+             * @brief Get the names of all libraries in a list
+             *
+             */
+            static std::vector<std::string> getLibrariesNames(const std::vector<std::string> libs);
+
+            /**
              * @brief Get the all the available libraries
              *
              * @param path path to the lib directory

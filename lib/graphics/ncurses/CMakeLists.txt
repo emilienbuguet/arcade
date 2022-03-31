@@ -16,13 +16,13 @@ add_library(ncurses SHARED
 
 set_target_properties(ncurses PROPERTIES
     PREFIX "arcade_"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
 )
 
 target_include_directories(ncurses PRIVATE
-    ${CMAKE_BINARY_DIR}/lib/graphics/ncurses/includes
-    ${CMAKE_BINARY_DIR}/lib/graphics/includes
-    ${CMAKE_BINARY_DIR}/src/includes
+    ${CMAKE_SOURCE_DIR}/lib/graphics/ncurses/includes
+    ${CMAKE_SOURCE_DIR}/lib/graphics/includes
+    ${CMAKE_SOURCE_DIR}/src/includes
     ${CURSES_INCLUDE_DIR}
 )
 

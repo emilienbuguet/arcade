@@ -16,6 +16,7 @@ arc::Core::Core(const std::string& lib)
     , c_score(0)
 {
     std::cout << "Core built on lib " + currentDisplay + "!" << std::endl;
+    std::cout << "Current game is " + currentGame + "!" << std::endl;
     auto libs = arc::utils::FileParser::getAllLibraries("./lib");
     this->c_games = libs[0];
     this->c_displays = libs[1];
@@ -33,14 +34,32 @@ arc::Core::Core(const std::string& lib)
                         ));
     this->c_interface.push_back(std::make_shared<arc::Text>("ESC to quit", Vector(1550, 400), 30, arc::Color { 255, 255, 255, 255 }));
     this->c_interface.push_back(std::make_shared<arc::Text>("ENTER to start", Vector(1520, 440), 30, arc::Color { 255, 255, 255, 255 }));
+    this->c_games = arc::utils::FileParser::getLibrariesNames(this->c_games);
+    this->c_displays = arc::utils::FileParser::getLibrariesNames(this->c_displays);
 }
 
 arc::Core::~Core() = default;
 
 bool arc::Core::useEvent(arc::Events event)
 {
-    //todo catch lib changing events here (AZ for games and OP for displays)
-    return false;
+    if (this->currentGame == "menu")
+        return false;
+    switch (event) {
+        case arc::KeyA:
+            this->previousGame();
+            return true;
+        case arc::KeyZ:
+            this->nextGame();
+            return true;
+        case arc::KeyO:
+            this->previousDisplay();
+            return true;
+        case arc::KeyP:
+            this->nextDisplay();
+            return true;
+        default:
+            return false;
+    }
 }
 
 void arc::Core::run()
@@ -73,4 +92,48 @@ void arc::Core::update()
 {
     this->c_interface[0]->setValue(this->currentGame);
     this->c_interface[2]->setValue("Score: " + std::to_string(this->c_score));
+}
+
+void arc::Core::nextGame()
+{
+    size_t i = 0;
+    for (; i < this->c_games.size(); i++) {
+        if (this->c_games[i] == this->currentGame)
+            break;
+    }
+    this->currentGame = this->c_games[(i + 1) % this->c_games.size()];
+    this->c_game.load("./lib/arcade_" + this->currentGame + ".so");
+}
+
+void arc::Core::previousGame()
+{
+    size_t i = 0;
+    for (; i < this->c_games.size(); i++) {
+        if (this->c_games[i] == this->currentGame)
+            break;
+    }
+    this->currentGame = this->c_games[(i - 1 + this->c_games.size()) % this->c_games.size()];
+    this->c_game.load("./lib/arcade_" + this->currentGame + ".so");
+}
+
+void arc::Core::nextDisplay()
+{
+    size_t i = 0;
+    for (; i < this->c_displays.size(); i++) {
+        if (this->c_displays[i] == this->currentDisplay)
+            break;
+    }
+    this->currentDisplay = this->c_displays[(i + 1) % this->c_displays.size()];
+    this->c_display.load("./lib/arcade_" + this->currentDisplay + ".so");
+}
+
+void arc::Core::previousDisplay()
+{
+    size_t i = 0;
+    for (; i < this->c_displays.size(); i++) {
+        if (this->c_displays[i] == this->currentDisplay)
+            break;
+    }
+    this->currentDisplay = this->c_displays[(i - 1 + this->c_displays.size()) % this->c_displays.size()];
+    this->c_display.load("./lib/arcade_" + this->currentDisplay + ".so");
 }
