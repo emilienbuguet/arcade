@@ -207,6 +207,30 @@ sdl2/fast:
 	$(MAKE) $(MAKESILENT) -f lib/graphics/sdl2/CMakeFiles/sdl2.dir/build.make lib/graphics/sdl2/CMakeFiles/sdl2.dir/build
 .PHONY : sdl2/fast
 
+src/Color.o: src/Color.cpp.o
+.PHONY : src/Color.o
+
+# target to build an object file
+src/Color.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Color.cpp.o
+.PHONY : src/Color.cpp.o
+
+src/Color.i: src/Color.cpp.i
+.PHONY : src/Color.i
+
+# target to preprocess a source file
+src/Color.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Color.cpp.i
+.PHONY : src/Color.cpp.i
+
+src/Color.s: src/Color.cpp.s
+.PHONY : src/Color.s
+
+# target to generate assembly for a file
+src/Color.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Color.cpp.s
+.PHONY : src/Color.cpp.s
+
 src/Core.o: src/Core.cpp.o
 .PHONY : src/Core.o
 
@@ -255,6 +279,30 @@ src/Error.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Error.cpp.s
 .PHONY : src/Error.cpp.s
 
+src/Object.o: src/Object.cpp.o
+.PHONY : src/Object.o
+
+# target to build an object file
+src/Object.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Object.cpp.o
+.PHONY : src/Object.cpp.o
+
+src/Object.i: src/Object.cpp.i
+.PHONY : src/Object.i
+
+# target to preprocess a source file
+src/Object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Object.cpp.i
+.PHONY : src/Object.cpp.i
+
+src/Object.s: src/Object.cpp.s
+.PHONY : src/Object.s
+
+# target to generate assembly for a file
+src/Object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Object.cpp.s
+.PHONY : src/Object.cpp.s
+
 src/Utils/FileParser.o: src/Utils/FileParser.cpp.o
 .PHONY : src/Utils/FileParser.o
 
@@ -278,6 +326,30 @@ src/Utils/FileParser.s: src/Utils/FileParser.cpp.s
 src/Utils/FileParser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Utils/FileParser.cpp.s
 .PHONY : src/Utils/FileParser.cpp.s
+
+src/Utils/HighscoreHandler.o: src/Utils/HighscoreHandler.cpp.o
+.PHONY : src/Utils/HighscoreHandler.o
+
+# target to build an object file
+src/Utils/HighscoreHandler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Utils/HighscoreHandler.cpp.o
+.PHONY : src/Utils/HighscoreHandler.cpp.o
+
+src/Utils/HighscoreHandler.i: src/Utils/HighscoreHandler.cpp.i
+.PHONY : src/Utils/HighscoreHandler.i
+
+# target to preprocess a source file
+src/Utils/HighscoreHandler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Utils/HighscoreHandler.cpp.i
+.PHONY : src/Utils/HighscoreHandler.cpp.i
+
+src/Utils/HighscoreHandler.s: src/Utils/HighscoreHandler.cpp.s
+.PHONY : src/Utils/HighscoreHandler.s
+
+# target to generate assembly for a file
+src/Utils/HighscoreHandler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/arcade.dir/build.make CMakeFiles/arcade.dir/src/Utils/HighscoreHandler.cpp.s
+.PHONY : src/Utils/HighscoreHandler.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -318,15 +390,24 @@ help:
 	@echo "... nibbler"
 	@echo "... sdl2"
 	@echo "... sfml"
+	@echo "... src/Color.o"
+	@echo "... src/Color.i"
+	@echo "... src/Color.s"
 	@echo "... src/Core.o"
 	@echo "... src/Core.i"
 	@echo "... src/Core.s"
 	@echo "... src/Error.o"
 	@echo "... src/Error.i"
 	@echo "... src/Error.s"
+	@echo "... src/Object.o"
+	@echo "... src/Object.i"
+	@echo "... src/Object.s"
 	@echo "... src/Utils/FileParser.o"
 	@echo "... src/Utils/FileParser.i"
 	@echo "... src/Utils/FileParser.s"
+	@echo "... src/Utils/HighscoreHandler.o"
+	@echo "... src/Utils/HighscoreHandler.i"
+	@echo "... src/Utils/HighscoreHandler.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

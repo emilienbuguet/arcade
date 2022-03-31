@@ -202,6 +202,30 @@ Sdl2Display.cpp.s:
 	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/graphics/sdl2/CMakeFiles/sdl2.dir/build.make lib/graphics/sdl2/CMakeFiles/sdl2.dir/Sdl2Display.cpp.s
 .PHONY : Sdl2Display.cpp.s
 
+__/__/__/src/Color.o: __/__/__/src/Color.cpp.o
+.PHONY : __/__/__/src/Color.o
+
+# target to build an object file
+__/__/__/src/Color.cpp.o:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/graphics/sdl2/CMakeFiles/sdl2.dir/build.make lib/graphics/sdl2/CMakeFiles/sdl2.dir/__/__/__/src/Color.cpp.o
+.PHONY : __/__/__/src/Color.cpp.o
+
+__/__/__/src/Color.i: __/__/__/src/Color.cpp.i
+.PHONY : __/__/__/src/Color.i
+
+# target to preprocess a source file
+__/__/__/src/Color.cpp.i:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/graphics/sdl2/CMakeFiles/sdl2.dir/build.make lib/graphics/sdl2/CMakeFiles/sdl2.dir/__/__/__/src/Color.cpp.i
+.PHONY : __/__/__/src/Color.cpp.i
+
+__/__/__/src/Color.s: __/__/__/src/Color.cpp.s
+.PHONY : __/__/__/src/Color.s
+
+# target to generate assembly for a file
+__/__/__/src/Color.cpp.s:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/graphics/sdl2/CMakeFiles/sdl2.dir/build.make lib/graphics/sdl2/CMakeFiles/sdl2.dir/__/__/__/src/Color.cpp.s
+.PHONY : __/__/__/src/Color.cpp.s
+
 __/__/__/src/Object.o: __/__/__/src/Object.cpp.o
 .PHONY : __/__/__/src/Object.o
 
@@ -244,6 +268,9 @@ help:
 	@echo "... Sdl2Display.o"
 	@echo "... Sdl2Display.i"
 	@echo "... Sdl2Display.s"
+	@echo "... __/__/__/src/Color.o"
+	@echo "... __/__/__/src/Color.i"
+	@echo "... __/__/__/src/Color.s"
 	@echo "... __/__/__/src/Object.o"
 	@echo "... __/__/__/src/Object.i"
 	@echo "... __/__/__/src/Object.s"

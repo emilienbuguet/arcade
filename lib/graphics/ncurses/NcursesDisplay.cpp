@@ -5,7 +5,18 @@ arc::display::NcursesDisplay::NcursesDisplay()
 {
     initscr();
     nodelay(stdscr, TRUE);
+    keypad(stdscr, TRUE);
     noecho();
+    start_color();
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_BLUE, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(6, COLOR_CYAN, COLOR_BLACK);
+    init_pair(7, COLOR_WHITE, COLOR_BLACK);
+    init_pair(8, COLOR_BLACK, COLOR_BLACK);
+    attron(A_BOLD);
 }
 
 arc::display::NcursesDisplay::~NcursesDisplay()
@@ -13,16 +24,51 @@ arc::display::NcursesDisplay::~NcursesDisplay()
     endwin();
 }
 
+void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string text, arc::Color color)
+{
+    switch(color.color) {
+        case arc::Color::ColorType::RED:
+            attron(COLOR_PAIR(1));
+            break;
+        case arc::Color::ColorType::GREEN:
+            attron(COLOR_PAIR(2));
+            break;
+        case arc::Color::ColorType::BLUE:
+            attron(COLOR_PAIR(3));
+            break;
+        case arc::Color::ColorType::YELLOW:
+            attron(COLOR_PAIR(4));
+            break;
+        case arc::Color::ColorType::MAGENTA:
+            attron(COLOR_PAIR(5));
+            break;
+        case arc::Color::ColorType::CYAN:
+            attron(COLOR_PAIR(6));
+            break;
+        case arc::Color::ColorType::WHITE:
+            attron(COLOR_PAIR(7));
+            break;
+        case arc::Color::ColorType::BLACK:
+            attron(COLOR_PAIR(8));
+            break;
+        default:
+            break;
+    }
+    mvprintw(y, x, text.c_str());
+}
+
 void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
     for (std::shared_ptr<arc::Object> i : objs) {
-        arc::Object obj = *i.get();
-        if (obj.getType() == arc::Object::Type::TEXT)
-            mvprintw(obj.getPosition().y, obj.getPosition().x, obj.getValue().c_str());
-        else {
+        if (i->getType() == arc::Object::Type::TEXT) {
+            auto txt = std::static_pointer_cast<arc::Text>(i);
+            printMiddle(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
+        } else {
+            arc::Object obj = *i.get();
             mvprintw(obj.getPosition().y, obj.getPosition().x, getTexture(obj.getValue()));
         }
     }
+    refresh();
 }
 
 arc::Events arc::display::NcursesDisplay::getEvent() const
@@ -38,7 +84,7 @@ arc::Events arc::display::NcursesDisplay::getEvent() const
         return arc::KeyRight;
     case ' ':
         return arc::KeySpace;
-    case KEY_ENTER:
+    case 10:
         return arc::KeyEnter;
     case 'a':
         return arc::KeyA;
@@ -115,6 +161,8 @@ arc::Events arc::display::NcursesDisplay::getEvent() const
     case 127:
         clear();
         return arc::KeyDel;
+    case 27:
+        return arc::KeyEsc;
     default:
         return arc::None;
     }

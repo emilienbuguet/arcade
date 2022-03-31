@@ -33,5 +33,6 @@ class NcursesDisplay : public arc::display::IDisplayModule {
 
         private:
             const char* getTexture(const std::string fileName);
+            void printMiddle(int y, int x, const std::string text, arc::Color color);
     };
 }

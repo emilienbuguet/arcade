@@ -178,6 +178,30 @@ MenuGame.cpp.s:
 	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/MenuGame.cpp.s
 .PHONY : MenuGame.cpp.s
 
+MenuItem.o: MenuItem.cpp.o
+.PHONY : MenuItem.o
+
+# target to build an object file
+MenuItem.cpp.o:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/MenuItem.cpp.o
+.PHONY : MenuItem.cpp.o
+
+MenuItem.i: MenuItem.cpp.i
+.PHONY : MenuItem.i
+
+# target to preprocess a source file
+MenuItem.cpp.i:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/MenuItem.cpp.i
+.PHONY : MenuItem.cpp.i
+
+MenuItem.s: MenuItem.cpp.s
+.PHONY : MenuItem.s
+
+# target to generate assembly for a file
+MenuItem.cpp.s:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/MenuItem.cpp.s
+.PHONY : MenuItem.cpp.s
+
 __/AGame.o: __/AGame.cpp.o
 .PHONY : __/AGame.o
 
@@ -201,6 +225,30 @@ __/AGame.s: __/AGame.cpp.s
 __/AGame.cpp.s:
 	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/__/AGame.cpp.s
 .PHONY : __/AGame.cpp.s
+
+__/__/__/src/Color.o: __/__/__/src/Color.cpp.o
+.PHONY : __/__/__/src/Color.o
+
+# target to build an object file
+__/__/__/src/Color.cpp.o:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/__/__/__/src/Color.cpp.o
+.PHONY : __/__/__/src/Color.cpp.o
+
+__/__/__/src/Color.i: __/__/__/src/Color.cpp.i
+.PHONY : __/__/__/src/Color.i
+
+# target to preprocess a source file
+__/__/__/src/Color.cpp.i:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/__/__/__/src/Color.cpp.i
+.PHONY : __/__/__/src/Color.cpp.i
+
+__/__/__/src/Color.s: __/__/__/src/Color.cpp.s
+.PHONY : __/__/__/src/Color.s
+
+# target to generate assembly for a file
+__/__/__/src/Color.cpp.s:
+	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/__/__/__/src/Color.cpp.s
+.PHONY : __/__/__/src/Color.cpp.s
 
 __/__/__/src/Error.o: __/__/__/src/Error.cpp.o
 .PHONY : __/__/__/src/Error.o
@@ -289,9 +337,15 @@ help:
 	@echo "... MenuGame.o"
 	@echo "... MenuGame.i"
 	@echo "... MenuGame.s"
+	@echo "... MenuItem.o"
+	@echo "... MenuItem.i"
+	@echo "... MenuItem.s"
 	@echo "... __/AGame.o"
 	@echo "... __/AGame.i"
 	@echo "... __/AGame.s"
+	@echo "... __/__/__/src/Color.o"
+	@echo "... __/__/__/src/Color.i"
+	@echo "... __/__/__/src/Color.s"
 	@echo "... __/__/__/src/Error.o"
 	@echo "... __/__/__/src/Error.i"
 	@echo "... __/__/__/src/Error.s"

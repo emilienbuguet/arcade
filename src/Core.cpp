@@ -20,9 +20,9 @@ arc::Core::Core(const std::string& lib)
     auto libs = arc::utils::FileParser::getAllLibraries("./lib");
     this->c_games = libs[0];
     this->c_displays = libs[1];
-    this->c_interface.push_back(std::make_shared<arc::Text>("Menu", Vector(920, 50), 40, arc::Color{255, 255, 255, 255}));
+    this->c_interface.push_back(std::make_shared<arc::Text>("Menu", Vector(920, 50), 40, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Sprite>("board", Vector(1920 / 2 - 401, 1080 / 2 - 301)));
-    this->c_interface.push_back(std::make_shared<arc::Text>("Score: " + std::to_string(this->c_score), Vector(900, 950), 40, arc::Color { 255, 255, 255, 255 }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("Score: " + std::to_string(this->c_score), Vector(900, 950), 40, arc::Color { arc::Color::WHITE }));
     std::vector<std::shared_ptr<arc::Object>> scores = this->c_highscore->toObjects();
     for (size_t i = 0; i < scores.size(); i++) {
         this->c_interface.push_back(scores[i]);
@@ -30,10 +30,10 @@ arc::Core::Core(const std::string& lib)
     this->c_interface.push_back(std::make_shared<arc::Text>("Keybindings",
                             arc::Vector{ 1550, 300 },
                             30,
-                            arc::Color{ 255, 255, 0, 255 }
+                            arc::Color{ arc::Color::YELLOW }
                         ));
-    this->c_interface.push_back(std::make_shared<arc::Text>("ESC to quit", Vector(1550, 400), 30, arc::Color { 255, 255, 255, 255 }));
-    this->c_interface.push_back(std::make_shared<arc::Text>("ENTER to start", Vector(1520, 440), 30, arc::Color { 255, 255, 255, 255 }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("ESC to quit", Vector(1550, 400), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("ENTER to start", Vector(1520, 440), 30, arc::Color { arc::Color::WHITE }));
     this->c_games = arc::utils::FileParser::getLibrariesNames(this->c_games);
     this->c_displays = arc::utils::FileParser::getLibrariesNames(this->c_displays);
 }
