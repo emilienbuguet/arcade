@@ -32,7 +32,8 @@ class NcursesDisplay : public arc::display::IDisplayModule {
             void drawInterface(std::vector<std::shared_ptr<arc::Object>> objs);
 
         private:
-            const char* getTexture(const std::string fileName);
+            void getTexture(const std::string fileName, int y, int x);
             void printMiddle(int y, int x, const std::string text, arc::Color color);
+            arc::Color getSpriteColor(std::string line);
     };
 }

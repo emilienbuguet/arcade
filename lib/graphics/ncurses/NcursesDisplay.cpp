@@ -65,7 +65,7 @@ void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::
             printMiddle(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
         } else {
             arc::Object obj = *i.get();
-            mvprintw(obj.getPosition().y, obj.getPosition().x, getTexture(obj.getValue()));
+            getTexture(obj.getValue(), obj.getPosition().y, obj.getPosition().x);
         }
     }
     refresh();
@@ -168,13 +168,42 @@ arc::Events arc::display::NcursesDisplay::getEvent() const
     }
 }
 
-const char *arc::display::NcursesDisplay::getTexture(const std::string fileName)
+arc::Color arc::display::NcursesDisplay::getSpriteColor(std::string line)
 {
-    std::ifstream asset("src/assets/ncurses/" + fileName);
-    std::string texture("");
-    if (asset.is_open())
-        asset >> texture;
-    return (texture.c_str());
+    if (line == "RED")
+        return arc::Color(arc::Color::ColorType::RED);
+    if (line == "GREEN")
+        return arc::Color(arc::Color::ColorType::GREEN);
+    if (line == "BLUE")
+        return arc::Color(arc::Color::ColorType::BLUE);
+    if (line == "YELLOW")
+        return arc::Color(arc::Color::ColorType::YELLOW);
+    if (line == "MAGENTA")
+        return arc::Color(arc::Color::ColorType::MAGENTA);
+    if (line == "CYAN")
+        return arc::Color(arc::Color::ColorType::CYAN);
+    if (line == "WHITE")
+        return arc::Color(arc::Color::ColorType::WHITE);
+    if (line == "BLACK")
+        return arc::Color(arc::Color::ColorType::BLACK);
+    return arc::Color(arc::Color::ColorType::WHITE);
+}
+
+void arc::display::NcursesDisplay::getTexture(const std::string fileName, int y, int x)
+{
+    std::ifstream file("src/assets/ncurses/" + fileName);
+    std::string line;
+    std::string sprite = "";
+    arc::Color color(arc::Color::ColorType::WHITE);
+
+    for (int i = 0; std::getline(file, line); i++) {
+        if (i == 0) {
+            color = getSpriteColor(line);
+            continue;
+        }
+        sprite = sprite + line;
+    }
+    printMiddle(y, x, sprite, color);
 }
 
 void arc::display::NcursesDisplay::drawInterface(__attribute__((unused)) std::vector<std::shared_ptr<arc::Object>> objs)
