@@ -26,6 +26,9 @@ arc::display::NcursesDisplay::~NcursesDisplay()
 
 void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string text, arc::Color color)
 {
+    int row;
+    int col;
+
     switch(color.color) {
         case arc::Color::ColorType::RED:
             attron(COLOR_PAIR(1));
@@ -54,7 +57,17 @@ void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string t
         default:
             break;
     }
-    mvprintw(y, x, text.c_str());
+    if (color.a != 255)
+        attroff(A_BOLD);
+    else
+        attron(A_BOLD);
+
+    getmaxyx(stdscr, row, col);
+    mvprintw(row / 2 - 13, col / 2 - 13, "o");
+    mvprintw(row / 2 - 13 + 25, col / 2 - 13 + 25, "o");
+    mvprintw(row / 2 - 13 + 25, col / 2 - 13, "o");
+    mvprintw(row / 2 - 13, col / 2 - 13 + 25, "o");
+    mvprintw(row / 2 - 13 + y, col / 2 - 13 + x, text.c_str());
 }
 
 void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
