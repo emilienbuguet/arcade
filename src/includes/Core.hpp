@@ -38,14 +38,6 @@ namespace arc {
             std::unique_ptr<arc::display::IDisplayModule> getDisplay() const;
 
             /**
-             * @brief get the loaded game module
-             *
-             * @returns std::unique_ptr<arc::games::IGameModule>
-             *
-             */
-            std::unique_ptr<arc::games::IGameModule> getGame() const;
-
-            /**
              * @brief starts the arcade machine
              *
              */
