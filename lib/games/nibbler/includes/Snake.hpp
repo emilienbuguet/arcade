@@ -10,6 +10,7 @@
 #include "Direction.hpp"
 #include <vector>
 
+namespace arc::games {
 class Snake {
     public:
         Snake(int x, int y);
@@ -17,6 +18,7 @@ class Snake {
 
         /**
          * @brief move the snake by one cell, in 's_facing' direction
+         *
          *
          */
         void moveSnake();
@@ -54,8 +56,16 @@ class Snake {
          */
         std::vector<SnakeCell> getBody();
 
-    private : int s_Xpos;
+        /**
+         * @brief get a vector of object of the whole snake
+         *
+         */
+        const std::vector<std::shared_ptr<arc::Object>> getObjects() const;
+
+    private :
+        int s_Xpos;
         int s_Ypos;
         direction::Facing s_facing;
         std::vector<SnakeCell> body;
 };
+}

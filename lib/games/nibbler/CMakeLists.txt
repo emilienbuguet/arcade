@@ -6,8 +6,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SRCS
     ./Nibbler.cpp
+    ./NibblerGame.cpp
     ./Snake.cpp
     ./SnakeCell.cpp
+    ${CMAKE_SOURCE_DIR}/lib/games/AGame.cpp
+    ${CMAKE_SOURCE_DIR}/src/Object.cpp
 )
 
 add_library(nibbler SHARED
