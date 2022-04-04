@@ -63,11 +63,11 @@ void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string t
         attron(A_BOLD);
 
     getmaxyx(stdscr, row, col);
-    mvprintw(row / 2 - 13, col / 2 - 13, "o");
-    mvprintw(row / 2 - 13 + 25, col / 2 - 13 + 25, "o");
-    mvprintw(row / 2 - 13 + 25, col / 2 - 13, "o");
-    mvprintw(row / 2 - 13, col / 2 - 13 + 25, "o");
-    mvprintw(row / 2 - 13 + y, col / 2 - 13 + x, text.c_str());
+    mvprintw(row / 2 - 12, col / 2 - 24, "o");
+    mvprintw(row / 2 + 12, col / 2 + 24, "o");
+    mvprintw(row / 2 + 12, col / 2 - 24, "o");
+    mvprintw(row / 2 - 12, col / 2 + 24, "o");
+    mvprintw(row / 2 - 12 + y, col / 2 - 24 + (x * 2), text.c_str());
 }
 
 void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
@@ -176,6 +176,9 @@ arc::Events arc::display::NcursesDisplay::getEvent() const
         return arc::KeyDel;
     case 27:
         return arc::KeyEsc;
+    case KEY_RESIZE:
+        clear();
+        return arc::None;
     default:
         return arc::None;
     }
