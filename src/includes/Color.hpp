@@ -14,6 +14,7 @@ namespace arc {
         uint8_t g;
         uint8_t b;
         uint8_t a;
+
         enum ColorType
         {
             RED,
@@ -29,8 +30,7 @@ namespace arc {
         Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a, ColorType color) : r(r), g(g), b(b), a(a), color(color) {}
         Color(ColorType type)
         {
-            switch (type)
-            {
+            switch (type) {
             case RED:
                 r = 255;
                 g = 0;
