@@ -22,12 +22,12 @@ add_library(sdl2 SHARED
 
 set_target_properties(sdl2 PROPERTIES
     PREFIX "arcade_"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
 )
 
 target_include_directories(sdl2 PRIVATE
-    ${CMAKE_BINARY_DIR}/lib/graphics/sdl2/includes
-    ${CMAKE_BINARY_DIR}/lib/graphics/includes
-    ${CMAKE_BINARY_DIR}/src/includes
+    ${CMAKE_SOURCE_DIR}/lib/graphics/sdl2/includes
+    ${CMAKE_SOURCE_DIR}/lib/graphics/includes
+    ${CMAKE_SOURCE_DIR}/src/includes
     ${SDL2_INCLUDE_DIR}
 )

@@ -3,15 +3,13 @@
 
 #pragma once
 
-namespace arc
-{
+namespace arc {
 
     /**
      * @brief Represents a color
      *
      */
-    struct Color
-    {
+    struct Color {
         uint8_t r;
         uint8_t g;
         uint8_t b;
@@ -95,4 +93,4 @@ namespace arc
 
 } /* namespace arc */
 
-std::ostream &operator<<(std::ostream &os, arc::Color &c);
+std::ostream& operator<<(std::ostream& os, arc::Color& c);
