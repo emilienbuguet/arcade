@@ -8,7 +8,7 @@
 #include "NibblerGame.hpp"
 
 arc::games::NibblerGame::NibblerGame()
-    : snake(16, 8)
+    : snake(15, 8), food()
 {
     n_map = {
         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -60,12 +60,17 @@ void arc::games::NibblerGame::useEvent(arc::Events event)
 
 void arc::games::NibblerGame::update()
 {
-    if (clock() - n_clock >= 100000) {
+    if (clock() - n_clock >= 250000) {
         n_clock = clock();
         snake.moveSnake();
-        if (n_map[snake.getYpos()][snake.getXpos()] == 'X') {
-            std::cout << "skake hitted the wall starfullah " << std::endl;
+        if (n_map[snake.getYpos()][snake.getXpos()] == 'X' || snake.hasPrevPosition(snake.getXpos(), snake.getYpos()))
             this->m_isRunning = false;
+        snake.updateOldFacing();
+
+        if (snake.getYpos() == food.getYpos() && snake.getXpos() == food.getXpos()) {
+            snake.eat();
+            this->n_score += 100;
+            spawnFood();
         }
     }
 }
@@ -75,8 +80,19 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::NibblerGame::getObje
     std::vector<std::shared_ptr<arc::Object>> objects;
     std::vector<std::shared_ptr<arc::Object>> snakeObj(snake.getObjects());
     arc::Sprite sprite("map", arc::Vector(0, 0), 26, 32);
-    //add food
     objects.push_back(std::make_shared<arc::Sprite>(sprite));
     objects.insert(std::end(objects), std::begin(snakeObj), std::end(snakeObj));
+    objects.push_back(std::make_shared<arc::Sprite>(arc::Sprite("food", arc::Vector(food.getXpos(), food.getYpos()), 1, 1)));
     return objects;
+}
+
+void arc::games::NibblerGame::spawnFood()
+{
+    int x = rand() % 32;
+    int y = rand() % 26;
+    while (n_map[y][x] == 'X' || snake.hasPosition(x, y) == true) {
+        x = rand() % 32;
+        y = rand() % 26;
+    }
+    food.setPos(x, y);
 }

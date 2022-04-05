@@ -12,6 +12,7 @@ arc::games::Snake::Snake(int x, int y)
     , s_Ypos(y)
 {
     s_facing = direction::Facing::RIGHT;
+    s_OldFacing = direction::Facing::RIGHT;
     body.push_back(SnakeCell(x - 1, y));
     body.push_back(SnakeCell(x - 2, y));
     body.push_back(SnakeCell(x - 3, y));
@@ -61,6 +62,14 @@ void arc::games::Snake::eat()
 
 void arc::games::Snake::changeFacing(direction::Facing facing)
 {
+    if (facing == direction::Facing::UP && s_OldFacing == direction::Facing::DOWN)
+        return;
+    if (facing == direction::Facing::DOWN && s_OldFacing == direction::Facing::UP)
+        return;
+    if (facing == direction::Facing::LEFT && s_OldFacing == direction::Facing::RIGHT)
+        return;
+    if (facing == direction::Facing::RIGHT && s_OldFacing == direction::Facing::LEFT)
+        return;
     if (s_facing == direction::Facing::UP && facing != direction::Facing::DOWN) {
         s_facing = facing;
         return;
@@ -78,6 +87,11 @@ void arc::games::Snake::changeFacing(direction::Facing facing)
         return;
     }
     return;
+}
+
+void arc::games::Snake::updateOldFacing()
+{
+    s_OldFacing = s_facing;
 }
 
 std::vector<arc::games::SnakeCell> arc::games::Snake::getBody()
@@ -111,4 +125,24 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::Snake::getObjects() 
     for (int i = 0; i < size; i++)
         objects.push_back(body[i].getObject());
     return objects;
+}
+
+bool arc::games::Snake::hasPosition(int x, int y)
+{
+    if (s_Xpos == x && s_Ypos == y)
+        return true;
+    int size = body.size();
+    for (int i = 0; i < size; i++)
+        if (body[i].getXpos() == x && body[i].getYpos() == y)
+            return true;
+    return false;
+}
+
+bool arc::games::Snake::hasPrevPosition(int x, int y)
+{
+    int size = body.size();
+    for (int i = 0; i < size; i++)
+        if (body[i].getPrevXpos() == x && body[i].getPrevYpos() == y)
+            return true;
+    return false;
 }

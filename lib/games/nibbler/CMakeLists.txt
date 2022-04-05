@@ -9,6 +9,7 @@ set(SRCS
     ./NibblerGame.cpp
     ./Snake.cpp
     ./SnakeCell.cpp
+    ./Food.cpp
     ${CMAKE_SOURCE_DIR}/lib/games/AGame.cpp
     ${CMAKE_SOURCE_DIR}/src/Object.cpp
 )

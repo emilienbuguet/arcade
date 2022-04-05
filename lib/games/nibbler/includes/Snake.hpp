@@ -50,6 +50,12 @@ class Snake {
         void changeFacing(direction::Facing facing);
 
         /**
+         * @brief set the OldFacing to Facing
+         *
+         */
+        void updateOldFacing();
+
+        /**
          * @brief Get the Body object
          *
          * @return std::vector<SnakeCell>
@@ -62,10 +68,30 @@ class Snake {
          */
         const std::vector<std::shared_ptr<arc::Object>> getObjects() const;
 
-    private :
-        int s_Xpos;
+        /**
+         * @brief check if the snake has a cell at position (x, y)
+         *
+         * @param x X position
+         * @param y Y position
+         * @return true
+         * @return false
+         */
+        bool hasPosition(int x, int y);
+
+        /**
+         * @brief check if the snake has a cell at previous position (x, y)
+         *
+         * @param x X position
+         * @param y Y position
+         * @return true
+         * @return false
+         */
+        bool hasPrevPosition(int x, int y);
+
+    private : int s_Xpos;
         int s_Ypos;
         direction::Facing s_facing;
+        direction::Facing s_OldFacing;
         std::vector<SnakeCell> body;
 };
 }

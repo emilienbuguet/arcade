@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string>
 #include <time.h>
+#include <Food.hpp>
 
 namespace arc::games {
 class NibblerGame : public AGame {
@@ -51,6 +52,8 @@ public:
      * @return Game objects
      */
     const std::vector<std::shared_ptr<arc::Object>> getObjects() const final;
+
+
 private:
     Snake snake;
     int n_highScore;
@@ -59,5 +62,12 @@ private:
     int n_timeLeft;
     std::vector<std::string> n_map;
     clock_t n_clock;
+    Food food;
+
+    /**
+     * @brief Spawns a food
+     *
+     */
+    void spawnFood();
 };
 } // namespace arc::games
