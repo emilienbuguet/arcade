@@ -3,7 +3,7 @@
 
 arc::display::NcursesDisplay::NcursesDisplay()
 {
-    //initscr();
+    initscr();
     nodelay(stdscr, TRUE);
     keypad(stdscr, TRUE);
     noecho();

@@ -1,7 +1,6 @@
 #include "Food.hpp"
 
 arc::games::Food::Food()
-    : pos_x(16), pos_y(8)
 {
 
 }

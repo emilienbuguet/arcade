@@ -37,6 +37,7 @@ arc::games::NibblerGame::NibblerGame()
         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     };
     n_clock = clock();
+    spawnFood();
 }
 
 arc::games::NibblerGame::~NibblerGame()
@@ -89,10 +90,10 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::NibblerGame::getObje
 void arc::games::NibblerGame::spawnFood()
 {
     int x = rand() % 32;
-    int y = rand() % 26;
+    int y = rand() % 24;
     while (n_map[y][x] == 'X' || snake.hasPosition(x, y) == true) {
         x = rand() % 32;
-        y = rand() % 26;
+        y = rand() % 24;
     }
     food.setPos(x, y);
 }
