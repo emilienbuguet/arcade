@@ -8,7 +8,7 @@
 #include <iostream>
 
 arc::Core::Core(const std::string& lib)
-    : c_game("./lib/arcade_menu.so")
+    : c_game("./lib/arcade_nibbler.so")
     , c_display(lib)
     , currentDisplay(arc::utils::FileParser::getLibraryName(lib))
     , currentGame("menu")

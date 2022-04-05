@@ -40,6 +40,7 @@ void arc::games::Snake::moveSnake()
         body[i].updateAxis();
         body[i - 1].setPrevPos(body[i - 1].getXpos(), body[i - 1].getYpos());
     }
+    body[size - 1].setPrevPos(body[size - 1].getXpos(), body[size - 1].getYpos());
 }
 
 int arc::games::Snake::getXpos()

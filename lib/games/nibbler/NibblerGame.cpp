@@ -63,6 +63,10 @@ void arc::games::NibblerGame::update()
     if (clock() - n_clock >= 100000) {
         n_clock = clock();
         snake.moveSnake();
+        if (n_map[snake.getYpos()][snake.getXpos()] == 'X') {
+            std::cout << "skake hitted the wall starfullah " << std::endl;
+            this->m_isRunning = false;
+        }
     }
 }
 

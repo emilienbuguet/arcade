@@ -3,7 +3,7 @@
 
 arc::display::NcursesDisplay::NcursesDisplay()
 {
-    initscr();
+    //initscr();
     nodelay(stdscr, TRUE);
     keypad(stdscr, TRUE);
     noecho();
@@ -63,10 +63,10 @@ void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string t
         attron(A_BOLD);
 
     getmaxyx(stdscr, row, col);
-    mvprintw(row / 2 - 12, col / 2 - 24, "o");
-    mvprintw(row / 2 + 12, col / 2 + 24, "o");
-    mvprintw(row / 2 + 12, col / 2 - 24, "o");
-    mvprintw(row / 2 - 12, col / 2 + 24, "o");
+    // mvprintw(row / 2 - 12, col / 2 - 24, "o");
+    // mvprintw(row / 2 + 12, col / 2 + 24, "o");
+    // mvprintw(row / 2 + 12, col / 2 - 24, "o");
+    // mvprintw(row / 2 - 12, col / 2 + 24, "o");
     mvprintw(row / 2 - 12 + y, col / 2 - 24 + (x * 2), text.c_str());
 }
 
@@ -82,6 +82,7 @@ void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::
         }
     }
     refresh();
+    move(0, 0);
 }
 
 arc::Events arc::display::NcursesDisplay::getEvent() const
@@ -207,9 +208,8 @@ arc::Color arc::display::NcursesDisplay::getSpriteColor(std::string line)
 
 void arc::display::NcursesDisplay::getTexture(const std::string fileName, int y, int x)
 {
-    std::ifstream file("src/assets/ncurses/" + fileName);
+    std::ifstream file("assets/ncurses/" + fileName + ".txt");
     std::string line;
-    std::string sprite = "";
     arc::Color color(arc::Color::ColorType::WHITE);
 
     for (int i = 0; std::getline(file, line); i++) {
@@ -217,9 +217,8 @@ void arc::display::NcursesDisplay::getTexture(const std::string fileName, int y,
             color = getSpriteColor(line);
             continue;
         }
-        sprite = sprite + line;
+        printMiddle(y + i - 1, x, line, color);
     }
-    printMiddle(y, x, sprite, color);
 }
 
 void arc::display::NcursesDisplay::drawInterface(__attribute__((unused)) std::vector<std::shared_ptr<arc::Object>> objs)
