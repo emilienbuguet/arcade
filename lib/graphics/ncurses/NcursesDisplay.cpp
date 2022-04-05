@@ -6,6 +6,7 @@ arc::display::NcursesDisplay::NcursesDisplay()
     initscr();
     nodelay(stdscr, TRUE);
     keypad(stdscr, TRUE);
+    curs_set(0);
     noecho();
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -22,6 +23,27 @@ arc::display::NcursesDisplay::NcursesDisplay()
 arc::display::NcursesDisplay::~NcursesDisplay()
 {
     endwin();
+}
+
+void arc::display::NcursesDisplay::drawBorder()
+{
+    int row;
+    int col;
+    getmaxyx(stdscr, row, col);
+    int begin_y = row / 2 - 13;
+    int begin_x = col / 2 - 33;
+    for (int i = 0; i < 26; i++) {
+        if (i == 0) {
+            mvprintw(begin_y, begin_x, "+----------------------------------------------------------------+");
+            continue;
+        }
+        if (i == 25) {
+            mvprintw(begin_y + i, begin_x, "+----------------------------------------------------------------+");
+            continue;
+        }
+        mvprintw(begin_y + i, begin_x, "|");
+        mvprintw(begin_y + i, begin_x + 65, "|");
+    }
 }
 
 void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string text, arc::Color color)
@@ -63,11 +85,8 @@ void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string t
         attron(A_BOLD);
 
     getmaxyx(stdscr, row, col);
-    // mvprintw(row / 2 - 12, col / 2 - 24, "o");
-    // mvprintw(row / 2 + 12, col / 2 + 24, "o");
-    // mvprintw(row / 2 + 12, col / 2 - 24, "o");
-    // mvprintw(row / 2 - 12, col / 2 + 24, "o");
-    mvprintw(row / 2 - 12 + y, col / 2 - 24 + (x * 2), text.c_str());
+    //std::cout << row << " " << col << std::endl;
+    mvprintw(row / 2 - 12 + y, col / 2 - 32 + (x * 2), text.c_str());
 }
 
 void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
@@ -221,7 +240,73 @@ void arc::display::NcursesDisplay::getTexture(const std::string fileName, int y,
     }
 }
 
-void arc::display::NcursesDisplay::drawInterface(__attribute__((unused)) std::vector<std::shared_ptr<arc::Object>> objs)
+void arc::display::NcursesDisplay::printInterface(int y, int x, const std::string text, arc::Color color)
 {
+    int row;
+    int col;
+    getmaxyx(stdscr, row, col);
 
+    switch (color.color) {
+    case arc::Color::ColorType::RED:
+        attron(COLOR_PAIR(1));
+        break;
+    case arc::Color::ColorType::GREEN:
+        attron(COLOR_PAIR(2));
+        break;
+    case arc::Color::ColorType::BLUE:
+        attron(COLOR_PAIR(3));
+        break;
+    case arc::Color::ColorType::YELLOW:
+        attron(COLOR_PAIR(4));
+        break;
+    case arc::Color::ColorType::MAGENTA:
+        attron(COLOR_PAIR(5));
+        break;
+    case arc::Color::ColorType::CYAN:
+        attron(COLOR_PAIR(6));
+        break;
+    case arc::Color::ColorType::WHITE:
+        attron(COLOR_PAIR(7));
+        break;
+    case arc::Color::ColorType::BLACK:
+        attron(COLOR_PAIR(8));
+        break;
+    default:
+        break;
+    }
+
+    mvprintw(y * row / 1080, x * col / 1920, text.c_str());
+}
+
+void arc::display::NcursesDisplay::getTextureInterface(const std::string fileName, int y, int x)
+{
+    std::ifstream file("assets/ncurses/" + fileName + ".txt");
+    std::string line;
+    arc::Color color(arc::Color::ColorType::WHITE);
+    int row;
+    int col;
+    getmaxyx(stdscr, row, col);
+
+    for (int i = 0; std::getline(file, line); i++) {
+        if (i == 0) {
+            color = getSpriteColor(line);
+            continue;
+        }
+        printInterface(y + i - y, x, line, color);
+    }
+}
+
+void arc::display::NcursesDisplay::drawInterface(std::vector<std::shared_ptr<arc::Object>> objs)
+{
+    for (std::shared_ptr<arc::Object> i : objs) {
+        if (i->getType() == arc::Object::Type::TEXT) {
+            auto txt = std::static_pointer_cast<arc::Text>(i);
+            printInterface(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
+        } else {
+            arc::Object obj = *i.get();
+            getTextureInterface(obj.getValue(), obj.getPosition().y, obj.getPosition().x);
+        }
+    }
+    refresh();
+    move(0, 0);
 }
