@@ -7,11 +7,11 @@
 
 #pragma once
 
+#include <Object.hpp>
 #include <iostream>
-#include "Centipede.hpp"
 
 namespace arc::games::centipede {
-    class Player {
+    class Player : public arc::Sprite {
         public:
             /**
              * @brief Construct a new Player object

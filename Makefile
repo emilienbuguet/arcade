@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
+CMAKE_SOURCE_DIR = /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
+CMAKE_BINARY_DIR = /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -130,45 +130,6 @@ arcade/fast:
 .PHONY : arcade/fast
 
 #=============================================================================
-# Target rules for targets named nibbler
-
-# Build rule for target.
-nibbler: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nibbler
-.PHONY : nibbler
-
-# fast build rule for target.
-nibbler/fast:
-	$(MAKE) $(MAKESILENT) -f lib/games/nibbler/CMakeFiles/nibbler.dir/build.make lib/games/nibbler/CMakeFiles/nibbler.dir/build
-.PHONY : nibbler/fast
-
-#=============================================================================
-# Target rules for targets named centipede
-
-# Build rule for target.
-centipede: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 centipede
-.PHONY : centipede
-
-# fast build rule for target.
-centipede/fast:
-	$(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/build
-.PHONY : centipede/fast
-
-#=============================================================================
-# Target rules for targets named menu
-
-# Build rule for target.
-menu: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 menu
-.PHONY : menu
-
-# fast build rule for target.
-menu/fast:
-	$(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/build
-.PHONY : menu/fast
-
-#=============================================================================
 # Target rules for targets named ncurses
 
 # Build rule for target.
@@ -180,6 +141,19 @@ ncurses: cmake_check_build_system
 ncurses/fast:
 	$(MAKE) $(MAKESILENT) -f lib/graphics/ncurses/CMakeFiles/ncurses.dir/build.make lib/graphics/ncurses/CMakeFiles/ncurses.dir/build
 .PHONY : ncurses/fast
+
+#=============================================================================
+# Target rules for targets named sdl2
+
+# Build rule for target.
+sdl2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sdl2
+.PHONY : sdl2
+
+# fast build rule for target.
+sdl2/fast:
+	$(MAKE) $(MAKESILENT) -f lib/graphics/sdl2/CMakeFiles/sdl2.dir/build.make lib/graphics/sdl2/CMakeFiles/sdl2.dir/build
+.PHONY : sdl2/fast
 
 #=============================================================================
 # Target rules for targets named sfml
@@ -195,17 +169,43 @@ sfml/fast:
 .PHONY : sfml/fast
 
 #=============================================================================
-# Target rules for targets named sdl2
+# Target rules for targets named centipede
 
 # Build rule for target.
-sdl2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sdl2
-.PHONY : sdl2
+centipede: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 centipede
+.PHONY : centipede
 
 # fast build rule for target.
-sdl2/fast:
-	$(MAKE) $(MAKESILENT) -f lib/graphics/sdl2/CMakeFiles/sdl2.dir/build.make lib/graphics/sdl2/CMakeFiles/sdl2.dir/build
-.PHONY : sdl2/fast
+centipede/fast:
+	$(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/build
+.PHONY : centipede/fast
+
+#=============================================================================
+# Target rules for targets named nibbler
+
+# Build rule for target.
+nibbler: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 nibbler
+.PHONY : nibbler
+
+# fast build rule for target.
+nibbler/fast:
+	$(MAKE) $(MAKESILENT) -f lib/games/nibbler/CMakeFiles/nibbler.dir/build.make lib/games/nibbler/CMakeFiles/nibbler.dir/build
+.PHONY : nibbler/fast
+
+#=============================================================================
+# Target rules for targets named menu
+
+# Build rule for target.
+menu: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 menu
+.PHONY : menu
+
+# fast build rule for target.
+menu/fast:
+	$(MAKE) $(MAKESILENT) -f lib/games/menu/CMakeFiles/menu.dir/build.make lib/games/menu/CMakeFiles/menu.dir/build
+.PHONY : menu/fast
 
 src/Color.o: src/Color.cpp.o
 .PHONY : src/Color.o

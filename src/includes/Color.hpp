@@ -10,11 +10,10 @@ namespace arc {
      *
      */
     struct Color {
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
-        uint8_t a;
-
+        /**
+         * @brief Default types
+         *
+         */
         enum ColorType
         {
             RED,
@@ -26,69 +25,30 @@ namespace arc {
             WHITE,
             BLACK,
         };
+
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+        uint8_t a;
         ColorType color;
-        Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a, ColorType color) : r(r), g(g), b(b), a(a), color(color) {}
-        Color(ColorType type)
-        {
-            switch (type) {
-            case RED:
-                r = 255;
-                g = 0;
-                b = 0;
-                a = 255;
-                color = RED;
-                break;
-            case GREEN:
-                r = 0;
-                g = 255;
-                b = 0;
-                a = 255;
-                color = GREEN;
-                break;
-            case BLUE:
-                r = 0;
-                g = 0;
-                b = 255;
-                a = 255;
-                color = BLUE;
-                break;
-            case YELLOW:
-                r = 255;
-                g = 255;
-                b = 0;
-                a = 255;
-                color = YELLOW;
-                break;
-            case MAGENTA:
-                r = 255;
-                g = 0;
-                b = 255;
-                a = 255;
-                color = MAGENTA;
-                break;
-            case CYAN:
-                r = 0;
-                g = 255;
-                b = 255;
-                a = 255;
-                color = CYAN;
-                break;
-            case WHITE:
-                r = 255;
-                g = 255;
-                b = 255;
-                a = 255;
-                color = WHITE;
-                break;
-            case BLACK:
-                r = 0;
-                g = 0;
-                b = 0;
-                a = 255;
-                color = BLACK;
-                break;
-            }
-        }
+
+        /**
+         * @brief Construct a new Color object
+         *
+         * @param r red value (0-255)
+         * @param g green value) (0-255)
+         * @param b blue value (0-255)
+         * @param a opacity value (0-255)
+         * @param color
+         */
+        Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a, ColorType color);
+
+        /**
+         * @brief Construct a new Color object
+         *
+         * @param type Color type
+         */
+        Color(ColorType type);
     }; /* struct Color */
 
 } /* namespace arc */

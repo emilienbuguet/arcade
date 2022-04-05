@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <CentipedeGame.hpp>
 #include <Centipede.hpp>
 

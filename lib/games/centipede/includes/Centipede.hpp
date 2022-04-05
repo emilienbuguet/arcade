@@ -1,16 +1,21 @@
 #include <CentipedeGame.hpp>
 
+#include <exception>
+#include <string>
+
 #pragma once
 
-namespace arc::games {
+namespace arc::games
+{
 
-    extern "C" {
-        /**
-         * @brief Create a new Instance of Centipede game
-         *
-         * @return Centipede* - Pointer to an instance of Centipede game
-         */
-        Centipede* createInstance();
+    /**
+     * @brief Create a Instance of the Centipede class
+     *
+     * @return Centipede* - pointer to an instance of the class
+     */
+    extern "C"
+    {
+        Centipede *createInstance();
     }; /* extern "C" */
 
-}; // namespace arc::games
+}; /* namespace arc::display */

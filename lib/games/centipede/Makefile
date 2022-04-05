@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
+CMAKE_SOURCE_DIR = /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
+CMAKE_BINARY_DIR = /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(CMAKE_COMMAND) -E cmake_progress_start /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/lib/games/centipede//CMakeFiles/progress.marks
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles 0
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(CMAKE_COMMAND) -E cmake_progress_start /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/lib/games/centipede//CMakeFiles/progress.marks
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/clean
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,22 +103,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/preinstall
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/preinstall
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 lib/games/centipede/CMakeFiles/centipede.dir/rule:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/CMakeFiles/centipede.dir/rule
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 lib/games/centipede/CMakeFiles/centipede.dir/rule
 .PHONY : lib/games/centipede/CMakeFiles/centipede.dir/rule
 
 # Convenience name for target.
@@ -127,7 +127,7 @@ centipede: lib/games/centipede/CMakeFiles/centipede.dir/rule
 
 # fast build rule for target.
 centipede/fast:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/build
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/build
 .PHONY : centipede/fast
 
 Centipede.o: Centipede.cpp.o
@@ -135,7 +135,7 @@ Centipede.o: Centipede.cpp.o
 
 # target to build an object file
 Centipede.cpp.o:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Centipede.cpp.o
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Centipede.cpp.o
 .PHONY : Centipede.cpp.o
 
 Centipede.i: Centipede.cpp.i
@@ -143,7 +143,7 @@ Centipede.i: Centipede.cpp.i
 
 # target to preprocess a source file
 Centipede.cpp.i:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Centipede.cpp.i
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Centipede.cpp.i
 .PHONY : Centipede.cpp.i
 
 Centipede.s: Centipede.cpp.s
@@ -151,15 +151,111 @@ Centipede.s: Centipede.cpp.s
 
 # target to generate assembly for a file
 Centipede.cpp.s:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Centipede.cpp.s
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Centipede.cpp.s
 .PHONY : Centipede.cpp.s
+
+CentipedeGame.o: CentipedeGame.cpp.o
+.PHONY : CentipedeGame.o
+
+# target to build an object file
+CentipedeGame.cpp.o:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/CentipedeGame.cpp.o
+.PHONY : CentipedeGame.cpp.o
+
+CentipedeGame.i: CentipedeGame.cpp.i
+.PHONY : CentipedeGame.i
+
+# target to preprocess a source file
+CentipedeGame.cpp.i:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/CentipedeGame.cpp.i
+.PHONY : CentipedeGame.cpp.i
+
+CentipedeGame.s: CentipedeGame.cpp.s
+.PHONY : CentipedeGame.s
+
+# target to generate assembly for a file
+CentipedeGame.cpp.s:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/CentipedeGame.cpp.s
+.PHONY : CentipedeGame.cpp.s
+
+Mushroom.o: Mushroom.cpp.o
+.PHONY : Mushroom.o
+
+# target to build an object file
+Mushroom.cpp.o:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Mushroom.cpp.o
+.PHONY : Mushroom.cpp.o
+
+Mushroom.i: Mushroom.cpp.i
+.PHONY : Mushroom.i
+
+# target to preprocess a source file
+Mushroom.cpp.i:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Mushroom.cpp.i
+.PHONY : Mushroom.cpp.i
+
+Mushroom.s: Mushroom.cpp.s
+.PHONY : Mushroom.s
+
+# target to generate assembly for a file
+Mushroom.cpp.s:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Mushroom.cpp.s
+.PHONY : Mushroom.cpp.s
+
+Player.o: Player.cpp.o
+.PHONY : Player.o
+
+# target to build an object file
+Player.cpp.o:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Player.cpp.o
+.PHONY : Player.cpp.o
+
+Player.i: Player.cpp.i
+.PHONY : Player.i
+
+# target to preprocess a source file
+Player.cpp.i:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Player.cpp.i
+.PHONY : Player.cpp.i
+
+Player.s: Player.cpp.s
+.PHONY : Player.s
+
+# target to generate assembly for a file
+Player.cpp.s:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Player.cpp.s
+.PHONY : Player.cpp.s
+
+Snake.o: Snake.cpp.o
+.PHONY : Snake.o
+
+# target to build an object file
+Snake.cpp.o:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Snake.cpp.o
+.PHONY : Snake.cpp.o
+
+Snake.i: Snake.cpp.i
+.PHONY : Snake.i
+
+# target to preprocess a source file
+Snake.cpp.i:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Snake.cpp.i
+.PHONY : Snake.cpp.i
+
+Snake.s: Snake.cpp.s
+.PHONY : Snake.s
+
+# target to generate assembly for a file
+Snake.cpp.s:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/Snake.cpp.s
+.PHONY : Snake.cpp.s
 
 __/AGame.o: __/AGame.cpp.o
 .PHONY : __/AGame.o
 
 # target to build an object file
 __/AGame.cpp.o:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/AGame.cpp.o
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/AGame.cpp.o
 .PHONY : __/AGame.cpp.o
 
 __/AGame.i: __/AGame.cpp.i
@@ -167,7 +263,7 @@ __/AGame.i: __/AGame.cpp.i
 
 # target to preprocess a source file
 __/AGame.cpp.i:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/AGame.cpp.i
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/AGame.cpp.i
 .PHONY : __/AGame.cpp.i
 
 __/AGame.s: __/AGame.cpp.s
@@ -175,8 +271,32 @@ __/AGame.s: __/AGame.cpp.s
 
 # target to generate assembly for a file
 __/AGame.cpp.s:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/AGame.cpp.s
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/AGame.cpp.s
 .PHONY : __/AGame.cpp.s
+
+__/__/__/src/Object.o: __/__/__/src/Object.cpp.o
+.PHONY : __/__/__/src/Object.o
+
+# target to build an object file
+__/__/__/src/Object.cpp.o:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/__/__/src/Object.cpp.o
+.PHONY : __/__/__/src/Object.cpp.o
+
+__/__/__/src/Object.i: __/__/__/src/Object.cpp.i
+.PHONY : __/__/__/src/Object.i
+
+# target to preprocess a source file
+__/__/__/src/Object.cpp.i:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/__/__/src/Object.cpp.i
+.PHONY : __/__/__/src/Object.cpp.i
+
+__/__/__/src/Object.s: __/__/__/src/Object.cpp.s
+.PHONY : __/__/__/src/Object.s
+
+# target to generate assembly for a file
+__/__/__/src/Object.cpp.s:
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(MAKE) $(MAKESILENT) -f lib/games/centipede/CMakeFiles/centipede.dir/build.make lib/games/centipede/CMakeFiles/centipede.dir/__/__/__/src/Object.cpp.s
+.PHONY : __/__/__/src/Object.cpp.s
 
 # Help Target
 help:
@@ -190,9 +310,24 @@ help:
 	@echo "... Centipede.o"
 	@echo "... Centipede.i"
 	@echo "... Centipede.s"
+	@echo "... CentipedeGame.o"
+	@echo "... CentipedeGame.i"
+	@echo "... CentipedeGame.s"
+	@echo "... Mushroom.o"
+	@echo "... Mushroom.i"
+	@echo "... Mushroom.s"
+	@echo "... Player.o"
+	@echo "... Player.i"
+	@echo "... Player.s"
+	@echo "... Snake.o"
+	@echo "... Snake.i"
+	@echo "... Snake.s"
 	@echo "... __/AGame.o"
 	@echo "... __/AGame.i"
 	@echo "... __/AGame.s"
+	@echo "... __/__/__/src/Object.o"
+	@echo "... __/__/__/src/Object.i"
+	@echo "... __/__/__/src/Object.s"
 .PHONY : help
 
 
@@ -204,6 +339,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/emilien/Epitech/semestre4/oop/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/marvin/Deleviry/Arcade/B-OOP-400-LYN-4-1-arcade-marvin.flamand && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

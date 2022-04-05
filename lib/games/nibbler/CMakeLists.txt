@@ -19,8 +19,8 @@ set_target_properties(nibbler PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/"
 )
 
-target_include_directories(pacman PRIVATE
-    ${CMAKE_SOURCE_DIR}/lib/games/pacman/includes
+target_include_directories(nibbler PRIVATE
+    ${CMAKE_SOURCE_DIR}/lib/games/nibbler/includes
     ${CMAKE_SOURCE_DIR}/lib/games/includes
     ${CMAKE_SOURCE_DIR}/src/includes
 )

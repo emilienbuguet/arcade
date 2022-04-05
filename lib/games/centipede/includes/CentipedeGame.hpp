@@ -5,12 +5,12 @@
 #include <Player.hpp>
 #include <Snake.hpp>
 
+#include <ctime>
 #include <iostream>
 #include <memory>
 #include <vector>
 
 namespace arc::games {
-
 
     class Centipede : public arc::games::AGame {
         public:
@@ -25,9 +25,31 @@ namespace arc::games {
              *
              */
             ~Centipede();
+
+            /**
+             * @brief Handle the given event
+             *
+             * @param event
+             */
+            void useEvent(arc::Events event) override;
+
+            /**
+             * @brief Update the game entities
+             *
+             */
+            void update() override;
+
+            /**
+             * @brief Get the Objects object
+             *
+             * @return const std::vector<std::shared_ptr<arc::Object>>
+             */
+            const std::vector<std::shared_ptr<arc::Object>> getObjects() const override;
+
         private:
             std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes;
-            std::unique_ptr<arc::games::centipede::Player> player;
+            std::shared_ptr<arc::games::centipede::Player> player;
             std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms;
+            std::clock_t clock;
     };
 };

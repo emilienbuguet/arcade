@@ -1,9 +1,11 @@
 #pragma once
 
-#include <Centipede.hpp>
 #include <Object.hpp>
-#include <iostream>
 
+#include <ctime>
+#include <iostream>
+#include <vector>
+#include <memory>
 namespace arc::games::centipede  {
     class SnakeCell : public arc::Sprite
     {
@@ -29,9 +31,15 @@ namespace arc::games::centipede  {
              */
             ~SnakeCell();
 
+            /**
+             * @brief Update the state of the Cell
+             *
+             */
+            void update();
         private:
             int x;
             int y;
+            int frame;
             Type type;
     };
 
@@ -49,11 +57,24 @@ namespace arc::games::centipede  {
          */
         ~Snake();
 
+        /**
+         * @brief Get the Cells object
+         *
+         * @return std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>>
+         */
+        std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> getCells() const;
+
+        /**
+         * @brief Update the state of the Snake
+         *
+         */
+        void update();
+
     private:
         /**
          * @brief Array of cell = Snake
          *
          */
-        std::vector<arc::games::centipede::SnakeCell> snake;
+        std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells;
     };
 }

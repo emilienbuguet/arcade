@@ -25,6 +25,12 @@ namespace arc::games::centipede {
          */
         ~Mushroom();
 
+        /**
+         * @brief Update the state of the object
+         *
+         */
+        void update();
+
     private:
         /**
          * @brief Life of mushroom
