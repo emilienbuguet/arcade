@@ -46,8 +46,7 @@ namespace arc::games {
              */
             const std::vector<std::shared_ptr<arc::Object>> getObjects() const override;
 
-        private:
-            std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes;
+        private : std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes;
             std::shared_ptr<arc::games::centipede::Player> player;
             std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms;
             std::clock_t clock;

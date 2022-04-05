@@ -14,8 +14,12 @@ namespace arc::games::centipede  {
              * @brief Type of the Cell
              *
              */
-            enum Type { HEAD, BODY};
-
+            enum Type { HEAD, BODY };
+            /**
+             * @brief direction of the Cell
+             *
+             */
+            enum Direction { DOWN, LEFT, RIGHT };
             /**
              * @brief Construct a new Snake Cell object
              *
@@ -23,7 +27,7 @@ namespace arc::games::centipede  {
              * @param y position of the Cell on the y axiss
              * @param type type of the Cell
              */
-            SnakeCell(int x, int y, Type type);
+            SnakeCell(int x, int y, Type type, Direction dir = DOWN);
 
             /**
              * @brief Destroy the Snake Cell object
@@ -32,16 +36,25 @@ namespace arc::games::centipede  {
             ~SnakeCell();
 
             /**
+             * @brief Move the snake cell
+             *
+             */
+            void move();
+            /**
              * @brief Update the state of the Cell
              *
              */
             void update();
+
         private:
             int x;
             int y;
             int frame;
             Type type;
+            Direction dir;
     };
+
+    std::string &operator<<(std::string& s, arc::games::centipede::SnakeCell::Direction& d);
 
     class Snake
     {
@@ -69,6 +82,12 @@ namespace arc::games::centipede  {
          *
          */
         void update();
+
+        /**
+         * @brief If sprite hit something
+         *
+         */
+        void checkHit(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms);
 
     private:
         /**

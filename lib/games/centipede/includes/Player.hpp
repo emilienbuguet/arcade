@@ -28,6 +28,11 @@ namespace arc::games::centipede {
              *
              */
             enum Direction {LEFT, UP, RIGHT, DOWN, STAY};
+            /**
+             * @brief Move the Player
+             *
+             */
+            void move(Direction dir);
         private:
             /**
              * @brief Position of the player

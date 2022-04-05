@@ -15,16 +15,17 @@ arc::games::Centipede::Centipede()
     , snakes({})
     , mushrooms({})
     , player(nullptr)
+    , clock(std::clock())
 {
     this->player = std::make_shared<arc::games::centipede::Player>(arc::games::centipede::Player{});
     this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(arc::games::centipede::Snake{10, 16, 0}));
-    for (int i = 0; i < 19; i++) {
-        int nb1 = 0, nb2 = 0, nb3 = 0;
-        for (;nb1 == 0; nb1 = rand() % 32);
+    for (int i = 1; i < 19; i++) {
+        int nb1 = rand() % 32, nb2 = rand() % 32, nb3 = rand() % 32;
+        if (i == 1)
+            nb1 = 16;
         this->mushrooms.push_back(std::make_shared<arc::games::centipede::Mushroom>(arc::games::centipede::Mushroom{nb1, i}));
         for (; nb2 == nb1 || nb2 == nb3; nb2 = rand() % 32);
         this->mushrooms.push_back(std::make_shared<arc::games::centipede::Mushroom>(arc::games::centipede::Mushroom{nb2, i}));
-        nb3 = nb2;
         for (;nb3 == nb1 || nb2 == nb3; nb3 = rand() % 32);
         this->mushrooms.push_back(std::make_shared<arc::games::centipede::Mushroom>(arc::games::centipede::Mushroom{nb3, i}));
     }
@@ -32,23 +33,37 @@ arc::games::Centipede::Centipede()
 
 arc::games::Centipede::~Centipede() = default;
 
+
 void arc::games::Centipede::useEvent(arc::Events event)
 {
-    if (event == arc::Exit)
+    if (event == arc::KeyEsc)
         this->m_isRunning = false;
+    if (event == arc::KeyLeft)
+        this->player->move(arc::games::centipede::Player::Direction::LEFT);
+    if (event == arc::KeyRight)
+        this->player->move(arc::games::centipede::Player::Direction::RIGHT);
+    if (event == arc::KeyUp)
+        this->player->move(arc::games::centipede::Player::Direction::UP);
+    if (event == arc::KeyDown)
+        this->player->move(arc::games::centipede::Player::Direction::DOWN);
 }
 
 void arc::games::Centipede::update()
 {
     std::clock_t current = std::clock();
 
+    for (auto &snake : this->snakes)
+        snake->checkHit(this->mushrooms);
+
     for (auto &mush : this->mushrooms)
         mush->update();
+
     if ((current - clock)/CLOCKS_PER_SEC > 0.3) {
         for (auto &snake : this->snakes)
             snake->update();
         clock = current;
     }
+    // check if snake hits mushroom
 }
 
 const std::vector<std::shared_ptr<arc::Object>> arc::games::Centipede::getObjects() const
