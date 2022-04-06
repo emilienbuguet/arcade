@@ -52,18 +52,16 @@ void arc::games::Centipede::update()
 {
     std::clock_t current = std::clock();
 
-    for (auto &snake : this->snakes)
-        snake->checkHit(this->mushrooms);
-
     for (auto &mush : this->mushrooms)
         mush->update();
 
-    if ((current - clock)/CLOCKS_PER_SEC > 0.3) {
+    if ((current - clock)/static_cast<float>(CLOCKS_PER_SEC) > 0.2) {
+        for (auto &snake : this->snakes)
+            snake->checkHit(this->mushrooms);
         for (auto &snake : this->snakes)
             snake->update();
         clock = current;
     }
-    // check if snake hits mushroom
 }
 
 const std::vector<std::shared_ptr<arc::Object>> arc::games::Centipede::getObjects() const

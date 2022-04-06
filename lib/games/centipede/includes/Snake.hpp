@@ -40,11 +40,82 @@ namespace arc::games::centipede  {
              *
              */
             void move();
+
             /**
              * @brief Update the state of the Cell
              *
              */
             void update();
+
+            /**
+             * @brief check if cell after is not mushroom
+             *
+             * @param mushrooms
+             */
+            void hit(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms);
+
+            /**
+             * @brief check if dir = down and if we go left or right
+             *
+             * @param mushrooms = list of mushroom
+             */
+            void pickADir(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms);
+
+            /**
+             * @brief check if direction = left or right if we can go down or go in oposite direction
+             *
+             * @param mushrooms
+             */
+            void pickASideDir(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms);
+
+            /**
+             * @brief
+             *
+             * @param mushrooms
+             * @return true
+             * @return false
+             */
+            bool hasRightMushroom(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms);
+
+            /**
+             * @brief
+             *
+             * @param mushrooms
+             * @return true
+             * @return false
+             */
+            bool hasLeftMushroom(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms);
+
+            /**
+             * @brief
+             *
+             * @param mushrooms
+             * @return true
+             * @return false
+             */
+            bool hasDownMushroom(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms);
+
+            /**
+             * @brief Getter for the direction of the object
+             *
+             * @return Direction
+             */
+            Direction getDirection() const;
+
+            /**
+             * @brief Getter for the type of the Cell
+             *
+             * @return Type
+             */
+            Type getCellType() const;
+
+            /**
+             * @brief Setter for the direction of the Cell
+             *
+             * @param dir
+             */
+            void setDirection(Direction dir);
+
 
         private:
             int x;

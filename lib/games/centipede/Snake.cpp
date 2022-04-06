@@ -20,38 +20,15 @@ arc::games::centipede::SnakeCell::SnakeCell(int x, int y, arc::games::centipede:
 {
 }
 
-// arc::games::centipede::SnakeCell::~SnakeCell() = default;
-
-// void arc::games::centipede::SnakeCell::hit(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
-// {
-//     for(auto mushroom : mushrooms) {
-//         if (this->dir == arc::games::centipede::SnakeCell::Direction::LEFT && this->getPosition().x - 1 != mushroom->getPosition().x)
-//             this->dir = arc::games::centipede::SnakeCell::Direction::DOWN;
-//         else
-//             this->dir = arc::games::centipede::SnakeCell::Direction::RIGHT;
-//         if (dir == arc::games::centipede::SnakeCell::Direction::RIGHT && this->getPosition().x + 1 != mushroom->getPosition().x)
-//             this->dir = arc::games::centipede::SnakeCell::Direction::DOWN;
-//         else
-//             this->dir = arc::games::centipede::SnakeCell::Direction::LEFT;
-//         if (dir == arc::games::centipede::SnakeCell::Direction::DOWN) {
-//             if (this->getPosition().x - 1 != mushroom->getPosition().x)
-//                 this->dir = arc::games::centipede::SnakeCell::Direction::LEFT;
-//             else if (this->getPosition().x + 1 != mushroom->getPosition().x)
-//                 this->dir = arc::games::centipede::SnakeCell::Direction::RIGHT;
-//             else
-//                 this->dir = static_cast<arc::games::centipede::SnakeCell::Direction>(rand() % 3);
-//         }
-//     }
-
-// }
+arc::games::centipede::SnakeCell::~SnakeCell() = default;
 
 void arc::games::centipede::SnakeCell::move()
 {
-    if (this->dir == arc::games::centipede::SnakeCell::Direction::LEFT && this->getPosition().x - 1 >= 0)
+    if (this->dir == arc::games::centipede::SnakeCell::Direction::LEFT)
         this->setPosition(arc::Vector{this->getPosition().x - 1, this->getPosition().y});
-    if (dir == arc::games::centipede::SnakeCell::Direction::RIGHT && this->getPosition().x + 1 < 32)
+    else if (dir == arc::games::centipede::SnakeCell::Direction::RIGHT)
         this->setPosition(arc::Vector{this->getPosition().x + 1, this->getPosition().y});
-    if (dir == arc::games::centipede::SnakeCell::Direction::DOWN && this->getPosition().x + 1 < 24)
+    else
         this->setPosition(arc::Vector{this->getPosition().x, this->getPosition().y + 1});
 }
 
@@ -77,6 +54,113 @@ void arc::games::centipede::SnakeCell::update()
     this->setValue(value);
 }
 
+bool arc::games::centipede::SnakeCell::hasRightMushroom(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
+{
+    auto pos = this->getPosition();
+    if (pos.x >= 31)
+        return true;
+    for (auto &mushroom : mushrooms) {
+        auto mushpos = mushroom->getPosition();
+        if (pos.x == mushpos.x - 1 && pos.y == mushpos.y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool arc::games::centipede::SnakeCell::hasLeftMushroom(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
+{
+    auto pos = this->getPosition();
+    if (pos.x <= 0)
+        return true;
+    for (auto &mushroom : mushrooms) {
+        auto mushpos = mushroom->getPosition();
+        if (pos.x == mushpos.x + 1 && pos.y == mushpos.y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool arc::games::centipede::SnakeCell::hasDownMushroom(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
+{
+    auto pos = this->getPosition();
+    for (auto &mushroom : mushrooms) {
+        auto mushpos = mushroom->getPosition();
+        if (pos.x == mushpos.x && pos.y + 1 == mushpos.y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void arc::games::centipede::SnakeCell::pickADir(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
+{
+    if (this->hasRightMushroom(mushrooms) && this->hasLeftMushroom(mushrooms)) {
+        this->dir = arc::games::centipede::SnakeCell::DOWN;
+        return;
+    }
+    if (this->hasLeftMushroom(mushrooms) && !this->hasRightMushroom(mushrooms)) {
+        this->dir = arc::games::centipede::SnakeCell::RIGHT;
+        return;
+    }
+    if (this->hasRightMushroom(mushrooms) && !this->hasLeftMushroom(mushrooms)) {
+        this->dir = arc::games::centipede::SnakeCell::LEFT;
+        return;
+    }
+    if (!this->hasLeftMushroom(mushrooms) && !this->hasRightMushroom(mushrooms)) {
+        this->dir = static_cast<arc::games::centipede::SnakeCell::Direction>(rand() % 2 + 1);
+        return;
+    }
+}
+
+void arc::games::centipede::SnakeCell::pickASideDir(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
+{
+    auto pos = this->getPosition();
+    if (this->dir == RIGHT) {
+        if (!this->hasRightMushroom(mushrooms)) {
+            this->dir = arc::games::centipede::SnakeCell::Direction::RIGHT;
+        } else if (this->hasDownMushroom(mushrooms)) {
+            this->dir = arc::games::centipede::SnakeCell::Direction::LEFT;
+        } else {
+            this->dir = arc::games::centipede::SnakeCell::Direction::DOWN;
+        }
+    } else {
+        if (!this->hasLeftMushroom(mushrooms)) {
+            this->dir = arc::games::centipede::SnakeCell::Direction::LEFT;
+        } else if (this->hasDownMushroom(mushrooms)) {
+            this->dir = arc::games::centipede::SnakeCell::Direction::RIGHT;
+        } else {
+            this->dir = arc::games::centipede::SnakeCell::Direction::DOWN;
+        }
+    }
+}
+
+void arc::games::centipede::SnakeCell::hit(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
+{
+    auto pos = this->getPosition();
+    if (pos.y < 0) {
+        this->dir = arc::games::centipede::SnakeCell::Direction::DOWN;
+        return;
+    }
+    if (this->dir == arc::games::centipede::SnakeCell::Direction::DOWN) {
+        this->pickADir(mushrooms);
+    } else {
+        this->pickASideDir(mushrooms);
+    }
+}
+
+arc::games::centipede::SnakeCell::Direction arc::games::centipede::SnakeCell::getDirection() const
+{
+    return this->dir;
+}
+
+void arc::games::centipede::SnakeCell::setDirection(arc::games::centipede::SnakeCell::Direction dir)
+{
+    this->dir = dir;
+}
+
 std::string operator<<(std::string s, arc::games::centipede::SnakeCell::Direction& d)
 {
     if (d == arc::games::centipede::SnakeCell::DOWN) {
@@ -87,6 +171,11 @@ std::string operator<<(std::string s, arc::games::centipede::SnakeCell::Directio
         s += "l";
     }
     return s;
+}
+
+arc::games::centipede::SnakeCell::Type arc::games::centipede::SnakeCell::getCellType() const
+{
+    return this->type;
 }
 
 /************* Snake methods  ***************/
@@ -117,10 +206,14 @@ void arc::games::centipede::Snake::update()
 
 void arc::games::centipede::Snake::checkHit(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
 {
-    for (auto mushroom : mushrooms) {
-        for (auto cell : this->cells) {
-            if (cell->getPosition().x == mushroom->getPosition().x && cell->getPosition().y == mushroom->getPosition().y)
-                return;
-        }
+    auto tmp = this->cells[0]->getDirection();
+    this->cells[0]->hit(mushrooms);
+
+    for (auto &cell : this->cells) {
+        auto tmp2 = cell->getDirection();
+        if (cell->getCellType() == arc::games::centipede::SnakeCell::HEAD)
+            continue;
+        cell->setDirection(tmp);
+        tmp = tmp2;
     }
 }
