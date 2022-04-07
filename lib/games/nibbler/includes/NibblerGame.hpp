@@ -57,7 +57,6 @@ public:
 private:
     Snake snake;
     int n_highScore;
-    int n_score;
     int n_lives;
     int n_timeLeft;
     std::vector<std::string> n_map;

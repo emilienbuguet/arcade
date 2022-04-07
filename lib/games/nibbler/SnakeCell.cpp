@@ -69,7 +69,7 @@ const std::shared_ptr<arc::Object> arc::games::SnakeCell::getObject() const
         name = "snake_body_horizontal";
     else
         name = "snake_body_vertical";
-    arc::Sprite sprite(name, arc::Vector(sc_Xpos, sc_Ypos), 1, 1);
+    arc::Sprite sprite(name, arc::Vector(sc_Xpos, sc_Ypos));
     return std::make_shared<arc::Object>(sprite);
 }
 

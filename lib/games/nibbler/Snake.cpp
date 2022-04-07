@@ -119,7 +119,7 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::Snake::getObjects() 
 
     std::vector<std::shared_ptr<arc::Object>> objects;
 
-    objects.push_back(std::make_shared<arc::Sprite>(name, arc::Vector(s_Xpos, s_Ypos), 1, 1));
+    objects.push_back(std::make_shared<arc::Sprite>(name, arc::Vector(s_Xpos, s_Ypos)));
 
     int size = body.size();
     for (int i = 0; i < size; i++)
