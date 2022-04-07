@@ -38,7 +38,13 @@ arc::Core::Core(const std::string& lib)
     this->c_displays = arc::utils::FileParser::getLibrariesNames(this->c_displays);
 }
 
-arc::Core::~Core() = default;
+arc::Core::~Core()
+{
+    if (this->c_username != "") {
+        this->c_highscore->addHighscore(this->c_username, this->c_score);
+        this->c_highscore->saveHighscores();
+    }
+}
 
 bool arc::Core::useEvent(arc::Events event)
 {
