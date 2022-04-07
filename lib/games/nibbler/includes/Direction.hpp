@@ -9,4 +9,5 @@
 
 namespace direction {
     enum Facing { UP, RIGHT, DOWN, LEFT };
+    enum axis { HORIZONTAL, VERTICAL };
 }

@@ -6,19 +6,21 @@
 */
 
 #pragma once
+#include "Direction.hpp"
+#include <memory>
+#include "Object.hpp"
 
-class SnakeCell {
+namespace arc::games {
+class SnakeCell : public Sprite{
     public:
         SnakeCell(int x, int y);
         ~SnakeCell();
 
         /**
-         * @brief Set the position of the snake cell
+         * @brief Set the position of the previous
          *
-         * @param x
-         * @param y
          */
-        void setPos(int x, int y);
+        void setPrevPos(int x, int y);
 
         /**
          * @brief Get the x position
@@ -48,9 +50,14 @@ class SnakeCell {
          */
         int getPrevYpos();
 
-    private:
-        int sc_Xpos;
-        int sc_Ypos;
+        /**
+         * @brief Update the Axis variable
+         *
+         */
+        void updateAxis();
+
+    private :
         int sc_prevXpos;
         int sc_prevYpos;
 };
+}

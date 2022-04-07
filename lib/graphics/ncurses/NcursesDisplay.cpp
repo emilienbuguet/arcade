@@ -6,6 +6,7 @@ arc::display::NcursesDisplay::NcursesDisplay()
     initscr();
     nodelay(stdscr, TRUE);
     keypad(stdscr, TRUE);
+    curs_set(0);
     noecho();
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -22,6 +23,27 @@ arc::display::NcursesDisplay::NcursesDisplay()
 arc::display::NcursesDisplay::~NcursesDisplay()
 {
     endwin();
+}
+
+void arc::display::NcursesDisplay::drawBorder()
+{
+    int row;
+    int col;
+    getmaxyx(stdscr, row, col);
+    int begin_y = row / 2 - 13;
+    int begin_x = col / 2 - 33;
+    for (int i = 0; i < 26; i++) {
+        if (i == 0) {
+            mvprintw(begin_y, begin_x, "+----------------------------------------------------------------+");
+            continue;
+        }
+        if (i == 25) {
+            mvprintw(begin_y + i, begin_x, "+----------------------------------------------------------------+");
+            continue;
+        }
+        mvprintw(begin_y + i, begin_x, "|");
+        mvprintw(begin_y + i, begin_x + 65, "|");
+    }
 }
 
 void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string text, arc::Color color)
@@ -63,16 +85,16 @@ void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string t
         attron(A_BOLD);
 
     getmaxyx(stdscr, row, col);
-    mvprintw(row / 2 - 12, col / 2 - 24, "o");
-    mvprintw(row / 2 + 12, col / 2 + 24, "o");
-    mvprintw(row / 2 + 12, col / 2 - 24, "o");
-    mvprintw(row / 2 - 12, col / 2 + 24, "o");
-    mvprintw(row / 2 - 12 + y, col / 2 - 24 + (x * 2), text.c_str());
+    mvprintw(row / 2 - 12 + y, col / 2 - 32 + (x * 2), text.c_str());
 }
 
 void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
-    for (std::shared_ptr<arc::Object> i : objs) {
+    clearBoard();
+    attron(COLOR_PAIR(4));
+    drawBorder();
+    for (std::shared_ptr<arc::Object> i : objs)
+    {
         if (i->getType() == arc::Object::Type::TEXT) {
             auto txt = std::static_pointer_cast<arc::Text>(i);
             printMiddle(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
@@ -82,10 +104,43 @@ void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::
         }
     }
     refresh();
+    move(0, 0);
 }
 
 arc::Events arc::display::NcursesDisplay::getEvent() const
 {
+    int row;
+    int col;
+    getmaxyx(stdscr, row, col);
+    attron(COLOR_PAIR(1));
+    if (row <= 50 || col <= 40) {
+        clear();
+        while (row <= 50 || col <= 40) {
+            switch (getch()) {
+                case KEY_RESIZE:
+                    clear();
+                    break;
+                case 27:
+                    return arc::KeyEsc;
+                case 'a':
+                    return arc::KeyA;
+                case 'z':
+                    return arc::KeyZ;
+                case 'o':
+                    return arc::KeyO;
+                case 'p':
+                    return arc::KeyP;
+                default:
+                    break;
+            }
+            mvprintw(row / 2 - 1, col / 2 - 12, "+-------------------------+");
+            mvprintw(row / 2, col / 2 - 12, "|Please resize your window|");
+            mvprintw(row / 2 + 1, col / 2 - 12, "+-------------------------+");
+            getmaxyx(stdscr, row, col);
+        }
+        clear();
+    }
+
     switch (getch()) {
     case KEY_UP:
         return arc::KeyUp;
@@ -207,9 +262,8 @@ arc::Color arc::display::NcursesDisplay::getSpriteColor(std::string line)
 
 void arc::display::NcursesDisplay::getTexture(const std::string fileName, int y, int x)
 {
-    std::ifstream file("src/assets/ncurses/" + fileName);
+    std::ifstream file("assets/ncurses/" + fileName + ".txt");
     std::string line;
-    std::string sprite = "";
     arc::Color color(arc::Color::ColorType::WHITE);
 
     for (int i = 0; std::getline(file, line); i++) {
@@ -217,12 +271,62 @@ void arc::display::NcursesDisplay::getTexture(const std::string fileName, int y,
             color = getSpriteColor(line);
             continue;
         }
-        sprite = sprite + line;
+        printMiddle(y + i - 1, x, line, color);
     }
-    printMiddle(y, x, sprite, color);
 }
 
-void arc::display::NcursesDisplay::drawInterface(__attribute__((unused)) std::vector<std::shared_ptr<arc::Object>> objs)
+void arc::display::NcursesDisplay::printInterface(int y, int x, const std::string text, arc::Color color)
 {
+    int row;
+    int col;
+    getmaxyx(stdscr, row, col);
 
+    switch (color.color) {
+    case arc::Color::ColorType::RED:
+        attron(COLOR_PAIR(1));
+        break;
+    case arc::Color::ColorType::GREEN:
+        attron(COLOR_PAIR(2));
+        break;
+    case arc::Color::ColorType::BLUE:
+        attron(COLOR_PAIR(3));
+        break;
+    case arc::Color::ColorType::YELLOW:
+        attron(COLOR_PAIR(4));
+        break;
+    case arc::Color::ColorType::MAGENTA:
+        attron(COLOR_PAIR(5));
+        break;
+    case arc::Color::ColorType::CYAN:
+        attron(COLOR_PAIR(6));
+        break;
+    case arc::Color::ColorType::WHITE:
+        attron(COLOR_PAIR(7));
+        break;
+    case arc::Color::ColorType::BLACK:
+        attron(COLOR_PAIR(8));
+        break;
+    default:
+        break;
+    }
+
+    mvprintw(y * row / 1080, x * col / 1920, text.c_str());
+}
+
+void arc::display::NcursesDisplay::drawInterface(std::vector<std::shared_ptr<arc::Object>> objs)
+{
+    for (std::shared_ptr<arc::Object> i : objs) {
+        if (i->getType() == arc::Object::Type::TEXT) {
+            auto txt = std::static_pointer_cast<arc::Text>(i);
+            printInterface(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
+        }
+    }
+    refresh();
+    move(0, 0);
+}
+
+void arc::display::NcursesDisplay::clearBoard()
+{
+    for (int y = 0; y < 24; y++)
+        printMiddle(y, 0, "                                                                ", arc::Color(arc::Color::ColorType::WHITE));
 }

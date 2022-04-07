@@ -10,6 +10,7 @@
 #include "Direction.hpp"
 #include <vector>
 
+namespace arc::games {
 class Snake {
     public:
         Snake(int x, int y);
@@ -17,6 +18,7 @@ class Snake {
 
         /**
          * @brief move the snake by one cell, in 's_facing' direction
+         *
          *
          */
         void moveSnake();
@@ -48,14 +50,48 @@ class Snake {
         void changeFacing(direction::Facing facing);
 
         /**
+         * @brief set the OldFacing to Facing
+         *
+         */
+        void updateOldFacing();
+
+        /**
          * @brief Get the Body object
          *
          * @return std::vector<SnakeCell>
          */
         std::vector<SnakeCell> getBody();
 
+        /**
+         * @brief get a vector of object of the whole snake
+         *
+         */
+        const std::vector<std::shared_ptr<arc::Object>> getObjects() const;
+
+        /**
+         * @brief check if the snake has a cell at position (x, y)
+         *
+         * @param x X position
+         * @param y Y position
+         * @return true
+         * @return false
+         */
+        bool hasPosition(int x, int y);
+
+        /**
+         * @brief check if the snake has a cell at previous position (x, y)
+         *
+         * @param x X position
+         * @param y Y position
+         * @return true
+         * @return false
+         */
+        bool hasPrevPosition(int x, int y);
+
     private : int s_Xpos;
         int s_Ypos;
         direction::Facing s_facing;
+        direction::Facing s_OldFacing;
         std::vector<SnakeCell> body;
 };
+}

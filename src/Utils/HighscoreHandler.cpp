@@ -36,9 +36,14 @@ void arc::utils::HighscoreHandler::addHighscore(const std::string& name, int sco
 
 void arc::utils::HighscoreHandler::saveHighscores()
 {
+    std::vector<std::pair<int, std::string>> tmp;
+    for (auto& highscore : m_highscores)
+        tmp.push_back(std::make_pair(highscore.second, highscore.first));
+    std::sort(tmp.begin(), tmp.end());
+    std::reverse(tmp.begin(), tmp.end());
     std::ofstream file(m_filePath);
-    for (auto& highscore : m_highscores) {
-        file << highscore.first << " " << highscore.second << std::endl;
+    for (auto& highscore : tmp) {
+        file << highscore.second << " " << highscore.first << std::endl;
     }
 }
 

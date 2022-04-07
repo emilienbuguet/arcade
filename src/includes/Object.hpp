@@ -149,7 +149,7 @@ namespace arc {
              * @param width Width of the sprite
              * @param scale Scale of the sprite
              */
-            Sprite(const std::string name, Vector pos, int height = 0, int width = 0, Vector scale = Vector(100, 100));
+            Sprite(const std::string name, arc::Vector pos, int height = 0, int width = 0, arc::Vector scale = arc::Vector(100, 100));
 
             /**
              * @brief Destructor
@@ -202,7 +202,7 @@ namespace arc {
         private:
             int m_height;
             int m_width;
-            Vector m_scale;
+            arc::Vector m_scale;
     }; /* class Sprite */
 
 } /* namespace arc */

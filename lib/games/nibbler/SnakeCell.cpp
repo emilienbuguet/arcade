@@ -7,40 +7,48 @@
 
 #include "SnakeCell.hpp"
 
-SnakeCell::SnakeCell(int x, int y)
-    : sc_Xpos(x)
-    , sc_Ypos(y)
+arc::games::SnakeCell::SnakeCell(int x, int y)
+    : arc::Sprite("snake_body_horizontal", arc::Vector(x, y))
     , sc_prevXpos(x)
     , sc_prevYpos(y)
 {
 }
 
-SnakeCell::~SnakeCell()
+arc::games::SnakeCell::~SnakeCell()
 {
 }
 
-void SnakeCell::setPos(int x, int y)
+void arc::games::SnakeCell::setPrevPos(int x, int y)
 {
-    sc_Xpos = x;
-    sc_Ypos = y;
+    sc_prevXpos = this->getPosition().x;
+    sc_prevYpos = this->getPosition().y;
 }
 
-int SnakeCell::getXpos()
+int arc::games::SnakeCell::getXpos()
 {
-    return sc_Xpos;
+    return this->getPosition().x;
 }
 
-int SnakeCell::getYpos()
+int arc::games::SnakeCell::getYpos()
 {
-    return sc_Xpos;
+    return this->getPosition().y;
 }
 
-int SnakeCell::getPrevXpos()
+int arc::games::SnakeCell::getPrevXpos()
 {
     return sc_prevXpos;
 }
 
-int SnakeCell::getPrevYpos()
+int arc::games::SnakeCell::getPrevYpos()
 {
     return sc_prevYpos;
+}
+
+void arc::games::SnakeCell::updateAxis()
+{
+    if (sc_prevXpos == this->getPosition().x) {
+        this->setValue("snake_body_vertical");
+    } else {
+        this->setValue("snake_body_horizontal");
+    }
 }

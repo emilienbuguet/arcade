@@ -24,6 +24,7 @@ add_executable(arcade
         src/Object.cpp
         src/Utils/FileParser.cpp
         src/Utils/HighscoreHandler.cpp
+        lib/games/AGame.cpp
         )
 
 target_link_libraries(arcade PUBLIC dl)
