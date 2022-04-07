@@ -47,5 +47,11 @@ class NcursesDisplay : public arc::display::IDisplayModule {
              */
             void printInterface(int y, int x, const std::string text, arc::Color color);
 
+            /**
+             * @brief clear the board
+             *
+             */
+            void clearBoard();
+
     };
 }

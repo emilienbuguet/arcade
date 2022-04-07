@@ -90,6 +90,7 @@ void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string t
 
 void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
+    clearBoard();
     attron(COLOR_PAIR(4));
     drawBorder();
     for (std::shared_ptr<arc::Object> i : objs)
@@ -322,4 +323,10 @@ void arc::display::NcursesDisplay::drawInterface(std::vector<std::shared_ptr<arc
     }
     refresh();
     move(0, 0);
+}
+
+void arc::display::NcursesDisplay::clearBoard()
+{
+    for (int y = 0; y < 24; y++)
+        printMiddle(y, 0, "                                                                ", arc::Color(arc::Color::ColorType::WHITE));
 }
