@@ -88,6 +88,8 @@ void arc::Core::run()
         if (this->currentGame != props.gamelib)
             this->c_game.load("./lib/arcade_" + props.gamelib + ".so");
         this->c_username = props.username;
+        this->currentGame = props.gamelib;
+        this->currentDisplay = props.graphicslib;
         this->c_interface.pop_back();
         this->run();
     }
