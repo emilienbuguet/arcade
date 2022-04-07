@@ -8,7 +8,9 @@
 #include "NibblerGame.hpp"
 
 arc::games::NibblerGame::NibblerGame()
-    : snake(15, 8), food()
+    : snake(15, 8)
+    , food()
+    , n_speed(0)
 {
     n_map = {
         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
@@ -61,7 +63,7 @@ void arc::games::NibblerGame::useEvent(arc::Events event)
 
 void arc::games::NibblerGame::update()
 {
-    if (clock() - n_clock >= 250000) {
+    if (clock() - n_clock >= 250000 - n_speed) {
         n_clock = clock();
         snake.moveSnake();
         if (n_map[snake.getYpos()][snake.getXpos()] == 'X' || snake.hasPrevPosition(snake.getXpos(), snake.getYpos()))
@@ -71,6 +73,7 @@ void arc::games::NibblerGame::update()
         if (snake.getYpos() == food.getYpos() && snake.getXpos() == food.getXpos()) {
             snake.eat();
             this->n_score += 100;
+            n_speed += 200;
             spawnFood();
         }
     }

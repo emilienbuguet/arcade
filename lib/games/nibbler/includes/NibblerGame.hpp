@@ -63,6 +63,7 @@ private:
     std::vector<std::string> n_map;
     clock_t n_clock;
     Food food;
+    int n_speed;
 
     /**
      * @brief Spawns a food
