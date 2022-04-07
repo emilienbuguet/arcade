@@ -40,6 +40,7 @@ arc::Core::Core(const std::string& lib)
 
 arc::Core::~Core()
 {
+    this->c_score += static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore();
     if (this->c_username != "") {
         this->c_highscore->addHighscore(this->c_username, this->c_score);
         this->c_highscore->saveHighscores();
@@ -87,6 +88,8 @@ void arc::Core::run()
         if (this->currentGame != props.gamelib)
             this->c_game.load("./lib/arcade_" + props.gamelib + ".so");
         this->c_username = props.username;
+        this->currentGame = props.gamelib;
+        this->currentDisplay = props.graphicslib;
         this->c_interface.pop_back();
         this->run();
     }
@@ -97,7 +100,7 @@ void arc::Core::run()
 void arc::Core::update()
 {
     this->c_interface[0]->setValue(this->currentGame);
-    this->c_interface[2]->setValue("Score: " + std::to_string(this->c_score));
+    this->c_interface[2]->setValue("Score: " + std::to_string(this->c_score + static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore()));
 }
 
 void arc::Core::nextGame()
@@ -107,6 +110,7 @@ void arc::Core::nextGame()
         if (this->c_games[i] == this->currentGame)
             break;
     }
+    this->c_score += static_cast<arc::games::AGame *> (this->c_game.getInstance())->getScore();
     this->currentGame = this->c_games[(i + 1) % this->c_games.size()];
     this->c_game.load("./lib/arcade_" + this->currentGame + ".so");
 }
@@ -118,6 +122,7 @@ void arc::Core::previousGame()
         if (this->c_games[i] == this->currentGame)
             break;
     }
+    this->c_score += static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore();
     this->currentGame = this->c_games[(i - 1 + this->c_games.size()) % this->c_games.size()];
     this->c_game.load("./lib/arcade_" + this->currentGame + ".so");
 }

@@ -66,7 +66,7 @@ void arc::Text::setSize(int size)
 
 /********* Sprite class **********/
 
-arc::Sprite::Sprite(const std::string name, Vector pos, int height, int width, Vector scale)
+arc::Sprite::Sprite(const std::string name, arc::Vector pos, int height, int width, arc::Vector scale)
     : Object(Type::SPRITE, name, pos)
     , m_height(height)
     , m_width(width)
