@@ -23,9 +23,9 @@ std::shared_ptr<sf::Texture> arc::display::SfmlDisplay::getTexture(const std::st
         return it->second;
     } else {
         std::shared_ptr<sf::Texture> tmp = std::make_shared<sf::Texture>(sf::Texture{});
-        if (!tmp->loadFromFile("./assets/sfml/" + name + ".bmp")) {
-            if (!tmp->loadFromFile("./assets/sfml/" + name + ".png")) {
-                if (!tmp->loadFromFile("./assets/sfml/" + name + ".jpg")) {
+        if (!tmp->loadFromFile("./assets/sfml/" + name + ".png")) {
+            if (!tmp->loadFromFile("./assets/sfml/" + name + ".jpg")) {
+                if (!tmp->loadFromFile("./assets/sfml/" + name + ".bmp")) {
                     throw new arc::display::SfmlError{std::string("unable to load texture: ") + name};
                 }
             }
