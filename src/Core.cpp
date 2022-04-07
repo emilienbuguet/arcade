@@ -40,6 +40,7 @@ arc::Core::Core(const std::string& lib)
 
 arc::Core::~Core()
 {
+    this->c_score += static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore();
     if (this->c_username != "") {
         this->c_highscore->addHighscore(this->c_username, this->c_score);
         this->c_highscore->saveHighscores();
