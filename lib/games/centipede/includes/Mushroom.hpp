@@ -31,11 +31,44 @@ namespace arc::games::centipede {
          */
         void update();
 
+        /**
+         * @brief
+         *
+         * @param life
+         */
+        void setlife(int life);
+
+        /**
+         * @brief
+         *
+         * @return int
+         */
+        int getlife();
+
+        /**
+         * @brief check if the object is dead
+         *
+         */
+        void checkDead();
+
+        /**
+         * @brief
+         *
+         * @return true
+         * @return false
+         */
+        bool isDead() const;
+
     private:
         /**
          * @brief Life of mushroom
          *
          */
         int life;
+        /**
+         * @brief
+         *
+         */
+        bool m_isDead;
     };
 }

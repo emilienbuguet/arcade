@@ -178,6 +178,11 @@ arc::games::centipede::SnakeCell::Type arc::games::centipede::SnakeCell::getCell
     return this->type;
 }
 
+void arc::games::centipede::SnakeCell::setCellType(arc::games::centipede::SnakeCell::Type type)
+{
+    this->type = type;
+}
+
 /************* Snake methods  ***************/
 
 arc::games::centipede::Snake::Snake(int size, int x, int y)
@@ -190,11 +195,27 @@ arc::games::centipede::Snake::Snake(int size, int x, int y)
     }
 }
 
+arc::games::centipede::Snake::Snake(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells)
+    : cells(cells)
+{
+    for (auto& cell: cells)
+        cell->setCellType(arc::games::centipede::SnakeCell::BODY);
+    cells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
+}
+
 arc::games::centipede::Snake::~Snake() = default;
 
 std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> arc::games::centipede::Snake::getCells() const
 {
     return this->cells;
+}
+
+void arc::games::centipede::Snake::setCells(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells)
+{
+    this->cells = cells;
+    for (auto &cell : cells)
+        cell->setCellType(arc::games::centipede::SnakeCell::BODY);
+    cells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
 }
 
 void arc::games::centipede::Snake::update()

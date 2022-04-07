@@ -6,7 +6,9 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <Mushroom.hpp>
 namespace arc::games::centipede  {
+
     class SnakeCell : public arc::Sprite
     {
         public:
@@ -110,6 +112,13 @@ namespace arc::games::centipede  {
             Type getCellType() const;
 
             /**
+             * @brief Setter for type of the cell
+             *
+             * @param type
+             */
+            void setCellType(Type type);
+
+            /**
              * @brief Setter for the direction of the Cell
              *
              * @param dir
@@ -133,8 +142,19 @@ namespace arc::games::centipede  {
         /**
          * @brief Construct a new Snake object
          *
+         * @param size size of the snake
+         * @param x position of the snake on the x axis
+         * @param y position of the snake on the y axis
          */
         Snake(int size, int x, int y);
+
+        /**
+         * @brief Construct a new Snake object
+         *
+         * @param cells cells of the snake
+         */
+        Snake(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells);
+
         /**
          * @brief Destroy the Snake object
          *
@@ -142,11 +162,17 @@ namespace arc::games::centipede  {
         ~Snake();
 
         /**
-         * @brief Get the Cells object
+         * @brief Getter for the cells of the snake
          *
          * @return std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>>
          */
         std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> getCells() const;
+
+        /**
+         * @brief Setter for the cells of the snake
+         *
+         */
+        void setCells(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells);
 
         /**
          * @brief Update the state of the Snake

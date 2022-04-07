@@ -46,9 +46,19 @@ namespace arc::games {
              */
             const std::vector<std::shared_ptr<arc::Object>> getObjects() const override;
 
+            /**
+             * @brief Split the snake if it is hit by a shot
+             *
+             * @param snake Snake to split
+             * @param cell Cell to split at
+             */
+            void splitSnake(std::shared_ptr<arc::games::centipede::Snake> snake, std::shared_ptr<arc::games::centipede::SnakeCell> cell);
+
         private : std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes;
             std::shared_ptr<arc::games::centipede::Player> player;
             std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms;
             std::clock_t clock;
+            std::clock_t shootClock;
+            std::clock_t shootMoveClock;
     };
 };
