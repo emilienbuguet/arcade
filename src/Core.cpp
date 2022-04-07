@@ -70,6 +70,7 @@ bool arc::Core::useEvent(arc::Events event)
 
 void arc::Core::run()
 {
+    //std::cout << "current game: " << this->currentGame << std::endl;
     arc::Events event = arc::None;
     while (this->c_game->isRunning()) {
         this->update();

@@ -85,13 +85,15 @@ void arc::display::NcursesDisplay::printMiddle(int y, int x, const std::string t
         attron(A_BOLD);
 
     getmaxyx(stdscr, row, col);
-    //std::cout << row << " " << col << std::endl;
     mvprintw(row / 2 - 12 + y, col / 2 - 32 + (x * 2), text.c_str());
 }
 
 void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::Object>> objs)
 {
-    for (std::shared_ptr<arc::Object> i : objs) {
+    attron(COLOR_PAIR(4));
+    drawBorder();
+    for (std::shared_ptr<arc::Object> i : objs)
+    {
         if (i->getType() == arc::Object::Type::TEXT) {
             auto txt = std::static_pointer_cast<arc::Text>(i);
             printMiddle(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
@@ -106,6 +108,23 @@ void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::
 
 arc::Events arc::display::NcursesDisplay::getEvent() const
 {
+    int row;
+    int col;
+    getmaxyx(stdscr, row, col);
+    attron(COLOR_PAIR(1));
+    if (row <= 50 || col <= 40) {
+        clear();
+        while (row <= 50 || col <= 40) {
+            if (getch() == KEY_RESIZE)
+                clear();
+            mvprintw(row / 2 - 1, col / 2 - 12, "+-------------------------+");
+            mvprintw(row / 2, col / 2 - 12, "|Please resize your window|");
+            mvprintw(row / 2 + 1, col / 2 - 12, "+-------------------------+");
+            getmaxyx(stdscr, row, col);
+        }
+        clear();
+    }
+
     switch (getch()) {
     case KEY_UP:
         return arc::KeyUp;
@@ -278,33 +297,12 @@ void arc::display::NcursesDisplay::printInterface(int y, int x, const std::strin
     mvprintw(y * row / 1080, x * col / 1920, text.c_str());
 }
 
-void arc::display::NcursesDisplay::getTextureInterface(const std::string fileName, int y, int x)
-{
-    std::ifstream file("assets/ncurses/" + fileName + ".txt");
-    std::string line;
-    arc::Color color(arc::Color::ColorType::WHITE);
-    int row;
-    int col;
-    getmaxyx(stdscr, row, col);
-
-    for (int i = 0; std::getline(file, line); i++) {
-        if (i == 0) {
-            color = getSpriteColor(line);
-            continue;
-        }
-        printInterface(y + i - y, x, line, color);
-    }
-}
-
 void arc::display::NcursesDisplay::drawInterface(std::vector<std::shared_ptr<arc::Object>> objs)
 {
     for (std::shared_ptr<arc::Object> i : objs) {
         if (i->getType() == arc::Object::Type::TEXT) {
             auto txt = std::static_pointer_cast<arc::Text>(i);
             printInterface(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
-        } else {
-            arc::Object obj = *i.get();
-            getTextureInterface(obj.getValue(), obj.getPosition().y, obj.getPosition().x);
         }
     }
     refresh();

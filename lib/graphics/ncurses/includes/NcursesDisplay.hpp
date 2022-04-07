@@ -47,10 +47,5 @@ class NcursesDisplay : public arc::display::IDisplayModule {
              */
             void printInterface(int y, int x, const std::string text, arc::Color color);
 
-            /**
-             * @brief Get the Texture of an Interface sprite
-             *
-             */
-            void getTextureInterface(const std::string fileName, int y, int x);
     };
 }
