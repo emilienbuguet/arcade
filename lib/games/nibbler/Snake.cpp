@@ -24,7 +24,7 @@ arc::games::Snake::~Snake()
 
 void arc::games::Snake::moveSnake()
 {
-    body[0].setPos(s_Xpos, s_Ypos);
+    body[0].setPosition(arc::Vector(s_Xpos, s_Ypos));
     if (s_facing == direction::Facing::UP)
         s_Ypos -= 1;
     if (s_facing == direction::Facing::RIGHT)
@@ -37,7 +37,7 @@ void arc::games::Snake::moveSnake()
     int size = body.size();
     body[0].updateAxis();
     for (int i = 1; i < size; i++) {
-        body[i].setPos(body[i - 1].getPrevXpos(), body[i - 1].getPrevYpos());
+        body[i].setPosition(arc::Vector(body[i - 1].getPrevXpos(), body[i - 1].getPrevYpos()));
         body[i].updateAxis();
         body[i - 1].setPrevPos(body[i - 1].getXpos(), body[i - 1].getYpos());
     }
@@ -123,7 +123,7 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::Snake::getObjects() 
 
     int size = body.size();
     for (int i = 0; i < size; i++)
-        objects.push_back(body[i].getObject());
+        objects.push_back(std::static_pointer_cast<arc::Object>(std::make_shared<arc::Sprite>(body[i])));
     return objects;
 }
 

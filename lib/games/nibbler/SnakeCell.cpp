@@ -8,11 +8,9 @@
 #include "SnakeCell.hpp"
 
 arc::games::SnakeCell::SnakeCell(int x, int y)
-    : sc_Xpos(x)
-    , sc_Ypos(y)
+    : arc::Sprite("snake_body_horizontal", arc::Vector(x, y))
     , sc_prevXpos(x)
     , sc_prevYpos(y)
-    , sc_axis(direction::axis::HORIZONTAL)
 {
 }
 
@@ -20,26 +18,20 @@ arc::games::SnakeCell::~SnakeCell()
 {
 }
 
-void arc::games::SnakeCell::setPos(int x, int y)
-{
-    sc_Xpos = x;
-    sc_Ypos = y;
-}
-
 void arc::games::SnakeCell::setPrevPos(int x, int y)
 {
-    sc_prevXpos = x;
-    sc_prevYpos = y;
+    sc_prevXpos = this->getPosition().x;
+    sc_prevYpos = this->getPosition().y;
 }
 
 int arc::games::SnakeCell::getXpos()
 {
-    return sc_Xpos;
+    return this->getPosition().x;
 }
 
 int arc::games::SnakeCell::getYpos()
 {
-    return sc_Ypos;
+    return this->getPosition().y;
 }
 
 int arc::games::SnakeCell::getPrevXpos()
@@ -52,31 +44,11 @@ int arc::games::SnakeCell::getPrevYpos()
     return sc_prevYpos;
 }
 
-direction::axis arc::games::SnakeCell::getAxis()
-{
-    return sc_axis;
-}
-
-void arc::games::SnakeCell::setAxis(direction::axis axis)
-{
-    sc_axis = axis;
-}
-
-const std::shared_ptr<arc::Object> arc::games::SnakeCell::getObject() const
-{
-    std::string name = "";
-    if (sc_axis == direction::axis::HORIZONTAL)
-        name = "snake_body_horizontal";
-    else
-        name = "snake_body_vertical";
-    arc::Sprite sprite(name, arc::Vector(sc_Xpos, sc_Ypos));
-    return std::make_shared<arc::Object>(sprite);
-}
-
 void arc::games::SnakeCell::updateAxis()
 {
-    if (sc_prevXpos == sc_Xpos)
-        sc_axis = direction::axis::VERTICAL;
-    else
-        sc_axis = direction::axis::HORIZONTAL;
+    if (sc_prevXpos == this->getPosition().x) {
+        this->setValue("snake_body_vertical");
+    } else {
+        this->setValue("snake_body_horizontal");
+    }
 }

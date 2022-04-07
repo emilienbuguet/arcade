@@ -11,18 +11,10 @@
 #include "Object.hpp"
 
 namespace arc::games {
-class SnakeCell {
+class SnakeCell : public Sprite{
     public:
         SnakeCell(int x, int y);
         ~SnakeCell();
-
-        /**
-         * @brief Set the position of the snake cell
-         *
-         * @param x
-         * @param y
-         */
-        void setPos(int x, int y);
 
         /**
          * @brief Set the position of the previous
@@ -59,37 +51,13 @@ class SnakeCell {
         int getPrevYpos();
 
         /**
-         * @brief Get the Axis of the cell
-         *
-         * @return Horizontal or Vertical
-         */
-        direction::axis getAxis();
-
-        /**
-         * @brief Set the axis object
-         *
-         * @param axis
-         */
-        void setAxis(direction::axis axis);
-
-        /**
-         * @brief Get a sharedPointer of object
-         *
-         * @return std::shared_ptr<arc::Object>
-         */
-        const std::shared_ptr<arc::Object> getObject() const;
-
-        /**
          * @brief Update the Axis variable
          *
          */
         void updateAxis();
 
     private :
-        int sc_Xpos;
-        int sc_Ypos;
         int sc_prevXpos;
         int sc_prevYpos;
-        direction::axis sc_axis;
 };
 }
