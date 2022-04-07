@@ -1,6 +1,7 @@
-#include <iostream>
+#include <Sfml.hpp>
 
-void sfml()
-{
-    std::cout << "SFML" << std::endl;
+extern "C" {
+    arc::display::SfmlDisplay* arc::display::createInstance() {
+        return (new arc::display::SfmlDisplay{});
+    }
 }
