@@ -115,8 +115,23 @@ arc::Events arc::display::NcursesDisplay::getEvent() const
     if (row <= 50 || col <= 40) {
         clear();
         while (row <= 50 || col <= 40) {
-            if (getch() == KEY_RESIZE)
-                clear();
+            switch (getch()) {
+                case KEY_RESIZE:
+                    clear();
+                    break;
+                case 27:
+                    return arc::KeyEsc;
+                case 'a':
+                    return arc::KeyA;
+                case 'z':
+                    return arc::KeyZ;
+                case 'o':
+                    return arc::KeyO;
+                case 'p':
+                    return arc::KeyP;
+                default:
+                    break;
+            }
             mvprintw(row / 2 - 1, col / 2 - 12, "+-------------------------+");
             mvprintw(row / 2, col / 2 - 12, "|Please resize your window|");
             mvprintw(row / 2 + 1, col / 2 - 12, "+-------------------------+");
