@@ -262,7 +262,7 @@ arc::Color arc::display::NcursesDisplay::getSpriteColor(std::string line)
 
 void arc::display::NcursesDisplay::getTexture(const std::string fileName, int y, int x)
 {
-    std::ifstream file("assets/ncurses/" + fileName + ".txt");
+    std::ifstream file("assets/" + fileName + ".txt");
     std::string line;
     arc::Color color(arc::Color::ColorType::WHITE);
 

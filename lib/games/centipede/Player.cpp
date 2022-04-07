@@ -12,7 +12,7 @@
 /************* Shoot **************/
 
 arc::games::centipede::Shoot::Shoot(int x, int y)
-    : arc::Sprite("shoot", arc::Vector{x, y})
+    : arc::Sprite("centipede/shoot", arc::Vector{x, y})
     , m_isHit(false)
 {
 }
@@ -64,7 +64,7 @@ bool arc::games::centipede::Shoot::isHit() const
 /************* Player **************/
 
 arc::games::centipede::Player::Player()
-    : arc::Sprite("centipede_player", arc::Vector{16, 19})
+    : arc::Sprite("centipede/player", arc::Vector{16, 19})
     , dir(arc::games::centipede::Player::STAY)
 {
 }

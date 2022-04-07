@@ -99,6 +99,9 @@ void arc::games::Centipede::update()
                 }
         }
     }
+
+    // todo purge empty snakes
+    // create a new clock for spawning snakes (every 20sec)
 }
 
 const std::vector<std::shared_ptr<arc::Object>> arc::games::Centipede::getObjects() const
@@ -125,16 +128,27 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::Centipede::getObject
 void arc::games::Centipede::splitSnake(std::shared_ptr<arc::games::centipede::Snake> snake, std::shared_ptr<arc::games::centipede::SnakeCell> cell)
 {
     auto it = std::find(snake->getCells().begin(), snake->getCells().end(), cell);
-    std::cout << "Hit cell is " << cell->getPosition().x << ", " << cell->getPosition().y << std::endl;
+    std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> snakeCells = snake->getCells();
+    if (snakeCells[0] == cell) { 
+        snakeCells.erase(snakeCells.begin());
+        snake->setCells(snakeCells);
+        return;
+    }
+    if (snakeCells[snakeCells.size() - 1] == cell) {
+        snakeCells.pop_back();
+        snake->setCells(snakeCells);
+        return;
+    }
     if (it != snake->getCells().end()) {
         std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> rightCells{};
         std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> leftCells{};
-        auto iterator = snake->getCells().begin();
-        for (; iterator != it; iterator++)
-            leftCells.push_back((*iterator));
-        for (iterator++; iterator != snake->getCells().end(); iterator++)
-            rightCells.push_back((*iterator));
-        std::reverse(rightCells.begin(), rightCells.end());
+        size_t i = 0;
+        for (; i < snakeCells.size() && snakeCells[i] != cell; i++)
+            leftCells.push_back(snakeCells[i]);
+        for (i++; i < snakeCells.size(); i++)
+            rightCells.push_back(snakeCells[i]);
+        if (rightCells[0]->getPosition().y <= rightCells[rightCells.size() - 1]->getPosition().y)
+            std::reverse(rightCells.begin(), rightCells.end());
         snake->setCells(leftCells);
         this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(rightCells));
     }

@@ -83,10 +83,10 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::NibblerGame::getObje
 {
     std::vector<std::shared_ptr<arc::Object>> objects;
     std::vector<std::shared_ptr<arc::Object>> snakeObj(snake.getObjects());
-    arc::Sprite sprite("map", arc::Vector(0, 0));
+    arc::Sprite sprite("nibbler/map", arc::Vector(0, 0));
     objects.push_back(std::make_shared<arc::Sprite>(sprite));
     objects.insert(std::end(objects), std::begin(snakeObj), std::end(snakeObj));
-    objects.push_back(std::make_shared<arc::Sprite>(arc::Sprite("food", arc::Vector(food.getXpos(), food.getYpos()), 1, 1)));
+    objects.push_back(std::make_shared<arc::Sprite>(arc::Sprite("nibbler/food", arc::Vector(food.getXpos(), food.getYpos()), 1, 1)));
     return objects;
 }
 

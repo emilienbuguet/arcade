@@ -11,7 +11,7 @@
 /************* SnakeCell methods **************/
 
 arc::games::centipede::SnakeCell::SnakeCell(int x, int y, arc::games::centipede::SnakeCell::Type type, arc::games::centipede::SnakeCell::Direction dir)
-    : arc::Sprite(type == BODY ? "centipede_snakecell_down_1" : "centipede_snakehead_down_1", arc::Vector{x, y})
+    : arc::Sprite(type == BODY ? "centipede/snakecell_down_1" : "centipede/snakehead_down_1", arc::Vector{x, y})
     , x(0)
     , y(0)
     , frame(1)
@@ -49,7 +49,7 @@ void arc::games::centipede::SnakeCell::update()
     } else if (dir == RIGHT) {
         direction = "right_";
     }
-    std::string value(type == BODY ? std::string("centipede_snakecell_") : std::string("centipede_snakehead_"));
+    std::string value(type == BODY ? std::string("centipede/snakecell_") : std::string("centipede/snakehead_"));
     value += direction + std::to_string(frame);
     this->setValue(value);
 }
@@ -195,12 +195,20 @@ arc::games::centipede::Snake::Snake(int size, int x, int y)
     }
 }
 
-arc::games::centipede::Snake::Snake(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells)
-    : cells(cells)
+arc::games::centipede::Snake::Snake(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> ncells)
+    : cells(ncells)
 {
-    for (auto& cell: cells)
+    for (auto& cell : this->cells)
         cell->setCellType(arc::games::centipede::SnakeCell::BODY);
-    cells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
+    if (this->cells.size() == 0)
+        return;
+    this->cells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
+    for (auto& cell : this->cells) {
+        if (cell->getDirection() == arc::games::centipede::SnakeCell::LEFT)
+            cell->setDirection(arc::games::centipede::SnakeCell::RIGHT);
+        else if (cell->getDirection() == arc::games::centipede::SnakeCell::RIGHT)
+            cell->setDirection(arc::games::centipede::SnakeCell::LEFT);
+    }
 }
 
 arc::games::centipede::Snake::~Snake() = default;
@@ -210,11 +218,13 @@ std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> arc::games::centi
     return this->cells;
 }
 
-void arc::games::centipede::Snake::setCells(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> cells)
+void arc::games::centipede::Snake::setCells(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> ncells)
 {
-    this->cells = cells;
+    this->cells = ncells;
     for (auto &cell : cells)
         cell->setCellType(arc::games::centipede::SnakeCell::BODY);
+    if (this->cells.size() == 0)
+        return;
     cells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
 }
 
@@ -227,6 +237,8 @@ void arc::games::centipede::Snake::update()
 
 void arc::games::centipede::Snake::checkHit(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
 {
+    if (this->cells.size() == 0)
+        return;
     auto tmp = this->cells[0]->getDirection();
     this->cells[0]->hit(mushrooms);
 

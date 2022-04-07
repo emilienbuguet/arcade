@@ -52,7 +52,7 @@ SDL_Texture *arc::display::Sdl2Display::getTexture(const std::string& name)
     if (it != this->m_textures.end()) {
         return it->second;
     } else {
-        SDL_Surface* tmp = IMG_Load(("./assets/sdl2/" + name + ".bmp").c_str());
+        SDL_Surface* tmp = IMG_Load(("./assets/" + name + ".bmp").c_str());
         if (!tmp)
             tmp = IMG_Load(("./assets/sdl2/" + name + ".png").c_str());
         if (!tmp)

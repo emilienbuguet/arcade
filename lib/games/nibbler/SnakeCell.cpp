@@ -8,7 +8,7 @@
 #include "SnakeCell.hpp"
 
 arc::games::SnakeCell::SnakeCell(int x, int y)
-    : arc::Sprite("snake_body_horizontal", arc::Vector(x, y))
+    : arc::Sprite("nibbler/snake_body_horizontal", arc::Vector(x, y))
     , sc_prevXpos(x)
     , sc_prevYpos(y)
 {
@@ -47,8 +47,8 @@ int arc::games::SnakeCell::getPrevYpos()
 void arc::games::SnakeCell::updateAxis()
 {
     if (sc_prevXpos == this->getPosition().x) {
-        this->setValue("snake_body_vertical");
+        this->setValue("nibbler/snake_body_vertical");
     } else {
-        this->setValue("snake_body_horizontal");
+        this->setValue("nibbler/snake_body_horizontal");
     }
 }
