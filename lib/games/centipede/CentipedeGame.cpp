@@ -95,7 +95,7 @@ void arc::games::Centipede::update()
                 }
             }
         }
-        player->update(this->mushrooms, this->snakes);
+        player->update();
     }
     if (player->lose(this->mushrooms, this->snakes))
         this->m_isRunning = false;

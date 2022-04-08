@@ -100,7 +100,7 @@ std::vector<std::shared_ptr<arc::games::centipede::Shoot>> arc::games::centipede
     return this->shoots;
 }
 
-void arc::games::centipede::Player::update(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms, std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes)
+void arc::games::centipede::Player::update()
 {
     for (auto &shoot : this->shoots) {
         shoot->Update();

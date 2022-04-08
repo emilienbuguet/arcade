@@ -101,7 +101,7 @@ namespace arc::games::centipede {
              * @brief Update the Player
              *
              */
-            void update(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms, std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes);
+            void update();
 
             /**
              * @brief Get the Shoots object
