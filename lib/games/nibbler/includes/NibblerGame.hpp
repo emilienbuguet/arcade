@@ -55,20 +55,13 @@ public:
 
 
 private:
-    Snake snake;
+    std::shared_ptr<Snake> snake;
     int n_highScore;
     int n_lives;
     int n_timeLeft;
     std::vector<std::string> n_map;
     clock_t n_clock;
-    //todo store this in a pointer
-    Food food;
+    std::vector<std::shared_ptr<arc::games::Food>> n_foods;
     int n_speed;
-
-    /**
-     * @brief Spawns a food
-     *
-     */
-    void spawnFood();
 };
 } // namespace arc::games

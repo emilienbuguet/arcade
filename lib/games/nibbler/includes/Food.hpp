@@ -1,7 +1,11 @@
+#pragma once
+#include <time.h>
+#include <string>
+#include "Snake.hpp"
 namespace arc::games {
     class Food {
         public:
-            Food();
+            Food(std::vector<std::string> map, std::shared_ptr<Snake> snake);
             ~Food();
 
             /**
@@ -19,14 +23,14 @@ namespace arc::games {
             int getYpos() const;
 
             /**
-             * @brief Set the Pos X and Y object
+             * @brief Get the Clock object
              *
-             * @param x
+             * @return clock_t
              */
-            void setPos(int x, int y);
+            clock_t getClock();
 
-        private:
-            int pos_x;
+        private : int pos_x;
             int pos_y;
+            clock_t f_clock;
     };
 }

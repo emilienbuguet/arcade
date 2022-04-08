@@ -29,10 +29,14 @@ arc::Core::Core(const std::string& lib)
         30,
         arc::Color { arc::Color::YELLOW }));
     this->c_interface.push_back(std::make_shared<arc::Text>("ESC to quit", Vector(1550, 400), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("Arrows to move", Vector(1520, 480), 30, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Text>("ENTER to start", Vector(1520, 440), 30, arc::Color { arc::Color::WHITE }));
-    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 480), 30, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 520), 30, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 560), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 600), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 640), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 680), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 720), 30, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Text>("Score: " + std::to_string(this->c_score), Vector(900, 950), 40, arc::Color { arc::Color::WHITE }));
     std::vector<std::shared_ptr<arc::Object>> scores = this->c_highscore->toObjects();
     for (size_t i = 0; i < scores.size(); i++) {
@@ -111,17 +115,25 @@ void arc::Core::update()
     if (this->currentGame != "menu") {
         int indexGame = std::distance(this->c_games.begin(), std::find(this->c_games.begin(), this->c_games.end(), this->currentGame));
         int indexDisplay = std::distance(this->c_displays.begin(), std::find(this->c_displays.begin(), this->c_displays.end(), this->currentDisplay));
-        this->c_interface[4]->setValue("A to " + this->c_games[(indexGame - 1) % this->c_games.size()]);
-        this->c_interface[5]->setValue("Z to " + this->c_games[(indexGame + 1) % this->c_games.size()]);
-        this->c_interface[6]->setValue("O to " + this->c_displays[(indexDisplay - 1) % this->c_displays.size()]);
-        this->c_interface[7]->setValue("P to " + this->c_displays[(indexDisplay + 1) % this->c_displays.size()]);
+        this->c_interface[5]->setValue("A to " + this->c_games[(indexGame - 1) % this->c_games.size()]);
+        this->c_interface[6]->setValue("Z to " + this->c_games[(indexGame + 1) % this->c_games.size()]);
+        this->c_interface[7]->setValue("O to " + this->c_displays[(indexDisplay - 1) % this->c_displays.size()]);
+        this->c_interface[8]->setValue("P to " + this->c_displays[(indexDisplay + 1) % this->c_displays.size()]);
+        this->c_interface[9]->setValue("R to restart game");
+        this->c_interface[10]->setValue("M to go back to the Menu");
     } else {
-        this->c_interface[4]->setValue("Enter to start");
-        this->c_interface[5]->setValue("");
+        this->c_interface[5]->setValue("Enter to start");
         this->c_interface[6]->setValue("");
         this->c_interface[7]->setValue("");
+        this->c_interface[8]->setValue("");
+        this->c_interface[9]->setValue("");
+        this->c_interface[10]->setValue("");
     }
-    this->c_interface[8]->setValue("Score: " + std::to_string(this->c_score + static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore()));
+    if (this->currentGame == "centipede")
+        this->c_interface[11]->setValue("SPACE to shoot");
+    else
+        this->c_interface[11]->setValue("");
+    this->c_interface[12]->setValue("Score: " + std::to_string(this->c_score + static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore()));
 }
 
 void arc::Core::nextGame()
