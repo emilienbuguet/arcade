@@ -79,6 +79,9 @@ void arc::display::SfmlDisplay::drawObjects(std::vector<std::shared_ptr<arc::Obj
 {
     this->m_window->clear();
     for (auto it = objs.begin(); it != objs.end(); it++) {
+        auto pos = (*it)->getPosition();
+        if (pos.x < 0 || pos.y < 0 || pos.x >= 32 || pos.y >= 24)
+            continue;
         if ((*it)->getType() == arc::Object::Type::SPRITE) {
             auto obj = std::static_pointer_cast<arc::Sprite>(*it);
             std::shared_ptr<arc::Sprite> sprite = std::make_shared<arc::Sprite>(

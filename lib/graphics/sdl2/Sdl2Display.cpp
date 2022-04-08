@@ -120,6 +120,9 @@ void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Obj
     SDL_SetRenderDrawColor(this->m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->m_renderer);
     for (auto it = objs.begin(); it != objs.end(); it++) {
+        arc::Vector pos = (*it)->getPosition();
+        if (pos.x < 0 || pos.y < 0 || pos.x >= 32 || pos.y >= 24)
+            continue;
         if ((*it)->getType() == arc::Object::Type::SPRITE) {
             auto obj = std::static_pointer_cast<arc::Sprite>(*it);
             std::shared_ptr<arc::Sprite> sprite = std::make_shared<arc::Sprite>(
