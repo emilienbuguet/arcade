@@ -50,3 +50,12 @@ std::array<std::vector<std::string>, 2> arc::utils::FileParser::getAllLibraries(
     }
     return result;
 }
+
+bool arc::utils::FileParser::isDisplayLibrary(const std::string libName)
+{
+    std::string tmp = getLibraryName(libName);
+    return (tmp == "sfml" || tmp == "ndk++" || tmp == "aalib" || tmp == "libcaca"
+                || tmp == "allegro5" || tmp == "xlib" || tmp == "gtk+" || tmp == "irrlicht"
+                || tmp == "opengl" || tmp == "vulkan" || tmp == "qt5" || tmp == "ncurses"
+                || tmp == "sdl2");
+}

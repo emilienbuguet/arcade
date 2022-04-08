@@ -22,6 +22,9 @@ arc::Core::Core(const std::string& lib)
     auto libs = arc::utils::FileParser::getAllLibraries("./lib");
     this->c_games = libs[0];
     this->c_displays = libs[1];
+    if (!arc::utils::FileParser::isDisplayLibrary(lib)) {
+        throw new arc::Error("cannot use display library " + lib);
+    }
     this->c_interface.push_back(std::make_shared<arc::Text>("Menu", Vector(920, 50), 40, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Sprite>("interface/board", Vector(1920 / 2 - 401, 1080 / 2 - 301)));
     this->c_interface.push_back(std::make_shared<arc::Text>("Keybindings",

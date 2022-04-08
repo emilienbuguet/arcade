@@ -4,7 +4,6 @@
 #include <Core.hpp>
 #include <Error.hpp>
 
-
 int main(int argc, char **argv)
 {
     if (argc != 2) {
