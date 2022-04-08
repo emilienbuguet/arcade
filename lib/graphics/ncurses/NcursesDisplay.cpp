@@ -95,6 +95,8 @@ void arc::display::NcursesDisplay::drawObjects(std::vector<std::shared_ptr<arc::
     drawBorder();
     for (std::shared_ptr<arc::Object> i : objs)
     {
+        if ((*i).getPosition().y < 0 || (*i).getPosition().y > 24 || (*i).getPosition().x < 0 || (*i).getPosition().x > 32)
+            continue;
         if (i->getType() == arc::Object::Type::TEXT) {
             auto txt = std::static_pointer_cast<arc::Text>(i);
             printMiddle(txt->getPosition().y, txt->getPosition().x, txt->getValue(), txt->getColor());
