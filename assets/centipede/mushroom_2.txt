@@ -1,2 +1,2 @@
-BLEU
+MAGENTA
 qp
