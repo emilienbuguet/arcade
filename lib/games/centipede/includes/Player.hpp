@@ -113,9 +113,15 @@ namespace arc::games::centipede {
             /**
              * @brief
              *
-             * @param deleted
+             * @param shoot
              */
-            void deleteShoot(std::shared_ptr<arc::games::centipede::Shoot> &deleted);
+            void deleteShoot(std::shared_ptr<arc::games::centipede::Shoot> &shoot);
+
+            /**
+             * @brief check if you lose
+             *
+             */
+            bool lose(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms, std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes);
 
         private:
             /**

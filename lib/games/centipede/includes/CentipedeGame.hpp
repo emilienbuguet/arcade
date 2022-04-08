@@ -61,5 +61,7 @@ namespace arc::games {
             std::clock_t clock;
             std::clock_t shootClock;
             std::clock_t shootMoveClock;
+            std::clock_t snakePopClock;
+
     };
 };
