@@ -1,4 +1,5 @@
 #include <Core.hpp>
+#include <DisplayTester.hpp>
 #include <Utils/DLLoader.hpp>
 #include <Utils/FileParser.hpp>
 #include <Vector.hpp>
@@ -19,6 +20,8 @@ arc::Core::Core(const std::string& lib)
     , c_highscore(std::make_unique<arc::utils::HighscoreHandler>())
     , c_score(0)
 {
+    if (dynamic_cast<arc::DisplayTester *>(c_display.getInstance()) == nullptr)
+        throw new arc::Error("Wrong display library format");
     auto libs = arc::utils::FileParser::getAllLibraries("./lib");
     this->c_games = libs[0];
     this->c_displays = libs[1];
