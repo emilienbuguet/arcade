@@ -8,7 +8,8 @@
 int main(int argc, char **argv)
 {
     if (argc != 2) {
-        std::cerr << "arcade: Wrong amount of arguments." << std::endl;
+        std::cerr << "USAGE:" << std::endl;
+        std::cerr << "\t\t ./arcade display_lib" << std::endl;
         return 84;
     }
     try {
