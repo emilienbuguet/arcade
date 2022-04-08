@@ -311,7 +311,7 @@ void arc::display::NcursesDisplay::printInterface(int y, int x, const std::strin
     default:
         break;
     }
-
+    mvprintw(y * row / 1080, x * col / 1920, "                 ");
     mvprintw(y * row / 1080, x * col / 1920, text.c_str());
 }
 

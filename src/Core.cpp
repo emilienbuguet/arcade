@@ -24,18 +24,20 @@ arc::Core::Core(const std::string& lib)
     this->c_displays = libs[1];
     this->c_interface.push_back(std::make_shared<arc::Text>("Menu", Vector(920, 50), 40, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Sprite>("interface/board", Vector(1920 / 2 - 401, 1080 / 2 - 301)));
+    this->c_interface.push_back(std::make_shared<arc::Text>("Keybindings",
+        arc::Vector { 1550, 300 },
+        30,
+        arc::Color { arc::Color::YELLOW }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("ESC to quit", Vector(1550, 400), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("ENTER to start", Vector(1520, 440), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 480), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 520), 30, arc::Color { arc::Color::WHITE }));
+    this->c_interface.push_back(std::make_shared<arc::Text>("", Vector(1520, 560), 30, arc::Color { arc::Color::WHITE }));
     this->c_interface.push_back(std::make_shared<arc::Text>("Score: " + std::to_string(this->c_score), Vector(900, 950), 40, arc::Color { arc::Color::WHITE }));
     std::vector<std::shared_ptr<arc::Object>> scores = this->c_highscore->toObjects();
     for (size_t i = 0; i < scores.size(); i++) {
         this->c_interface.push_back(scores[i]);
     }
-    this->c_interface.push_back(std::make_shared<arc::Text>("Keybindings",
-                            arc::Vector{ 1550, 300 },
-                            30,
-                            arc::Color{ arc::Color::YELLOW }
-                        ));
-    this->c_interface.push_back(std::make_shared<arc::Text>("ESC to quit", Vector(1550, 400), 30, arc::Color { arc::Color::WHITE }));
-    this->c_interface.push_back(std::make_shared<arc::Text>("ENTER to start", Vector(1520, 440), 30, arc::Color { arc::Color::WHITE }));
     this->c_games = arc::utils::FileParser::getLibrariesNames(this->c_games);
     this->c_displays = arc::utils::FileParser::getLibrariesNames(this->c_displays);
 }
@@ -102,7 +104,16 @@ void arc::Core::run()
 void arc::Core::update()
 {
     this->c_interface[0]->setValue(this->currentGame);
-    this->c_interface[2]->setValue("Score: " + std::to_string(this->c_score + static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore()));
+    //3 & 4
+    if (this->currentGame != "menu") {
+        int indexGame = std::distance(this->c_games.begin(), std::find(this->c_games.begin(), this->c_games.end(), this->currentGame));
+        int indexDisplay = std::distance(this->c_displays.begin(), std::find(this->c_displays.begin(), this->c_displays.end(), this->currentDisplay));
+        this->c_interface[4]->setValue("A to " + this->c_games[(indexGame - 1) % this->c_games.size()]);
+        this->c_interface[5]->setValue("Z to " + this->c_games[(indexGame + 1) % this->c_games.size()]);
+        this->c_interface[6]->setValue("O to " + this->c_displays[(indexDisplay - 1) % this->c_displays.size()]);
+        this->c_interface[7]->setValue("P to " + this->c_displays[(indexDisplay + 1) % this->c_displays.size()]);
+    }
+    this->c_interface[8]->setValue("Score: " + std::to_string(this->c_score + static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore()));
 }
 
 void arc::Core::nextGame()
