@@ -143,6 +143,7 @@ void arc::games::Centipede::splitSnake(std::shared_ptr<arc::games::centipede::Sn
     std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> newCells;
     auto it = std::find(snakeCells.begin(), snakeCells.end(), cell);
 
+    this->m_score += 50;
     newCells.insert(newCells.end(), it + 1, snakeCells.end());
     this->mushrooms.push_back(std::make_shared<arc::games::centipede::Mushroom>(cell->getPosition().x, cell->getPosition().y));
     snakeCells.erase(it, snakeCells.end());
