@@ -9,7 +9,7 @@ set( CMAKE_CXX_FLAGS "-lsfml-window -lsfml-graphics -lsfml-audio -lsfml-system -
 set(SRCS
     ./Sfml.cpp
     ./SfmlDisplay.cpp
-    ./Error.cpp
+    ${CMAKE_SOURCE_DIR}/src/Error.cpp
     ${CMAKE_SOURCE_DIR}/src/Object.cpp
     ${CMAKE_SOURCE_DIR}/src/Color.cpp
 )

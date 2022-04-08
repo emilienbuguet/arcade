@@ -11,7 +11,7 @@ arc::display::SfmlDisplay::SfmlDisplay()
     m_window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Arcade", sf::Style::Fullscreen);
     m_font->loadFromFile("./assets/fonts/GoldenAge.ttf");
     if (!m_font)
-        throw new arc::display::SfmlError{"unable to load font"};
+        throw new arc::Error{"unable to load font"};
 }
 
 arc::display::SfmlDisplay::~SfmlDisplay() = default;
@@ -26,7 +26,7 @@ std::shared_ptr<sf::Texture> arc::display::SfmlDisplay::getTexture(const std::st
         if (!tmp->loadFromFile("./assets/" + name + ".png")) {
             if (!tmp->loadFromFile("./assets/" + name + ".jpg")) {
                 if (!tmp->loadFromFile("./assets/" + name + ".bmp")) {
-                    throw new arc::display::SfmlError{std::string("unable to load texture: ") + name};
+                    throw new arc::Error{std::string("unable to load texture: ") + name};
                 }
             }
         }

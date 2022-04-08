@@ -13,7 +13,7 @@ int main(int argc, char **argv)
         return 84;
     }
     try {
-    arc::Core core(argv[1]);
+        arc::Core core(argv[1]);
         core.run();
     } catch (arc::Error *e) {
         std::cout << std::string("arcade: ") + e->what() << std::endl;
