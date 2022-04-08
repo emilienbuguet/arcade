@@ -97,7 +97,6 @@ void arc::games::Centipede::update()
             if (shoot->isHit()) {
                 for (auto& snake : this->snakes) {
                     if (shoot->getHit(snake) != nullptr) {
-                        std::cout << "Snake is hit" << std::endl;
                         auto touch = shoot->getHit(snake);
                         this->splitSnake(snake, touch);
                         break;
@@ -155,4 +154,3 @@ void arc::games::Centipede::splitSnake(std::shared_ptr<arc::games::centipede::Sn
     this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(newCells));
     snake->setCells(snakeCells);
 }
-

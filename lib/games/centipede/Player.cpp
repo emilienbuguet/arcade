@@ -27,18 +27,13 @@ void arc::games::centipede::Shoot::Update()
 std::shared_ptr<arc::games::centipede::SnakeCell> arc::games::centipede::Shoot::getHit(std::shared_ptr<arc::games::centipede::Snake> snake)
 {
     auto pos = this->getPosition();
-    std::cout << "This pos is : " << pos.x << " " << pos.y << std::endl;
-    std::cout << "Snake size is : " << snake->getCells().size() << std::endl;
     for (auto &cell : snake->getCells()) {
-        std::cout << "Cell pos is : " << cell->getPosition().x << " " << cell->getPosition().y << std::endl;
         if (cell->getPosition().x == pos.x && cell->getPosition().y == pos.y - 1) {
-            std::cout << "Hit !" << std::endl;
             this->m_isHit = true;
             return cell;
         }
     }
 
-    std::cout << "Miss !" << std::endl;
     return nullptr;
 }
 
@@ -117,18 +112,15 @@ bool arc::games::centipede::Player::lose(std::vector<std::shared_ptr<arc::games:
     for (auto &snake : snakes) {
         for (auto &cell : snake->getCells()) {
             if (cell->getPosition().x == this->getPosition().x && cell->getPosition().y == this->getPosition().y) {
-                std::cout << "exit with snake player touch" << std::endl;
                 return true;
             }
             if (cell->getPosition().y >= 24) {
-                std::cout << "exit with snake out of box" << std::endl;
                 return true;
             }
         }
     }
     for (auto &mushroom : mushrooms) {
         if (mushroom->getPosition().x == this->getPosition().x && mushroom->getPosition().y == this->getPosition().y) {
-            std::cout << "exit with mushroom" << std::endl;
             return true;
         }
     }

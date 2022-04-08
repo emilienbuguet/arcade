@@ -102,8 +102,6 @@ void arc::Core::run()
         this->currentDisplay = props.graphicslib;
         this->run();
     }
-    std::cout << this->c_interface[c_interface.size() - 1]->getValue() << std::endl;
-    std::cout << "Core finished running!" << std::endl;
 }
 
 void arc::Core::update()
