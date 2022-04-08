@@ -39,6 +39,12 @@ namespace arc {
             }
 
             /**
+             * @brief Unique pointer
+             * 
+             */
+            DLLoader(DLLoader& other) = delete;
+
+            /**
              * @brief unload the library
              *
              */
@@ -97,6 +103,12 @@ namespace arc {
             {
                 return l_instance;
             }
+
+            /**
+             * @brief Unique pointer
+             *
+             */
+            DLLoader& operator=(DLLoader& other) = delete;
 
         private:
             /**

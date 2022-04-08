@@ -66,6 +66,7 @@ bool arc::games::centipede::Shoot::isHit() const
 arc::games::centipede::Player::Player()
     : arc::Sprite("centipede/player", arc::Vector{16, 19})
     , dir(arc::games::centipede::Player::STAY)
+    , shoots({})
 {
 }
 

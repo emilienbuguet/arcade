@@ -10,6 +10,7 @@ set(SRCS
     ./Ncurses.cpp
     ./NcursesDisplay.cpp
     ${CMAKE_SOURCE_DIR}/src/Object.cpp
+    ${CMAKE_SOURCE_DIR}/src/Color.cpp
 )
 
 find_package(Curses REQUIRED)

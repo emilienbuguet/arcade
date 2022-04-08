@@ -10,9 +10,10 @@
 arc::games::Snake::Snake(int x, int y)
     : s_Xpos(x)
     , s_Ypos(y)
+    , s_facing(direction::Facing::RIGHT)
+    , s_OldFacing(direction::Facing::RIGHT)
+    , body({})
 {
-    s_facing = direction::Facing::RIGHT;
-    s_OldFacing = direction::Facing::RIGHT;
     body.push_back(SnakeCell(x - 1, y));
     body.push_back(SnakeCell(x - 2, y));
     body.push_back(SnakeCell(x - 3, y));
@@ -39,9 +40,9 @@ void arc::games::Snake::moveSnake()
     for (int i = 1; i < size; i++) {
         body[i].setPosition(arc::Vector(body[i - 1].getPrevXpos(), body[i - 1].getPrevYpos()));
         body[i].updateAxis();
-        body[i - 1].setPrevPos(body[i - 1].getXpos(), body[i - 1].getYpos());
+        body[i - 1].setPrevPos();
     }
-    body[size - 1].setPrevPos(body[size - 1].getXpos(), body[size - 1].getYpos());
+    body[size - 1].setPrevPos();
 }
 
 int arc::games::Snake::getXpos()

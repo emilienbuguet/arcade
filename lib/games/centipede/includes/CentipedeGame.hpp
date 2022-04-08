@@ -54,7 +54,8 @@ namespace arc::games {
              */
             void splitSnake(std::shared_ptr<arc::games::centipede::Snake> snake, std::shared_ptr<arc::games::centipede::SnakeCell> cell);
 
-        private : std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes;
+        private :
+            std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes;
             std::shared_ptr<arc::games::centipede::Player> player;
             std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms;
             std::clock_t clock;

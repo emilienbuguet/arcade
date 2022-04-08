@@ -88,7 +88,8 @@ class Snake {
          */
         bool hasPrevPosition(int x, int y);
 
-    private : int s_Xpos;
+    private :
+        int s_Xpos;
         int s_Ypos;
         direction::Facing s_facing;
         direction::Facing s_OldFacing;

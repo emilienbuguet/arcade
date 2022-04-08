@@ -11,6 +11,9 @@ arc::games::MenuGame::MenuGame()
     , m_props({"", "", ""})
     , m_isStarting(false)
     , m_isSelectingGame(true)
+    , m_games()
+    , m_displays()
+    , m_ui()
 {
     auto tmp = arc::utils::FileParser::getAllLibraries("./lib");
     std::vector<std::string> games = tmp[0];

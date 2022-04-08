@@ -18,6 +18,12 @@ namespace arc::display {
             Sdl2Display();
 
             /**
+             * @brief Unique pointer
+             *
+             */
+            Sdl2Display(Sdl2Display& other) = delete;
+
+            /**
              * @brief Destroy a Sld2Display object
              *
              */
@@ -50,6 +56,12 @@ namespace arc::display {
              * @param obj object to be placed
              */
             void placeObjectOnBoard(std::shared_ptr<arc::Object> obj);
+
+            /**
+             * @brief Unique pointer
+             *
+             */
+            Sdl2Display& operator=(Sdl2Display& other) = delete;
 
         private:
 

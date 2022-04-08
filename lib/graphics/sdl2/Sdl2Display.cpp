@@ -6,6 +6,9 @@
 
 
 arc::display::Sdl2Display::Sdl2Display()
+    : m_window(nullptr)
+    , m_renderer(nullptr)
+    , m_textures()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         throw new arc::display::Sdl2Error{std::string("unable to init sdl2: ") + SDL_GetError()};

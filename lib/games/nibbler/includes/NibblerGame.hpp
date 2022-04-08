@@ -61,6 +61,7 @@ private:
     int n_timeLeft;
     std::vector<std::string> n_map;
     clock_t n_clock;
+    //todo store this in a pointer
     Food food;
     int n_speed;
 

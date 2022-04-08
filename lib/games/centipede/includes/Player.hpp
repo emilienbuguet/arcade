@@ -64,8 +64,6 @@ namespace arc::games::centipede {
             bool isHit() const;
 
         private:
-            int x; //todo remove
-            int y; //todo remove
             bool m_isHit;
     };
     class Player : public arc::Sprite {

@@ -117,7 +117,6 @@ void arc::games::centipede::SnakeCell::pickADir(std::vector<std::shared_ptr<arc:
 
 void arc::games::centipede::SnakeCell::pickASideDir(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms)
 {
-    auto pos = this->getPosition();
     if (this->dir == RIGHT) {
         if (!this->hasRightMushroom(mushrooms)) {
             this->dir = arc::games::centipede::SnakeCell::Direction::RIGHT;

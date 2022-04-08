@@ -9,10 +9,10 @@
 
 arc::games::NibblerGame::NibblerGame()
     : snake(15, 8)
-    , food()
-    , n_speed(0)
-{
-    n_map = {
+    , n_highScore(0)
+    , n_lives(0)
+    , n_timeLeft(0)
+    , n_map({
         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
         "X                              X",
         "X                              X",
@@ -37,15 +37,15 @@ arc::games::NibblerGame::NibblerGame()
         "X                              X",
         "X                              X",
         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    };
-    n_clock = clock();
+            })
+    , n_clock(clock())
+    , food()
+    , n_speed(0)
+{
     spawnFood();
 }
 
-arc::games::NibblerGame::~NibblerGame()
-{
-
-}
+arc::games::NibblerGame::~NibblerGame() = default;
 
 void arc::games::NibblerGame::useEvent(arc::Events event)
 {

@@ -12,11 +12,13 @@ arc::Core::Core(const std::string& lib)
     , c_display(lib)
     , currentDisplay(arc::utils::FileParser::getLibraryName(lib))
     , currentGame("menu")
+    , c_games({})
+    , c_displays({})
+    , c_username("")
+    , c_interface({})
     , c_highscore(std::make_unique<arc::utils::HighscoreHandler>())
     , c_score(0)
 {
-    std::cout << "Core built on lib " + currentDisplay + "!" << std::endl;
-    std::cout << "Current game is " + currentGame + "!" << std::endl;
     auto libs = arc::utils::FileParser::getAllLibraries("./lib");
     this->c_games = libs[0];
     this->c_displays = libs[1];

@@ -18,7 +18,7 @@ arc::games::SnakeCell::~SnakeCell()
 {
 }
 
-void arc::games::SnakeCell::setPrevPos(int x, int y)
+void arc::games::SnakeCell::setPrevPos()
 {
     sc_prevXpos = this->getPosition().x;
     sc_prevYpos = this->getPosition().y;

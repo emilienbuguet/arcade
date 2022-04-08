@@ -20,7 +20,7 @@ class SnakeCell : public Sprite{
          * @brief Set the position of the previous
          *
          */
-        void setPrevPos(int x, int y);
+        void setPrevPos();
 
         /**
          * @brief Get the x position
