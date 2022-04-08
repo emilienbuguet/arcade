@@ -55,11 +55,11 @@ SDL_Texture *arc::display::Sdl2Display::getTexture(const std::string& name)
     if (it != this->m_textures.end()) {
         return it->second;
     } else {
-        SDL_Surface* tmp = IMG_Load(("./assets/" + name + ".bmp").c_str());
+        SDL_Surface* tmp = IMG_Load(("./assets/" + name + ".png").c_str());
         if (!tmp)
-            tmp = IMG_Load(("./assets/sdl2/" + name + ".png").c_str());
+            tmp = IMG_Load(("./assets/" + name + ".jpg").c_str());
         if (!tmp)
-            IMG_Load(("./assets/sdl2/" + name + ".jpg").c_str());
+            IMG_Load(("./assets/" + name + ".bmp").c_str());
         if (!tmp)
             throw new arc::display::Sdl2Error("unable to load image : " + name);
         SDL_Texture *text = SDL_CreateTextureFromSurface(this->m_renderer, tmp);
