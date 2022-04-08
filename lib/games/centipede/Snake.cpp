@@ -197,17 +197,6 @@ arc::games::centipede::Snake::Snake(int size, int x, int y)
 arc::games::centipede::Snake::Snake(std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> ncells)
     : cells(ncells)
 {
-    for (auto& cell : this->cells)
-        cell->setCellType(arc::games::centipede::SnakeCell::BODY);
-    if (this->cells.size() == 0)
-        return;
-    this->cells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
-    for (auto& cell : this->cells) {
-        if (cell->getDirection() == arc::games::centipede::SnakeCell::LEFT)
-            cell->setDirection(arc::games::centipede::SnakeCell::RIGHT);
-        else if (cell->getDirection() == arc::games::centipede::SnakeCell::RIGHT)
-            cell->setDirection(arc::games::centipede::SnakeCell::LEFT);
-    }
 }
 
 arc::games::centipede::Snake::~Snake() = default;
