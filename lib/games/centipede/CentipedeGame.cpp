@@ -63,6 +63,7 @@ void arc::games::Centipede::update()
 {
     std::clock_t current = std::clock();
     std::clock_t current_s = std::clock();
+    std::clock_t current_p = std::clock();
 
     for (auto &mush : this->mushrooms) {
         mush->checkDead();
@@ -78,7 +79,8 @@ void arc::games::Centipede::update()
     }
     this->mushrooms = newMushrooms;
 
-    if ((current - clock)/static_cast<float>(CLOCKS_PER_SEC) > 0.2) {
+    if ((current - clock) / static_cast<float>(CLOCKS_PER_SEC) > 0.2)
+    {
         for (auto &snake : this->snakes)
             snake->checkHit(this->mushrooms);
         for (auto &snake : this->snakes)
@@ -89,19 +91,31 @@ void arc::games::Centipede::update()
     if ((current_s - shootMoveClock) / static_cast<float>(CLOCKS_PER_SEC) > 0.05)
     {
         shootMoveClock = current_s;
-        player->update(this->mushrooms, this->snakes);
-        for (auto &snake : this->snakes) {
-            for (auto &shoot : this->player->getShoots())
-                if (shoot->getHit(snake) != nullptr) {
-                    auto touch = shoot->getHit(snake);
-                    std::cout << "Snake is hit" << std::endl;
-                    this->splitSnake(snake, touch);
+        for (auto &shoot : this->player->getShoots()) {
+            shoot->checkHit(this->mushrooms, this->snakes);
+            // fix: checks for all snakes, not the one stored in "snake"
+            if (shoot->isHit()) {
+                for (auto& snake : this->snakes) {
+                    if (shoot->getHit(snake) != nullptr) {
+                        std::cout << "Snake is hit" << std::endl;
+                        auto touch = shoot->getHit(snake);
+                        this->splitSnake(snake, touch);
+                        break;
+                    }
                 }
+                this->player->deleteShoot(shoot);
+            }
         }
+        player->update(this->mushrooms, this->snakes);
     }
+    if (player->lose(this->mushrooms, this->snakes))
+        this->m_isRunning = false;
 
+    if ((current_p - snakePopClock) / static_cast<float>(CLOCKS_PER_SEC) > 30) {
+        this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(arc::games::centipede::Snake{10, 16, 0}));
+        snakePopClock = current_p;
+    }
     // todo purge empty snakes
-    // create a new clock for spawning snakes (every 20sec)
 }
 
 const std::vector<std::shared_ptr<arc::Object>> arc::games::Centipede::getObjects() const
@@ -127,29 +141,20 @@ const std::vector<std::shared_ptr<arc::Object>> arc::games::Centipede::getObject
 
 void arc::games::Centipede::splitSnake(std::shared_ptr<arc::games::centipede::Snake> snake, std::shared_ptr<arc::games::centipede::SnakeCell> cell)
 {
-    auto it = std::find(snake->getCells().begin(), snake->getCells().end(), cell);
     std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> snakeCells = snake->getCells();
-    if (snakeCells[0] == cell) { 
-        snakeCells.erase(snakeCells.begin());
-        snake->setCells(snakeCells);
-        return;
+    std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> newCells;
+    auto it = std::find(snakeCells.begin(), snakeCells.end(), cell);
+
+    // todo fix segfault here
+    newCells.insert(newCells.end(), it + 1, snakeCells.end());
+    this->mushrooms.push_back(std::make_shared<arc::games::centipede::Mushroom>(cell->getPosition().x, cell->getPosition().y));
+    snakeCells.erase(it, snakeCells.end());
+    if (newCells.size() > 0)
+        newCells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
+    if (snakeCells.size() > 0) {
+        snakeCells[0]->setCellType(arc::games::centipede::SnakeCell::HEAD);
     }
-    if (snakeCells[snakeCells.size() - 1] == cell) {
-        snakeCells.pop_back();
-        snake->setCells(snakeCells);
-        return;
-    }
-    if (it != snake->getCells().end()) {
-        std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> rightCells{};
-        std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> leftCells{};
-        size_t i = 0;
-        for (; i < snakeCells.size() && snakeCells[i] != cell; i++)
-            leftCells.push_back(snakeCells[i]);
-        for (i++; i < snakeCells.size(); i++)
-            rightCells.push_back(snakeCells[i]);
-        if (rightCells[0]->getPosition().y <= rightCells[rightCells.size() - 1]->getPosition().y)
-            std::reverse(rightCells.begin(), rightCells.end());
-        snake->setCells(leftCells);
-        this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(rightCells));
-    }
+    this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(newCells));
+    snake->setCells(snakeCells);
 }
+

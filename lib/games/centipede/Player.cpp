@@ -27,12 +27,18 @@ void arc::games::centipede::Shoot::Update()
 std::shared_ptr<arc::games::centipede::SnakeCell> arc::games::centipede::Shoot::getHit(std::shared_ptr<arc::games::centipede::Snake> snake)
 {
     auto pos = this->getPosition();
+    std::cout << "This pos is : " << pos.x << " " << pos.y << std::endl;
+    std::cout << "Snake size is : " << snake->getCells().size() << std::endl;
     for (auto &cell : snake->getCells()) {
+        std::cout << "Cell pos is : " << cell->getPosition().x << " " << cell->getPosition().y << std::endl;
         if (cell->getPosition().x == pos.x && cell->getPosition().y == pos.y - 1) {
+            std::cout << "Hit !" << std::endl;
+            this->m_isHit = true;
             return cell;
         }
     }
 
+    std::cout << "Miss !" << std::endl;
     return nullptr;
 }
 
@@ -89,22 +95,42 @@ void arc::games::centipede::Player::createShoot()
     this->shoots.push_back(std::make_shared<arc::games::centipede::Shoot>(arc::games::centipede::Shoot{this->getPosition().x, this->getPosition().y}));
 }
 
+void arc::games::centipede::Player::deleteShoot(std::shared_ptr<arc::games::centipede::Shoot>& shoot)
+{
+    this->shoots.erase(std::find(this->shoots.begin(), this->shoots.end(), shoot));
+}
+
 std::vector<std::shared_ptr<arc::games::centipede::Shoot>> arc::games::centipede::Player::getShoots()
 {
     return this->shoots;
 }
 
-void arc::games::centipede::Player::update(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms, std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes)
+void arc::games::centipede::Player::update()
 {
     for (auto &shoot : this->shoots) {
-        shoot->checkHit(mushrooms, snakes);
         shoot->Update();
     }
-    std::vector<std::shared_ptr<arc::games::centipede::Shoot>> newShoots;
-    for (auto& shoot : this->shoots) {
-        if (!shoot->isHit()) {
-            newShoots.push_back(shoot);
+}
+
+bool arc::games::centipede::Player::lose(std::vector<std::shared_ptr<arc::games::centipede::Mushroom>> mushrooms, std::vector<std::shared_ptr<arc::games::centipede::Snake>> snakes)
+{
+    for (auto &snake : snakes) {
+        for (auto &cell : snake->getCells()) {
+            if (cell->getPosition().x == this->getPosition().x && cell->getPosition().y == this->getPosition().y) {
+                std::cout << "exit with snake player touch" << std::endl;
+                return true;
+            }
+            if (cell->getPosition().y >= 24) {
+                std::cout << "exit with snake out of box" << std::endl;
+                return true;
+            }
         }
     }
-    this->shoots = newShoots;
+    for (auto &mushroom : mushrooms) {
+        if (mushroom->getPosition().x == this->getPosition().x && mushroom->getPosition().y == this->getPosition().y) {
+            std::cout << "exit with mushroom" << std::endl;
+            return true;
+        }
+    }
+    return false;
 }
