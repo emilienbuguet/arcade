@@ -18,6 +18,7 @@ arc::games::Centipede::Centipede()
     , clock(std::clock())
     , shootClock(std::clock())
     , shootMoveClock(std::clock())
+    , snakePopClock(std::clock())
 {
     this->player = std::make_shared<arc::games::centipede::Player>(arc::games::centipede::Player{});
     this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(arc::games::centipede::Snake{10, 16, 0}));
@@ -93,7 +94,6 @@ void arc::games::Centipede::update()
         shootMoveClock = current_s;
         for (auto &shoot : this->player->getShoots()) {
             shoot->checkHit(this->mushrooms, this->snakes);
-            // fix: checks for all snakes, not the one stored in "snake"
             if (shoot->isHit()) {
                 for (auto& snake : this->snakes) {
                     if (shoot->getHit(snake) != nullptr) {
@@ -106,7 +106,7 @@ void arc::games::Centipede::update()
                 this->player->deleteShoot(shoot);
             }
         }
-        player->update(this->mushrooms, this->snakes);
+        player->update();
     }
     if (player->lose(this->mushrooms, this->snakes))
         this->m_isRunning = false;
@@ -115,7 +115,6 @@ void arc::games::Centipede::update()
         this->snakes.push_back(std::make_shared<arc::games::centipede::Snake>(arc::games::centipede::Snake{10, 16, 0}));
         snakePopClock = current_p;
     }
-    // todo purge empty snakes
 }
 
 const std::vector<std::shared_ptr<arc::Object>> arc::games::Centipede::getObjects() const
@@ -145,7 +144,6 @@ void arc::games::Centipede::splitSnake(std::shared_ptr<arc::games::centipede::Sn
     std::vector<std::shared_ptr<arc::games::centipede::SnakeCell>> newCells;
     auto it = std::find(snakeCells.begin(), snakeCells.end(), cell);
 
-    // todo fix segfault here
     newCells.insert(newCells.end(), it + 1, snakeCells.end());
     this->mushrooms.push_back(std::make_shared<arc::games::centipede::Mushroom>(cell->getPosition().x, cell->getPosition().y));
     snakeCells.erase(it, snakeCells.end());
