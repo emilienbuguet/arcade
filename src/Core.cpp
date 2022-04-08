@@ -68,6 +68,12 @@ bool arc::Core::useEvent(arc::Events event)
         case arc::KeyP:
             this->nextDisplay();
             return true;
+        case arc::KeyR:
+            this->restartGame();
+            return true;
+        case arc::KeyM:
+            this->backToMenu();
+            return true;
         default:
             return false;
     }
@@ -94,7 +100,6 @@ void arc::Core::run()
         this->c_username = props.username;
         this->currentGame = props.gamelib;
         this->currentDisplay = props.graphicslib;
-        this->c_interface.pop_back();
         this->run();
     }
     std::cout << this->c_interface[c_interface.size() - 1]->getValue() << std::endl;
@@ -104,7 +109,7 @@ void arc::Core::run()
 void arc::Core::update()
 {
     this->c_interface[0]->setValue(this->currentGame);
-    //3 & 4
+
     if (this->currentGame != "menu") {
         int indexGame = std::distance(this->c_games.begin(), std::find(this->c_games.begin(), this->c_games.end(), this->currentGame));
         int indexDisplay = std::distance(this->c_displays.begin(), std::find(this->c_displays.begin(), this->c_displays.end(), this->currentDisplay));
@@ -112,6 +117,11 @@ void arc::Core::update()
         this->c_interface[5]->setValue("Z to " + this->c_games[(indexGame + 1) % this->c_games.size()]);
         this->c_interface[6]->setValue("O to " + this->c_displays[(indexDisplay - 1) % this->c_displays.size()]);
         this->c_interface[7]->setValue("P to " + this->c_displays[(indexDisplay + 1) % this->c_displays.size()]);
+    } else {
+        this->c_interface[4]->setValue("Enter to start");
+        this->c_interface[5]->setValue("");
+        this->c_interface[6]->setValue("");
+        this->c_interface[7]->setValue("");
     }
     this->c_interface[8]->setValue("Score: " + std::to_string(this->c_score + static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore()));
 }
@@ -160,4 +170,19 @@ void arc::Core::previousDisplay()
     }
     this->currentDisplay = this->c_displays[(i - 1 + this->c_displays.size()) % this->c_displays.size()];
     this->c_display.load("./lib/arcade_" + this->currentDisplay + ".so");
+}
+
+void arc::Core::backToMenu()
+{
+    this->currentGame = "menu";
+    if (this->c_username != "") {
+        this->c_score += static_cast<arc::games::AGame*>(this->c_game.getInstance())->getScore();
+        this->c_highscore->addHighscore(this->c_username, this->c_score);
+    }
+    this->c_game.load("./lib/arcade_menu.so");
+}
+
+void arc::Core::restartGame()
+{
+    this->c_game.load("./lib/arcade_" + this->currentGame + ".so");
 }

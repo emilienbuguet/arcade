@@ -93,6 +93,18 @@ namespace arc {
              */
             void previousDisplay();
 
+            /**
+             * @brief Get back to menu
+             *
+             */
+            void backToMenu();
+
+            /**
+             * @brief Restart the current game
+             *
+             */
+            void restartGame();
+
         private:
 
             /**
