@@ -113,9 +113,9 @@ arc::Events arc::display::NcursesDisplay::getEvent() const
     int col;
     getmaxyx(stdscr, row, col);
     attron(COLOR_PAIR(1));
-    if (row <= 50 || col <= 40) {
+    if (row <= 40 || col <= 130) {
         clear();
-        while (row <= 50 || col <= 40) {
+        while (row <= 40 || col <= 130) {
             switch (getch()) {
                 case KEY_RESIZE:
                     clear();
