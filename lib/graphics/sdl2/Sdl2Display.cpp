@@ -87,15 +87,19 @@ void arc::display::Sdl2Display::drawSprite(std::shared_ptr<arc::Object> obj)
 void arc::display::Sdl2Display::drawText(std::shared_ptr<arc::Object> obj)
 {
     auto text = std::static_pointer_cast<arc::Text>(obj);
-    TTF_Font *font = TTF_OpenFont("assets/fonts/GoldenAge.ttf", text->getSize());
+    if (text->getValue() == "" || text->getSize() == 0)
+        return;
+    TTF_Font *font = TTF_OpenFont("./assets/fonts/GoldenAge.ttf", text->getSize());
 
-    if (font == nullptr)
-        throw arc::Error("unable to load font");
+    if (font == nullptr) {
+        std::cout << SDL_GetError() << std::endl;
+        throw new arc::Error("unable to load font");
+    }
     if (text) {
         SDL_Color color = {text->getColor().r, text->getColor().g, text->getColor().b, text->getColor().a};
         SDL_Surface* tmp = TTF_RenderText_Shaded(font, text->getValue().c_str(), color, {0, 0, 0, 255});
-        if (!tmp)
-            throw new arc::Error("unable to render text");
+        if (!tmp) 
+           throw new arc::Error("unable to render text");
         SDL_Texture *texture = SDL_CreateTextureFromSurface(this->m_renderer, tmp);
         SDL_FreeSurface(tmp);
         SDL_Rect rect;
@@ -103,8 +107,8 @@ void arc::display::Sdl2Display::drawText(std::shared_ptr<arc::Object> obj)
         rect.y = text->getPosition().y;
         SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
         SDL_RenderCopy(this->m_renderer, texture, NULL, &rect);
+        TTF_CloseFont(font);
     }
-    TTF_CloseFont(font);
 }
 
 void arc::display::Sdl2Display::placeObjectOnBoard(std::shared_ptr<arc::Object> obj)
