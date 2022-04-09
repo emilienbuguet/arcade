@@ -11,6 +11,9 @@ arc::games::MenuGame::MenuGame()
     , m_props({"", "", ""})
     , m_isStarting(false)
     , m_isSelectingGame(true)
+    , m_games()
+    , m_displays()
+    , m_ui()
 {
     auto tmp = arc::utils::FileParser::getAllLibraries("./lib");
     std::vector<std::string> games = tmp[0];
@@ -18,21 +21,21 @@ arc::games::MenuGame::MenuGame()
     for (size_t i = 0; i < games.size(); i++) {
         std::string game = games[i].substr(games[i].find_last_of("/") + 1);
         game = game.substr(game.find_first_of("_") + 1, game.find_last_of(".") - game.find_first_of("_") - 1);
-        auto gameobj = std::make_shared<arc::games::menu::MenuItem>(game, Vector(8, 8 + 2 * i), 25, arc::Color{255, 255, 255, 255});
+        auto gameobj = std::make_shared<arc::games::menu::MenuItem>(game, Vector(8, 8 + 2 * i), 25, arc::Color{arc::Color::WHITE});
         m_games.push_back(gameobj);
     }
     for (size_t i = 0; i < displays.size(); i++) {
         std::string display = displays[i].substr(displays[i].find_last_of("/") + 1);
         display = display.substr(display.find_first_of("_") + 1, display.find_last_of(".") - display.find_first_of("_") - 1);
-        auto displayobj = std::make_shared<arc::games::menu::MenuItem>(display, Vector(18, 8 + 2 * i), 25, arc::Color{255, 255, 255, 255});
+        auto displayobj = std::make_shared<arc::games::menu::MenuItem>(display, Vector(18, 8 + 2 * i), 25, arc::Color {arc::Color::WHITE });
         m_displays.push_back(displayobj);
     }
     m_displays[0]->setSelected(true);
     m_games[0]->setSelected(true);
     m_props.gamelib = m_games[0]->getValue();
     m_props.graphicslib = m_displays[0]->getValue();
-    m_ui.push_back(std::make_shared<arc::games::menu::MenuItem>("Username: ", Vector(8, 20), 25, arc::Color{255, 255, 255, 255}));
-    m_ui.push_back(std::make_shared<arc::games::menu::MenuItem>("(Max: 12 characters)", Vector(8, 21), 12, arc::Color{255, 255, 255, 255}));
+    m_ui.push_back(std::make_shared<arc::games::menu::MenuItem>("Username: ", Vector(8, 20), 25, arc::Color { arc::Color::WHITE }));
+    m_ui.push_back(std::make_shared<arc::games::menu::MenuItem>("(Max: 12 characters)", Vector(8, 21), 12, arc::Color { arc::Color::WHITE }));
 }
 
 arc::games::MenuGame::~MenuGame() = default;
@@ -167,16 +170,16 @@ void arc::games::MenuGame::update()
     for (auto& obj : m_games) {
         auto item = std::static_pointer_cast<arc::games::menu::MenuItem>(obj);
         if (item->isSelected())
-            item->setColor(arc::Color{255, 255, 0, this->isSelectingGame() ? uint8_t(255) : uint8_t(190)});
+            item->setColor(arc::Color { 255, 255, 0, this->isSelectingGame() ? uint8_t(255) : uint8_t(190), arc::Color::YELLOW });
         else
-            item->setColor(arc::Color{255, 255, 255, this->isSelectingGame() ? uint8_t(255) : uint8_t(190)});
+            item->setColor(arc::Color { 255, 255, 255, this->isSelectingGame() ? uint8_t(255) : uint8_t(190), arc::Color::WHITE });
     }
     for (auto& obj : m_displays) {
         auto item = std::static_pointer_cast<arc::games::menu::MenuItem>(obj);
         if (item->isSelected())
-            item->setColor(arc::Color{255, 255, 0, this->isSelectingGame() ? uint8_t(190) : uint8_t(255)});
+            item->setColor(arc::Color { 255, 255, 0, this->isSelectingGame() ? uint8_t(190) : uint8_t(255), arc::Color::YELLOW });
         else
-            item->setColor(arc::Color{255, 255, 255, this->isSelectingGame() ? uint8_t(190) : uint8_t(255)});
+            item->setColor(arc::Color { 255, 255, 255, this->isSelectingGame() ? uint8_t(190) : uint8_t(255), arc::Color::WHITE });
     }
     if (this->m_ui.size() > 0)
         this->m_ui[0]->setValue("Username: " + this->m_props.username);

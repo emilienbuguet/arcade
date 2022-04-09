@@ -9,7 +9,7 @@ set( CMAKE_CXX_FLAGS "-lSDL2main -lSDL2_image -lSDL2_ttf -lSDL2 -Wall -Wextra -W
 set(SRCS
     ./Sdl2.cpp
     ./Sdl2Display.cpp
-    ./Error.cpp
+    ${CMAKE_SOURCE_DIR}/src/Error.cpp
     ${CMAKE_SOURCE_DIR}/src/Object.cpp
     ${CMAKE_SOURCE_DIR}/src/Color.cpp
 )

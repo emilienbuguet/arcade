@@ -13,7 +13,7 @@ set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES
         ${PROJECT_SOURCE_DIR}/lib/arcade_sdl2.so
         ${PROJECT_SOURCE_DIR}/lib/arcade_sfml.so
         ${PROJECT_SOURCE_DIR}/lib/arcade_nibbler.so
-        ${PROJECT_SOURCE_DIR}/lib/arcade_pacman.so
+        ${PROJECT_SOURCE_DIR}/lib/arcade_centipede.so
         ${PROJECT_SOURCE_DIR}/lib/arcade_menu.so)
 
 add_executable(arcade
@@ -24,6 +24,7 @@ add_executable(arcade
         src/Object.cpp
         src/Utils/FileParser.cpp
         src/Utils/HighscoreHandler.cpp
+        lib/games/AGame.cpp
         )
 
 target_link_libraries(arcade PUBLIC dl)
@@ -40,10 +41,10 @@ add_subdirectory(lib/graphics/sdl2)
 add_subdirectory(lib/graphics/sfml)
 
 add_subdirectory(lib/games/centipede)
-add_subdirectory(lib/games/pacman)
+add_subdirectory(lib/games/nibbler)
 add_subdirectory(lib/games/menu)
 
-add_dependencies(arcade ncurses sdl2 sfml pacman centipede menu)
+add_dependencies(arcade ncurses sdl2 sfml nibbler centipede menu)
 
 if(NOT ${CMAKE_SOURCE_DIR} MATCHES ${CMAKE_BINARY_DIR})
     add_custom_command(TARGET arcade COMMAND cp ${CMAKE_BINARY_DIR}/arcade ${CMAKE_SOURCE_DIR}/arcade)

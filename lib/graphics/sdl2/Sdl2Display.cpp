@@ -6,24 +6,27 @@
 
 
 arc::display::Sdl2Display::Sdl2Display()
+    : m_window(nullptr)
+    , m_renderer(nullptr)
+    , m_textures()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        throw new arc::display::Sdl2Error{std::string("unable to init sdl2: ") + SDL_GetError()};
+        throw new arc::Error{std::string("unable to init sdl2: ") + SDL_GetError()};
     }
     if (TTF_Init() < 0) {
         SDL_Quit();
-        throw new arc::display::Sdl2Error{std::string("unable to init sld2_ttf") + TTF_GetError()};
+        throw new arc::Error{std::string("unable to init sld2_ttf") + TTF_GetError()};
     }
     if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) < 0) {
         TTF_Quit();
         SDL_Quit();
-        throw new arc::display::Sdl2Error{std::string("unable to init sdl2_image") + IMG_GetError()};
+        throw new arc::Error{std::string("unable to init sdl2_image") + IMG_GetError()};
     }
     if (SDL_CreateWindowAndRenderer(1920, 1080, SDL_WINDOW_SHOWN, &this->m_window, &this->m_renderer) < 0) {
         IMG_Quit();
         TTF_Quit();
         SDL_Quit();
-        throw new arc::display::Sdl2Error{std::string("unable to create window: ") + SDL_GetError()};
+        throw new arc::Error{std::string("unable to create window: ") + SDL_GetError()};
     }
     SDL_SetWindowFullscreen(this->m_window, SDL_WINDOW_FULLSCREEN);
     SDL_SetWindowTitle(this->m_window, "Arcade");
@@ -52,13 +55,13 @@ SDL_Texture *arc::display::Sdl2Display::getTexture(const std::string& name)
     if (it != this->m_textures.end()) {
         return it->second;
     } else {
-        SDL_Surface* tmp = IMG_Load(("./assets/sdl2/" + name + ".bmp").c_str());
+        SDL_Surface* tmp = IMG_Load(("./assets/" + name + ".png").c_str());
         if (!tmp)
-            tmp = IMG_Load(("./assets/sdl2/" + name + ".png").c_str());
+            tmp = IMG_Load(("./assets/" + name + ".jpg").c_str());
         if (!tmp)
-            IMG_Load(("./assets/sdl2/" + name + ".jpg").c_str());
+            IMG_Load(("./assets/" + name + ".bmp").c_str());
         if (!tmp)
-            throw new arc::display::Sdl2Error("unable to load image : " + name);
+            throw new arc::Error("unable to load image : " + name);
         SDL_Texture *text = SDL_CreateTextureFromSurface(this->m_renderer, tmp);
         SDL_FreeSurface(tmp);
         this->m_textures.insert(std::pair<std::string, SDL_Texture *>(name, text));
@@ -87,12 +90,12 @@ void arc::display::Sdl2Display::drawText(std::shared_ptr<arc::Object> obj)
     TTF_Font *font = TTF_OpenFont("assets/fonts/GoldenAge.ttf", text->getSize());
 
     if (font == nullptr)
-        throw arc::display::Sdl2Error("unable to load font");
+        throw arc::Error("unable to load font");
     if (text) {
         SDL_Color color = {text->getColor().r, text->getColor().g, text->getColor().b, text->getColor().a};
         SDL_Surface* tmp = TTF_RenderText_Shaded(font, text->getValue().c_str(), color, {0, 0, 0, 255});
         if (!tmp)
-            throw new arc::display::Sdl2Error("unable to render text");
+            throw new arc::Error("unable to render text");
         SDL_Texture *texture = SDL_CreateTextureFromSurface(this->m_renderer, tmp);
         SDL_FreeSurface(tmp);
         SDL_Rect rect;
@@ -117,6 +120,9 @@ void arc::display::Sdl2Display::drawObjects(std::vector<std::shared_ptr<arc::Obj
     SDL_SetRenderDrawColor(this->m_renderer, 0, 0, 0, 255);
     SDL_RenderClear(this->m_renderer);
     for (auto it = objs.begin(); it != objs.end(); it++) {
+        arc::Vector pos = (*it)->getPosition();
+        if (pos.x < 0 || pos.y < 0 || pos.x >= 32 || pos.y >= 24)
+            continue;
         if ((*it)->getType() == arc::Object::Type::SPRITE) {
             auto obj = std::static_pointer_cast<arc::Sprite>(*it);
             std::shared_ptr<arc::Sprite> sprite = std::make_shared<arc::Sprite>(

@@ -1,0 +1,25 @@
+WHITE
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XX                                                            XX
+XX                                                            XX
+XX                                                            XX
+XX              XXXXXXXXXXXX        XXXXXXXXXXXX              XX
+XX              XX                            XX              XX
+XX              XX                            XX              XX
+XX              XX                            XX              XX
+XX        XXXXXXXX                            XXXXXXXX        XX
+XX                                                            XX
+XX                                                            XX
+XX                          XXXXXXXX                          XX
+XX                          XX    XX                          XX
+XX                          XX    XX                          XX
+XX        XXXXXXXX          XXXXXXXX          XXXXXXXX        XX
+XX                                                            XX
+XX                                                            XX
+XX              XX          XXXXXXXX          XX              XX
+XX              XX          XX    XX          XX              XX
+XX              XX          XX    XX          XX              XX
+XX        XXXXXXXX          XXXXXXXX          XXXXXXXX        XX
+XX                                                            XX
+XX                                                            XX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

@@ -4,11 +4,15 @@ project(arcade)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set( CMAKE_CXX_FLAGS "-lsfml-window -lsfml-graphics -lsfml-audio -lsfml-system -Wall -Wextra -Wpedantic " )
+
 set(SRCS
     ./Sfml.cpp
+    ./SfmlDisplay.cpp
+    ${CMAKE_SOURCE_DIR}/src/Error.cpp
+    ${CMAKE_SOURCE_DIR}/src/Object.cpp
+    ${CMAKE_SOURCE_DIR}/src/Color.cpp
 )
-
-find_package(SFML 2 REQUIRED network audio graphics window system)
 
 add_library(sfml SHARED
     ${SRCS}
@@ -23,7 +27,4 @@ target_include_directories(sfml PRIVATE
     ${CMAKE_SOURCE_DIR}/lib/graphics/sfml/includes
     ${CMAKE_SOURCE_DIR}/lib/graphics/includes
     ${CMAKE_SOURCE_DIR}/src/includes
-    ${SFML_INCLUDE_DIR}
 )
-
-target_link_libraries(sfml ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})

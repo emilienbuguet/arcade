@@ -14,3 +14,4 @@ arcade
 CMakeFiles
 *.so
 highscores.arc
+valgrind.log

@@ -4,8 +4,13 @@ project(arcade)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set( CMAKE_CXX_FLAGS " -lncurses ")
+
 set(SRCS
     ./Ncurses.cpp
+    ./NcursesDisplay.cpp
+    ${CMAKE_SOURCE_DIR}/src/Object.cpp
+    ${CMAKE_SOURCE_DIR}/src/Color.cpp
 )
 
 find_package(Curses REQUIRED)

@@ -36,9 +36,14 @@ void arc::utils::HighscoreHandler::addHighscore(const std::string& name, int sco
 
 void arc::utils::HighscoreHandler::saveHighscores()
 {
+    std::vector<std::pair<int, std::string>> tmp;
+    for (auto& highscore : m_highscores)
+        tmp.push_back(std::make_pair(highscore.second, highscore.first));
+    std::sort(tmp.begin(), tmp.end());
+    std::reverse(tmp.begin(), tmp.end());
     std::ofstream file(m_filePath);
-    for (auto& highscore : m_highscores) {
-        file << highscore.first << " " << highscore.second << std::endl;
+    for (auto& highscore : tmp) {
+        file << highscore.second << " " << highscore.first << std::endl;
     }
 }
 
@@ -47,16 +52,15 @@ std::vector<std::shared_ptr<arc::Object>> arc::utils::HighscoreHandler::toObject
     std::vector<std::shared_ptr<arc::Object>> objects;
     objects.push_back(std::make_shared<arc::Text>(
         "Highscores",
-        arc::Vector{110, 300},
+        arc::Vector { 110, 300 },
         30,
-        arc::Color{255, 255, 0, 255}));
+        arc::Color { arc::Color::YELLOW }));
     for (size_t i = 0; i < m_highscores.size() && i < 10; i++) {
         objects.push_back(std::make_shared<arc::Text>(
             m_highscores[i].first + " " + std::to_string(m_highscores[i].second),
             arc::Vector(100, 400 + i * 28),
             25,
-            arc::Color(255, 255, 255, 255)
-        ));
+            arc::Color(arc::Color::WHITE)));
     }
     return objects;
 }

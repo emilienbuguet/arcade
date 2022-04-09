@@ -1,6 +1,9 @@
-#include <iostream>
+#include "Ncurses.hpp"
 
-void ncurses()
+extern "C" {
+
+arc::display::NcursesDisplay *arc::display::createInstance()
 {
-    std::cout << "Ncurses" << std::endl;
+    return (new arc::display::NcursesDisplay {});
 }
+};

@@ -39,6 +39,12 @@ namespace arc {
             }
 
             /**
+             * @brief Unique pointer
+             * 
+             */
+            DLLoader(DLLoader& other) = delete;
+
+            /**
              * @brief unload the library
              *
              */
@@ -62,6 +68,8 @@ namespace arc {
                 if (func == NULL)
                     throw new arc::Error("Wrong lib format: " + path + ", " + dlerror());
                 l_instance = reinterpret_cast<T* (*)()>(func)();
+                if (l_instance == NULL)
+                    throw new arc::Error("Could not create instance of lib: " + path + ", " + dlerror());
             }
 
             /**
@@ -97,6 +105,12 @@ namespace arc {
             {
                 return l_instance;
             }
+
+            /**
+             * @brief Unique pointer
+             *
+             */
+            DLLoader& operator=(DLLoader& other) = delete;
 
         private:
             /**

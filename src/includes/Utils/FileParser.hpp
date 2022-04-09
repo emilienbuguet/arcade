@@ -34,6 +34,14 @@ namespace arc::utils {
              * @return std::vector<std::string>
              */
             static std::array<std::vector<std::string>, 2> getAllLibraries(const std::string& path = "./lib/");
+
+            /**
+             * @brief Checks if given library is a display or not
+             *
+             * @param libName name of the library
+             * @return true if it is a display
+             */
+            static bool isDisplayLibrary(const std::string libName);
     }; /* class FileParser */
 
 } /* namespace arc::utils */

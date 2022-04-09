@@ -5,8 +5,13 @@ project(arcade)
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRCS
+    ./CentipedeGame.cpp
     ./Centipede.cpp
-    ../AGame.cpp
+    ./Mushroom.cpp
+    ./Snake.cpp
+    ./Player.cpp
+    ${CMAKE_SOURCE_DIR}/lib/games/AGame.cpp
+    ${CMAKE_SOURCE_DIR}/src/Object.cpp
 )
 
 add_library(centipede SHARED
